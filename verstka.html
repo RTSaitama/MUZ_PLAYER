@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="././src/styles/main.css">
+
+    
+    <title>Document</title>
+</head>
+<body>
+    <div class="page__wrapper">
+        <main class="main">
+            <button class="open__menu__btn "><svg class="burger__svg"> <use xlink:href="./muzplayer/src/assets/icons/sprite.svg#burger__icon"></use></svg></button>
+        <!-- #region Side menu -->
+            <aside class="side__menu navigation ">
+             <nav class=" browse__bar bar">
+ 
+                    <ul class="bar__list">  
+                        <li class="bar__li">
+                            <div class="bar__li__icon"><svg class="bar__svg "> <use xlink:href="./src/assets/icons/sprite.svg#discover__icon"></use></svg></div>
+                            <p class="bar__li__name">discover</p>
+                        </li>
+                        <li class="bar__li">
+                            <div class="bar__li__icon"><svg class="bar__svg"> <use xlink:href="./src/assets/icons/sprite.svg#genre__icon"></use></svg></div>
+                            <p class="bar__li__name">genre</p>
+                        </li>
+                        <li class="bar__li">
+                            <div class="bar__li__icon"><svg class="bar__svg"> <use xlink:href="./src/assets/icons/sprite.svg#top_charts__icon"></use></svg></div>
+                            <p class="bar__li__name">top charts</p>
+                        </li>
+                        <li class="bar__li">
+                            <div class="bar__li__icon"><svg class="bar__svg"> <use xlink:href="./src/assets/icons/sprite.svg#podcast__icon"></use></svg></div>
+                            <p class="bar__li__name">podcast</p>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="library__bar bar">
+                    <h3 class="bar__heading">library</h3>
+                    <ul class="bar__list">
+                        <li class="bar__li">
+                            <div class="bar__li__icon">
+                                <svg class="bar__svg"> 
+                                    <use xlink:href="./muzplayer/src/assets/icons/sprite.svg#favourites__icon"></use></svg></div>
+                            <p class="bar__li__name">favourites</p>
+                        </li>
+                        <li class="bar__li">
+                            <div class="bar__li__icon">
+                                <svg class="bar__svg" width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M18.5 11.5V3H15C10.7574 3 8.63604 3 7.31802 4.31802C6 5.63604 6 7.75736 6 12V24C6 28.2426 6 30.364 7.31802 31.682C8.63604 33 10.7574 33 15 33H21C25.2426 33 27.364 33 28.682 31.682C30 30.364 30 28.2426 30 24V14.5H21.5L21.4456 14.5H21.4456H21.4456C21.0215 14.5001 20.6094 14.5002 20.2695 14.4545C19.8863 14.403 19.449 14.2774 19.0858 13.9142C18.7226 13.551 18.597 13.1137 18.5455 12.7305C18.4998 12.3906 18.4999 11.9785 18.5 11.5544V11.5544V11.5544L18.5 11.5ZM20.5 11.5V3.00065C21.4132 3.00457 21.9321 3.03231 22.4054 3.22836C22.9567 3.45672 23.3903 3.89027 24.2574 4.75736L28.2426 8.74264C29.1097 9.60973 29.5433 10.0433 29.7716 10.5946C29.9677 11.0679 29.9954 11.5868 29.9994 12.5H21.5C21.0003 12.5 20.7262 12.4979 20.536 12.4723L20.5287 12.4713L20.5277 12.464C20.5021 12.2738 20.5 11.9997 20.5 11.5ZM16.2565 18.1858L21.5012 20.7632C22.8329 21.4176 22.8329 23.5824 21.5012 24.2368L16.2565 26.8142C14.9516 27.4555 13.5 26.3579 13.5 24.73V20.27C13.5 18.6421 14.9516 17.5445 16.2565 18.1858Z" fill="white"/>
+                                    </svg>
+                                    </div>                        
+                            <p class="bar__li__name">playlist</p>
+                        </li>
+                    </ul>
+
+                </div>
+            
+        </aside>
+        <!-- #endregion -->
+           <!-- #region main container -->
+        <div class="main__container container">
+            <!-- #region Hero screen -->
+                <div class="hero__screen container"> 
+                    <!-- #region search -->
+                    <div class="hero__screen__search__wrapper">
+                        <!-- <svg class="hero__screen_search__svg search__svg"><use xlink:href="./muzplayer/src/assets/icons/sprite.svg#search__icon"></use>></svg> -->
+                        <button class="hero__screen__btn__search"></button>
+                        <input type="text" class="hero__screen_search_input search_inp">
+                    </div>
+                    <!-- endregion -->
+                    <!-- #region Heading -->
+                    <h2 class="hero__screen__heading">
+                        WHAT’S NEW?
+                    </h2>
+                    <p class="hero__screen__subheading">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sed pellentesque odio, nec iaculis turpis. Praesent convallis est vitae auctor consequat. 
+                        Aliquam pretium suscipit facilisis. Cras ornare ligula nulla, non fringilla lacus tincidunt in. Aenean mattis id dui sed semper.
+                        
+                    </p>
+                    <!-- #endregion -->
+                    <button class="hero__screen__btn btn__start btn">Start</button>
+                </div>
+                <!-- #endregion -->
+                <!-- #region Music screen -->
+                <div class="music__screen container">
+                    <div class="swiper__wrapper music__screen__part">
+
+                        <h3 class="music__screen__heading">top album</h3>
+
+                        <div class="swiper">
+                        <button class="swiper__arrow arrow__prev"></button>
+                        <ul class="music__list">
+                            <li class="music__pictures"></li>
+                            <li class="music__pictures"></li>
+                            <li class="music__pictures"></li>
+                            <li class="music__pictures"></li>
+                            <li class="music__pictures"></li>
+                        </ul>
+                        <button class="swiper__arrow arrow__next"></button>
+                        </div>
+
+                    </div>
+                    <div class="latest__music container music__screen__part">
+                            <div class="latest__album latest__music__part">
+                                <h3 class="latest__heading">latest album</h3>
+                                <ul class="latest__list">
+                                    <li class="latest__li">
+                                        <div class="track__wrapp">
+                                            <img class="track__img" src="./muzplayer/src/assets/images/latest demo look/gorillaz track picture.jpg" alt="track__img">
+                                            <div class="track_info">
+                                                <p class="track__name">Feel Good Inc.</p>
+                                                <p class="track__artist">Gorillaz</p>
+                                            </div>                              
+                                        </div>
+                                    </li>
+                                    <li class="latest__li">
+                                        <div class="track__wrapp">
+                                            <img class="track__img" src="./muzplayer/src/assets/images/latest demo look/gorillaz track picture.jpg" alt="track__img">
+                                            <div class="track_info">
+                                                <p class="track__name">Feel Good Inc.</p>
+                                                <p class="track__artist">Gorillaz</p>
+                                            </div>                              
+                                        </div>
+                                    </li>
+                                    <li class="latest__li">
+                                        <div class="track__wrapp">
+                                            <img class="track__img" src="./muzplayer/src/assets/images/latest demo look/gorillaz track picture.jpg" alt="track__img">
+                                            <div class="track_info">
+                                                <p class="track__name">Feel Good Inc.</p>
+                                                <p class="track__artist">Gorillaz</p>
+                                            </div>                              
+                                        </div>
+                                    </li>
+                                    <li class="latest__li">
+                                        <div class="track__wrapp">
+                                            <img class="track__img" src="./muzplayer/src/assets/images/latest demo look/gorillaz track picture.jpg" alt="track__img">
+                                            <div class="track_info">
+                                                <p class="track__name">Feel Good Inc.</p>
+                                                <p class="track__artist">Gorillaz</p>
+                                            </div>                              
+                                        </div>
+                                    </li>
+                                    <li class="latest__li">
+                                        <div class="track__wrapp">
+                                            <img class="track__img" src="./muzplayer/src/assets/images/latest demo look/gorillaz track picture.jpg" alt="track__img">
+                                            <div class="track_info">
+                                                <p class="track__name">Feel Good Inc.</p>
+                                                <p class="track__artist">Gorillaz</p>
+                                            </div>                              
+                                        </div>
+                                    </li>
+                                    <li class="latest__li">
+                                        <div class="track__wrapp">
+                                            <img class="track__img" src="./muzplayer/src/assets/images/latest demo look/gorillaz track picture.jpg" alt="track__img">
+                                            <div class="track_info">
+                                                <p class="track__name">Feel Good Inc.</p>
+                                                <p class="track__artist">Gorillaz</p>
+                                            </div>                              
+                                        </div>
+                                    </li>
+                                    <li class="latest__li">
+                                        <div class="track__wrapp">
+                                            <img class="track__img" src="./muzplayer/src/assets/images/latest demo look/gorillaz track picture.jpg" alt="track__img">
+                                            <div class="track_info">
+                                                <p class="track__name">Feel Good Inc.</p>
+                                                <p class="track__artist">Gorillaz</p>
+                                            </div>                              
+                                        </div>
+                                    </li>
+                                    <li class="latest__li">
+                                        <div class="track__wrapp">
+                                            <img class="track__img" src="./muzplayer/src/assets/images/latest demo look/gorillaz track picture.jpg" alt="track__img">
+                                            <div class="track_info">
+                                                <p class="track__name">Feel Good Inc.</p>
+                                                <p class="track__artist">Gorillaz</p>
+                                            </div>                              
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="latest__singles latest__music__part">
+                                <h3 class="latest__heading">latest sings </h3>
+                                <ul class="latest__list">
+                                    <li class="latest__li">
+                                        <div class="track__wrapp">
+                                            <img class="track__img" src="./muzplayer/src/assets/images/latest demo look/gorillaz track picture.jpg" alt="track__img">
+                                            <div class="track_info">
+                                                <p class="track__name">Feel Good Inc.</p>
+                                                <p class="track__artist">Gorillaz</p>
+                                            </div>                              
+                                        </div>
+                                    </li>                                    <li class="latest__li">
+                                        <div class="track__wrapp">
+                                            <img class="track__img" src="./muzplayer/src/assets/images/latest demo look/gorillaz track picture.jpg" alt="track__img">
+                                            <div class="track_info">
+                                                <p class="track__name">Feel Good Inc.</p>
+                                                <p class="track__artist">Gorillaz</p>
+                                            </div>                              
+                                        </div>
+                                    </li>                                    <li class="latest__li">
+                                        <div class="track__wrapp">
+                                            <img class="track__img" src="./muzplayer/src/assets/images/latest demo look/gorillaz track picture.jpg" alt="track__img">
+                                            <div class="track_info">
+                                                <p class="track__name">Feel Good Inc.</p>
+                                                <p class="track__artist">Gorillaz</p>
+                                            </div>                              
+                                        </div>
+                                    </li>                                    <li class="latest__li">
+                                        <div class="track__wrapp">
+                                            <img class="track__img" src="./muzplayer/src/assets/images/latest demo look/gorillaz track picture.jpg" alt="track__img">
+                                            <div class="track_info">
+                                                <p class="track__name">Feel Good Inc.</p>
+                                                <p class="track__artist">Gorillaz</p>
+                                            </div>                              
+                                        </div>
+                                    </li>                                    <li class="latest__li">
+                                        <div class="track__wrapp">
+                                            <img class="track__img" src="./muzplayer/src/assets/images/latest demo look/gorillaz track picture.jpg" alt="track__img">
+                                            <div class="track_info">
+                                                <p class="track__name">Feel Good Inc.</p>
+                                                <p class="track__artist">Gorillaz</p>
+                                            </div>                              
+                                        </div>
+                                    </li>                                    <li class="latest__li">
+                                        <div class="track__wrapp">
+                                            <img class="track__img" src="./muzplayer/src/assets/images/latest demo look/gorillaz track picture.jpg" alt="track__img">
+                                            <div class="track_info">
+                                                <p class="track__name">Feel Good Inc.</p>
+                                                <p class="track__artist">Gorillaz</p>
+                                            </div>                              
+                                        </div>
+                                    </li>                                    <li class="latest__li">
+                                        <div class="track__wrapp">
+                                            <img class="track__img" src="./muzplayer/src/assets/images/latest demo look/gorillaz track picture.jpg" alt="track__img">
+                                            <div class="track_info">
+                                                <p class="track__name">Feel Good Inc.</p>
+                                                <p class="track__artist">Gorillaz</p>
+                                            </div>                              
+                                        </div>
+                                    </li>                                    <li class="latest__li">
+                                        <div class="track__wrapp">
+                                            <img class="track__img" src="./muzplayer/src/assets/images/latest demo look/gorillaz track picture.jpg" alt="track__img">
+                                            <div class="track_info">
+                                                <p class="track__name">Feel Good Inc.</p>
+                                                <p class="track__artist">Gorillaz</p>
+                                            </div>                              
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                    </div>
+
+                </div>
+                <!-- #endregion  -->
+            </div>
+            <!-- endregion -->
+        </main>
+        <!-- #region Footer -->
+        <footer class="footer">
+            <div class="footer__player__wrapper">
+              <div class="footer__player__track">
+                    <div class="footer__player__track__icon">
+                    </div>
+                    <div class="footer__player__track__name">
+                        <div class="footer__player__track__name">
+                            Death Grips is Online
+                        </div>
+                        <div class="footer__player__track__artist">
+                            Death Grips 
+                        </div>
+                    </div>
+
+                </div>
+                <div class="footer__player__controls__wrapper">
+                    <button class="footer__player__btn btn back__btn"></button>
+                    <button class="footer__player__btn btn play__btn"></button>
+                    <button class="footer__player__btn btn next__btn"></button>
+
+                </div>
+                <div class="footer__player__duration__wrapper">
+
+                </div>
+            </div>
+        </footer>
+        <!-- #endregion -->
+    </div>
+    <script src="/MUZ PLAYER/muzplayer/src/js/menu_mobile"></script>
+</body>
+</html>
