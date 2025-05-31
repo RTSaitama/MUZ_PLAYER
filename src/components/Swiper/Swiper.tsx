@@ -1,6 +1,9 @@
 import React from 'react'
+interface Props {
 
-export const Swiper = () => {
+}
+
+export const Swiper: React.FC<Props> = () => {
   return (
     <div className="swiper__wrapper music__screen__part">
       <h3 className="music__screen__heading">top album</h3>

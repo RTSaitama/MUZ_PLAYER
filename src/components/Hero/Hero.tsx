@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
+interface Props {
+  
+}
 
-export const Hero = () => {
+export const Hero:React.FC<Props> = () => {
   const [query, setQuery] = useState('');
   const [search, setSearch] = useState('');
 

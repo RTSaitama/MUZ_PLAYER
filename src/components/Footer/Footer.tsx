@@ -1,6 +1,9 @@
 import React from 'react'
+interface Props {
+  
+}
 
-export const Footer = () => {
+export const Footer: React.FC<Props> = () => {
   return (
     <footer className="footer">
       <div className="footer__player__wrapper">

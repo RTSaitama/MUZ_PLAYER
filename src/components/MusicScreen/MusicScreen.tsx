@@ -1,7 +1,11 @@
 import React from 'react'
 import { Swiper } from '../Swiper/Swiper'
 
-export const MusicScreen = () => {
+interface Props{ 
+
+}
+
+export const MusicScreen: React.FC<Props> = () => {
   return (
     <div className="music__screen container">
       <Swiper/>
