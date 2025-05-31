@@ -4,173 +4,198 @@
 @import "./variables";
 @import "./aside";
 @import "./hero";
-.page__wrapper{
-    background-color: var(--bg-color);
- height: 100%;
- width: 100%;
-    // display: grid;
-    // grid-template-columns: 30% 70%;
-    // grid-template-rows: 47% 47% 6%;
-  }
-  .main{
-    width: 100%;
-    min-width: 100%;
-    height: 90%;
-    display: flex;  
 
-  }
-  .main__container{
-    width: 100%;
-    // height: 90%;
+.page__wrapper {
+  background-color: var(--bg-color);
+  height: 100%;
+  width: 100%;
+  // display: grid;
+  // grid-template-columns: 30% 70%;
+  // grid-template-rows: 47% 47% 6%;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+.main {
+  width: 100%;
+  min-width: 100%;
+  height: 90%;
+  display: flex;
+
+}
+
+.main__container {
+  width: 100%;
+  // height: 90%;
+}
+
+.music__screen {
+  max-height: 50vh;
+  position: relative;
+  pointer-events: none;
+
+  @media screen and (min-width: 300px) {
+    display: none;
   }
 
-  .music__screen{
-    max-height: 45vh;
-    position: relative;
-    pointer-events: none;
-    @media screen and (min-width: 300px){
-      display: none;
-      }
-    // height: 45%;
- 
-    @media screen and (min-width: 700px){
-      display: flex;
-      flex-direction: column;
-    
-      justify-content: center;
-      align-items: center;  
-      }
-  }
-  .music__screen__part{
- 
+  // height: 45%;
+
+  @media screen and (min-width: 700px) {
     display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .music__screen__heading{
-    position: absolute;
-    top: 21px;
-    left: 51px;
-    text-transform: uppercase;
-    // margin: 21px 51px;
-    justify-self: start;
-    align-self: flex-start;
-    font-size: 0.688rem;
-  }
-  .music__list {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 50px;
-  }
-  .music__pictures {
-    height: 10rem;
-    max-height: 151px;
-    width: 10rem;
-    max-width: 151px;
-
-    background-image: url(../assets/images/track__img__example.jpg);
-    background-size: cover;
-    background-position: center; 
-  }
-  .swiper__arrow{
-
-      height: 35px;
-      width: 20px;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
-  }
-  .swiper__wrapper{ 
-    overflow: hidden;
-    width: 100%;
-    display: flex;
-    flex-basis: 30%;
-    justify-content: center;
     flex-direction: column;
-    margin: 2% 0 2% 0;
- 
+
+    justify-content: center;
+    align-items: center;
   }
-  .swiper{
-    width: 100%;
+}
+
+.music__screen__part {
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.music__screen__heading {
+  position: absolute;
+  top: 21px;
+  left: 51px;
+  text-transform: uppercase;
+  // margin: 21px 51px;
+  justify-self: start;
+  align-self: flex-start;
+  font-size: 0.688rem;
+}
+
+.music__list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+}
+
+.music__pictures {
+  height: 10rem;
+  max-height: 151px;
+  width: 10rem;
+  max-width: 151px;
+
+  background-image: url(../assets/images/track__img__example.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
+.swiper__arrow {
+
+  height: 35px;
+  width: 20px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.swiper__wrapper {
+  min-height: 50px;
+  max-height: 200px;
+  overflow: hidden;
+  width: 100%;
+  display: flex;
+  flex-basis: 30%;
+  justify-content: center;
+  flex-direction: column;
+  margin: 2% 0 2% 0;
+
+}
+
+.swiper {
+  width: 100%;
   max-height: 100%;
-    display: flex;  
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-  }
-  .arrow__prev{
-    background-image: url(../assets/icons/swiper/arrow__prev.svg);
-          margin-right: 53px;
-  }
-  .arrow__next{
-    background-image: url(../assets/icons/swiper/arrow__next.svg);
-          margin-left: 53px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
 
-  }
-  // #region Latest
-  .latest__music{
-    
-    display: flex;
-    flex-basis: 70%;
-    justify-content: space-around;
-    align-items: center;
-    width: 100%;
-    height: 30%;
- 
-  }
-  .latest__music__part{
-    width: 25%;
-    height: 30vh;
- 
-    display: flex;
-    flex-direction: column;
-    align-items: baseline;
-    overflow: hidden;
-    pointer-events: none;
- 
-  }
-  .latest__album {
- 
-  }
-  .latest__heading {
-    text-transform: uppercase;
-    margin-bottom: 21px;
-    margin-left: 51px;
-    font-size: 0.688rem;
-  }
-  .latest__list {
-    display: flex;
-    flex-direction: column;
-    gap: 20px ;
-    overflow-y: scroll;
-    scrollbar-width: none;
-    pointer-events: all;
- 
-  }
-  .latest__li {
-  }
-  .track__wrapp { 
-    gap: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: start;
-  }
-  .track_info{
-    display: flex;
-    flex-direction: column;
-  }
-  .track__img {
-      height: 27px;
-      width: 27px;
-      border-radius:50%;
-  }
-  .track__name {
-   white-space: nowrap;
-  }
-  .track__artist {
-  }
+.arrow__prev {
+  background-image: url(../assets/icons/swiper/arrow__prev.svg);
+  margin-right: 53px;
+}
+
+.arrow__next {
+  background-image: url(../assets/icons/swiper/arrow__next.svg);
+  margin-left: 53px;
+
+}
+
+// #region Latest
+.latest__music {
+
+  display: flex;
+  flex-basis: 70%;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 30%;
+
+}
+
+.latest__music__part {
+  width: 25%;
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  overflow: hidden;
+  pointer-events: none;
+
+}
+
+
+.latest__heading {
+  text-transform: uppercase;
+  margin-bottom: 21px;
+  margin-left: 51px;
+  font-size: 0.688rem;
+}
+
+.latest__list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  pointer-events: all;
+
+}
+
+.latest__li {}
+
+.track__wrapp {
+  gap: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
+.track_info {
+  display: flex;
+  flex-direction: column;
+}
+
+.track__img {
+  height: 27px;
+  width: 27px;
+  border-radius: 50%;
+}
+
+.track__name {
+  white-space: nowrap;
+}
+
+.track__artist {}
 
 
 
@@ -193,78 +218,86 @@
 
 
 // footer
-.footer{
+.footer {
   width: 100%;
   height: 10%;
- position: fixed;
- bottom: 0;
+  position: fixed;
+  bottom: 0;
   min-height: 10%;
- 
+
   background-color: var(--bg-color);
- 
+
 
 }
+
 .footer__player__wrapper {
   display: flex;
   height: 100%;
- 
+
   justify-content: space-between;
-  margin: 0 50px ;
+  margin: 0 50px;
   align-items: center;
   text-align: center;
 }
+
 .footer__player__track {
   display: flex;
- 
+
   gap: 10px;
   justify-content: start;
   align-items: end;
   font-size: 0.625rem;
 }
+
 .footer__player__track__icon {
   background-image: url(../assets/images/track__img__example.jpg);
   border-radius: 50%;
-height: 49px;
-width: 49px;
+  height: 49px;
+  width: 49px;
 }
 
-.footer__player__track__name {
+.footer__player__track__name {}
 
-}
 .footer__player__track__artist {
   font-weight: bold;
 
 }
+
 .footer__player__controls__wrapper {
- 
+
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 0 57px;
 }
+
 .footer__player__btn {
 
   background-size: cover;
   background-position: center;
 }
-.back__btn{
+
+.back__btn {
   height: 25px;
   width: 25px;
-background-image: url(../assets/icons/player/Back.svg);
+  background-image: url(../assets/icons/player/Back.svg);
 }
-.play__btn{
+
+.play__btn {
   background-image: url(../assets/icons/player/PlayButton.svg);
   height: 35px;
   width: 35px;
   margin: 16px 24px;
 }
-.next__btn{
+
+.next__btn {
   background-image: url(../assets/icons/player/Next.svg);
   height: 25px;
   width: 25px;
 }
-.btn {
-}
+
+.btn {}
+
 .footer__player__duration__wrapper {
   background-image: url(../assets/icons/player/TrackTime.jpg );
   width: 50%;
@@ -272,5 +305,5 @@ background-image: url(../assets/icons/player/Back.svg);
   border-radius: 5px;
 
 }
+
 // SIDE MENU
-   
