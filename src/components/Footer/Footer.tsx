@@ -23,7 +23,15 @@
             <button className="footer__player__btn btn play__btn" />
             <button className="footer__player__btn btn next__btn" />
           </div>
-          <div className="footer__player__duration__wrapper"></div>
+          <div className="footer__player__duration__wrapper">
+            <input 
+            id="footer_player__duration-slider" 
+            min="0" 
+            max="100" 
+            // value="50"
+            className="footer__player__duration" 
+            type="range"/>
+          </div>
         </div>
       </footer>
     )

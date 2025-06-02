@@ -4,7 +4,7 @@ import { SideMenu } from "../components/SideMenu/SideMenu";
 import { MusicScreen } from "../components/MusicScreen/MusicScreen";
 import { Hero } from "../components/Hero/Hero";
 import { Footer } from "../components/Footer/Footer";
-
+import  ReactAudioPlayer  from "react-audio-player";
 
 export interface Track {
   id: string;
