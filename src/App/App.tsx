@@ -5,6 +5,7 @@ import { MusicScreen } from "../components/MusicScreen/MusicScreen";
 import { Hero } from "../components/Hero/Hero";
 import { Footer } from "../components/Footer/Footer";
 
+
 export interface Track {
   id: string;
   title: string;
@@ -18,15 +19,33 @@ export interface Album {
   artist: string;
   image: string;
 }
+
 const App: React.FC = () => {
   const [menuMobile, setMenuMobile] = useState(false);
   const [latestTracks, setLatestTracks] = useState<Track[]>([]);
   const [latestAlbums, setLatestAlbums] = useState<Track[]>([]);
-  
+  const [trackIsRecording, setTrackIsRecording] = useState<Track | null>(latestTracks[0] || null);
+  const [playlistIsRecording, setPlaylistIsRecording] = useState<Track[]>(latestAlbums);
+  const [search, setSearch] = useState('');
+  const [query, setQuery] = useState('');
+
+  const onHandleSearch = () => {
+    setSearch(query)
+  }
+
+  const onHandleQuery = () => {
+    setQuery(query)
+  }
+
+  const handleTrackSelect = (track: Track) => {
+    setTrackIsRecording(track);
+  };
+  // Беремо Трекліст та Альбомліст
   useEffect(() => {
-    fetch('https://itunes.apple.com/us/rss/topsongs/limit=10/json')
+    fetch('https://itunes.apple.com/us/rss/topsongs/limit=20/json')
       .then(response => response.json())
       .then(data => {
+        console.log(data)
         const entries = data.feed.entry;
         const parsTracks: Track[] = entries.map((entry: any) => ({
           id: entry.id.attributes['im:id'],
@@ -35,11 +54,12 @@ const App: React.FC = () => {
           image: entry['im:image'][2].label,
         }));
         setLatestTracks(parsTracks);
+        setPlaylistIsRecording(parsTracks)
       })
       .catch(error => console.error('Помилка:', error));
   }, []);
   useEffect(() => {
-    fetch('https://itunes.apple.com/us/rss/topalbums/limit=10/json')
+    fetch('https://itunes.apple.com/us/rss/topalbums/limit=20/json')
       .then(response => response.json())
       .then(data => {
         const entries = data.feed.entry;
@@ -50,9 +70,13 @@ const App: React.FC = () => {
           image: entry['im:image'][2].label,
         }));
         setLatestAlbums(parsAlbums);
+        setTrackIsRecording(parsAlbums[0])
+
       })
       .catch(error => console.error('Помилка:', error));
   }, []);
+  // 
+
   return (
     <div className="App page__wrapper">
       <main className="main">
@@ -66,11 +90,16 @@ const App: React.FC = () => {
         </button>
         <SideMenu mobile={menuMobile} />
         <div className="main__container container">
-          <Hero />
-          <MusicScreen tracks={latestTracks} albums={latestAlbums}/>
+          <Hero
+            query={query}
+            setQuery={value => setQuery(value)}
+            search={onHandleSearch}
+             
+          />
+          <MusicScreen tracks={latestTracks} albums={latestAlbums} onTrackSelect={handleTrackSelect} />
         </div>
       </main>
-      <Footer />
+      <Footer playlistIsRecording={playlistIsRecording} trackIsRecording={trackIsRecording} />
     </div>
   );
 };

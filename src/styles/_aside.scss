@@ -112,7 +112,9 @@
   text-align: center;
   font-size: 1.6rem;
   gap: 25px;
-
+ &:hover{
+  transform: scale(1.2);
+ }
 }
 
 .bar__li__icon {

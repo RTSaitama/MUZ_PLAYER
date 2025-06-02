@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
+
 interface Props {
-  
+  query: string ;
+  setQuery: (value: string) => void;
+  search: () => void;
 }
 
-export const Hero:React.FC<Props> = () => {
-  const [query, setQuery] = useState('');
-  const [search, setSearch] = useState('');
+export const Hero: React.FC<Props> = ({ query, setQuery, search  }) => {
+
+
 
   return (
     <div className="hero__screen container">
@@ -13,7 +16,7 @@ export const Hero:React.FC<Props> = () => {
       <div className="hero__screen__search__wrapper">
         <button
           className="hero__screen__btn__search"
-          onClick={() => setSearch(query)}
+          onClick={search}
         ></button>
         <input
           placeholder={'Let\'s find something true'}

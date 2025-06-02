@@ -4,7 +4,9 @@
 @import "./variables";
 @import "./aside";
 @import "./hero";
-
+*{
+  transition: all 0.3s ease;
+}
 .page__wrapper {
   background-color: var(--bg-color);
   height: 100%;
@@ -67,7 +69,7 @@
   // margin: 21px 51px;
   justify-self: start;
   align-self: flex-start;
-  font-size: 0.688rem;
+ 
 }
 
 .music__list {
@@ -168,16 +170,25 @@
   overflow-y: scroll;
   scrollbar-width: none;
   pointer-events: all;
+  
+}
+
+.latest__li {
+      &:hover{
+    background-color: rgba(68, 63, 63, 0.4);
+    border-radius: 4px;
+  }
 
 }
 
-.latest__li {}
-
 .track__wrapp {
+  width: 100%;
   gap: 2rem;
   display: flex;
   align-items: center;
   justify-content: start;
+
+
 }
 
 .track_info {
@@ -242,7 +253,7 @@
 
 .footer__player__track {
   display: flex;
-
+  width: 250px;
   gap: 10px;
   justify-content: start;
   align-items: end;
@@ -256,7 +267,12 @@
   width: 49px;
 }
 
-.footer__player__track__name {}
+.footer__player__track__name {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
 .footer__player__track__artist {
   font-weight: bold;
