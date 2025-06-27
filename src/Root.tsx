@@ -1,6 +1,6 @@
 import {
   HashRouter as Router,
-  Routes, Route, Navigate
+  Routes, Route
 } from "react-router-dom"
 import App from "./App/App"
 import { HomePage } from "./pages/HomePage"

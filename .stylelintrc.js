@@ -1,33 +1,88 @@
 module.exports = {
-  root: true,
+  env: {
+    browser: true,
+    es2021: true,
+    node: true,
+  },
+  extends: [
+    'eslint:recommended',
+    '@typescript-eslint/recommended',
+    'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
+    'plugin:jsx-a11y/recommended',
+    'plugin:import/recommended',
+    'plugin:import/typescript',
+  ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    ecmaVersion: 2020,
-    sourceType: 'module',
     ecmaFeatures: {
       jsx: true,
     },
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    project: './tsconfig.json',
+  },
+  plugins: [
+    'react',
+    '@typescript-eslint',
+    'react-hooks',
+    'jsx-a11y',
+    'import',
+  ],
+  rules: {
+    // TypeScript правила
+    '@typescript-eslint/no-unused-vars': 'error',
+    '@typescript-eslint/no-explicit-any': 'warn',
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/no-empty-function': 'off',
+    
+    // React правила
+    'react/react-in-jsx-scope': 'off', // для React 17+
+    'react/prop-types': 'off', // використовуємо TypeScript для типізації
+    'react/jsx-uses-react': 'off',
+    'react/jsx-uses-vars': 'error',
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn',
+    
+    // Загальні правила
+    'no-console': 'warn',
+    'no-debugger': 'error',
+    'prefer-const': 'error',
+    'no-var': 'error',
+    
+    // Import правила
+    'import/order': [
+      'error',
+      {
+        groups: [
+          'builtin',
+          'external',
+          'internal',
+          'parent',
+          'sibling',
+          'index',
+        ],
+        'newlines-between': 'always',
+      },
+    ],
+    'import/no-unresolved': 'off',  
   },
   settings: {
     react: {
       version: 'detect',
     },
+    'import/resolver': {
+      typescript: {
+        alwaysTryTypes: true,
+      },
+    },
   },
-  env: {
-    browser: true,
-    node: true,
-    es6: true,
-  },
-  plugins: ['react', 'react-hooks', '@typescript-eslint'],
-  extends: [
-    'eslint:recommended',
-    'plugin:react/recommended',
-    'plugin:react-hooks/recommended',
-    'plugin:@typescript-eslint/recommended',
+  ignorePatterns: [
+    'dist',
+    'build',
+    'node_modules',
+    '*.config.js',
+    '*.config.ts',
   ],
-  rules: {
-    // Твої кастомні правила тут
-    'react/react-in-jsx-scope': 'off', // якщо React 17+
-    '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
-  },
 };
