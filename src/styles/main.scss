@@ -63,8 +63,8 @@
 
 .music__screen__heading {
   position: absolute;
-  top: 21px;
-  left: 51px;
+  top: 10px;
+  left: 10px;
   text-transform: uppercase;
   // margin: 21px 51px;
   justify-self: start;
@@ -76,15 +76,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 50px;
+  width: 100%;
+  gap: 10%;
 }
 
 .music__pictures {
-  height: 10rem;
-  max-height: 151px;
+  min-height: 12rem;
+  max-height: 15rem;
   width: 10rem;
   max-width: 151px;
-
   background-image: url(../assets/images/track__img__example.jpg);
   background-size: cover;
   background-position: center;
@@ -101,7 +101,7 @@
 
 .swiper__wrapper {
   min-height: 50px;
-  max-height: 200px;
+  max-height: 120px;
   overflow: hidden;
   width: 100%;
   display: flex;
@@ -113,7 +113,7 @@
 }
 
 .swiper {
-  width: 100%;
+  width: 90%;
   max-height: 100%;
   display: flex;
   flex-direction: row;
@@ -305,6 +305,14 @@
   height: 35px;
   width: 35px;
   margin: 16px 24px;
+  transition: all 0s;
+}
+.pause__btn {
+  background-image: url(../assets/icons/player/pause-btn.svg);
+  height: 35px;
+  width: 35px;
+  margin: 16px 24px;
+  transition: all 0s;
 }
 
 .next__btn {
@@ -317,7 +325,7 @@
 
 .footer__player__duration__wrapper {
   // background-image: url(../assets/icons/player/TrackTime.jpg );
-  width: 50%;
+  width: 25%;
   height: 5px;
   border-radius: 5px;
 

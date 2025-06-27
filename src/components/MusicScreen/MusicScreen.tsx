@@ -1,8 +1,7 @@
 import React from 'react'
 import { Swiper } from '../Swiper/Swiper'
-import { Track } from '../../App/App'
-import { Album } from '../../App/App'
-
+import { Track, Album } from '../../types/typedefs';
+import { usePlayerContext } from '../../context/PlayerContext';
 interface Props {
   tracks: Track[];
   albums: Album[]
@@ -11,7 +10,6 @@ interface Props {
 
 
 export const MusicScreen: React.FC<Props> = ({ tracks, albums, onTrackSelect }) => {
-
 
 
 

@@ -1,5 +1,7 @@
   import React from 'react'
-  import { Track } from '../../App/App';
+  import { Track } from '../../types/typedefs';
+  import { Player } from '../Player/Player';
+
   interface Props {
     playlistIsRecording: Track[];
     trackIsRecording: Track | null;
@@ -18,21 +20,9 @@
               <div className="footer__player__track__artist">{trackIsRecording?.artist}</div>
             </div>
           </div>
-          <div className="footer__player__controls__wrapper">
-            <button className="footer__player__btn btn back__btn" />
-            <button className="footer__player__btn btn play__btn" />
-            <button className="footer__player__btn btn next__btn" />
-          </div>
-          <div className="footer__player__duration__wrapper">
-            <input 
-            id="footer_player__duration-slider" 
-            min="0" 
-            max="100" 
-            // value="50"
-            className="footer__player__duration" 
-            type="range"/>
-          </div>
+          <Player track={trackIsRecording} playlist={playlistIsRecording}/>
         </div>
       </footer>
     )
   }
+  
