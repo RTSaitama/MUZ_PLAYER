@@ -6,7 +6,6 @@ import { Outlet } from "react-router-dom";
 import { PlayerProvider } from "../context/PlayerContext";
 import { usePlayerContext } from '../context/PlayerContext';
 
-// Створюємо окремий компонент для контенту
 const AppContent: React.FC = () => {
   const [menuMobile, setMenuMobile] = useState(false);
   const { mediaIsRecording, playlistIsRecording } = usePlayerContext();
@@ -35,7 +34,6 @@ const AppContent: React.FC = () => {
   );
 };
 
-// Головний компонент App тільки надає контекст
 const App: React.FC = () => {
   return (
     <PlayerProvider>

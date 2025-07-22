@@ -52,7 +52,7 @@ export const usePlayerController = () => {
         }));
         setLatestAlbums(parsAlbums);
 
-        // !!! Якщо хочеш тут зберігати альбом, треба змінити тип trackIsRecording на Album | null
+        // шоб зберігати альбомом : тип trackIsRecording  => на Album | null
         // setTrackIsRecording(parsAlbums[0]);
       })
       .catch(error => console.error('Помилка завантаження альбомів:', error));
@@ -61,6 +61,14 @@ export const usePlayerController = () => {
   const handleTrackSelect = (track: Track) => {
     setTrackIsRecording(track);
   };
+
+useEffect(() => {
+  console.log('latestTracks:', latestTracks);
+  if (latestTracks.length > 0) {
+    console.log('Встановлюю trackIsRecording:', latestTracks[0]);
+    setTrackIsRecording(latestTracks[0]);
+  }
+}, [latestTracks]);
 
   return {
     latestTracks,
