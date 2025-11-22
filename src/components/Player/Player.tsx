@@ -1,43 +1,30 @@
-import React, { FC, useState, useRef, useEffect } from 'react'
-import { Track } from '../../types/typedefs';
+import React, { FC, useState, useRef, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { playNextTrack, playPreviousTrack, togglePlayPause } from '../../store/slices/playerSlice';
+import type { RootState } from '../../store/store';
 
-interface Props {
-  track: Track | null;
-  playlist: Track[];
-}
+export const Player: FC = () => {
+  const dispatch = useDispatch();
+  const { currentTrack, isPlaying, playlistQueue, currentQueueIndex } = useSelector(
+    (state: RootState) => state.player
+  );
 
-
-export const Player: FC<Props> = ({ track, playlist }) => {
-  const [currentTrack, setCurrentTrack] = useState<Track | null>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const sliderRef = useRef<HTMLInputElement>(null);
+
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
 
-  const sliderRef = useRef<HTMLInputElement>(null);
+  // Коли змінився трек - перезавантажити аудіо
   useEffect(() => {
-    if (track && audioRef.current) {
+    if (currentTrack && audioRef.current) {
       const audio = audioRef.current;
       audio.pause();
       audio.load();
-      setIsPlaying(false);
     }
-  }, [track]);
+  }, [currentTrack]);
 
-  const handlePlay = async () => {
-    if (audioRef.current) {
-      try {
-        await audioRef.current.play();
-        setIsPlaying(true);
-      } catch (err) {
-        console.error('не вадалось відкрити аудіо', err);
-      }
-    }
-  };
-  const handlePause = () => {
-    audioRef.current?.pause();
-    setIsPlaying(false);
-  };
+  // Слухати loadedmetadata и timeupdate
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
@@ -48,7 +35,6 @@ export const Player: FC<Props> = ({ track, playlist }) => {
 
     const handleTimeUpdate = () => {
       setCurrentTime(audio.currentTime);
-
     };
 
     audio.addEventListener('loadedmetadata', handleLoadedMetadata);
@@ -59,6 +45,8 @@ export const Player: FC<Props> = ({ track, playlist }) => {
       audio.removeEventListener('timeupdate', handleTimeUpdate);
     };
   }, []);
+
+  // Синхронізація слайдера з часом програвання
   useEffect(() => {
     let animationFrameId: number;
 
@@ -78,30 +66,77 @@ export const Player: FC<Props> = ({ track, playlist }) => {
     };
   }, [isPlaying]);
 
+  // Запуск/паузу
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (isPlaying && currentTrack?.preview) {
+      audio.play().catch(err => console.error('Play error:', err));
+    } else {
+      audio.pause();
+    }
+  }, [isPlaying, currentTrack]);
+
+  // Автоматичний перехід на наступний трек
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const handleEnded = () => {
+      dispatch(playNextTrack());
+    };
+
+    audio.addEventListener('ended', handleEnded);
+    return () => audio.removeEventListener('ended', handleEnded);
+  }, [dispatch]);
+
+  const handlePlay = async () => {
+    dispatch(togglePlayPause());
+  };
+
+  const handlePause = () => {
+    dispatch(togglePlayPause());
+  };
+
+  const handlePrevious = () => {
+    dispatch(playPreviousTrack());
+  };
+
+  const handleNext = () => {
+    dispatch(playNextTrack());
+  };
+
+  const canPlayPrevious = playlistQueue.length > 0 && currentQueueIndex > 0;
+  const canPlayNext = playlistQueue.length > 0 && currentQueueIndex < playlistQueue.length - 1;
+
   return (
     <>
       <audio ref={audioRef}>
-        <source src={track?.preview} type="audio/mp4" />
+        <source src={currentTrack?.preview} type="audio/mp4" />
         Браузер не підтримує аудіо
       </audio>
       <div className="footer__player__controls__wrapper">
         <button
           className="footer__player__btn btn back__btn"
-          onClick={(handlePlay)}
+          onClick={handlePrevious}
+          disabled={!canPlayPrevious}
         />
         {isPlaying ? (
           <button
             className="footer__player__btn btn pause__btn"
-            onClick={(handlePause)}
+            onClick={handlePause}
           />
-        ) : <button
-          className="footer__player__btn btn play__btn"
-          onClick={(handlePlay)}
-        />}
-
+        ) : (
+          <button
+            className="footer__player__btn btn play__btn"
+            onClick={handlePlay}
+          />
+        )}
         <button
           className="footer__player__btn btn next__btn"
-          onClick={(handlePlay)}
+          onClick={handleNext}
+          disabled={!canPlayNext}
         />
       </div>
       <div className="footer__player__duration__wrapper">
@@ -120,6 +155,5 @@ export const Player: FC<Props> = ({ track, playlist }) => {
         />
       </div>
     </>
-
   );
-}
+};

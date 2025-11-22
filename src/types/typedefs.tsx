@@ -4,6 +4,8 @@ export interface Track {
   artist: string;
   image: string;
   preview: string;
+  trackNumber?:number;
+  albumId?:string;
 }
 
 export interface Album {
@@ -11,7 +13,6 @@ export interface Album {
   title: string;
   artist: string;
   image: string;
-  preview: string;
 }
 
 export type MediaItem = Track | Album;

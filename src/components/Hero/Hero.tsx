@@ -1,12 +1,7 @@
 import React, { useState } from 'react'
 
-interface Props {
-  query: string ;
-  setQuery: (value: string) => void;
-  search: () => void;
-}
 
-export const Hero: React.FC<Props> = ({ query, setQuery, search  }) => {
+export const Hero = () => {
 
 
 
@@ -16,14 +11,14 @@ export const Hero: React.FC<Props> = ({ query, setQuery, search  }) => {
       <div className="hero__screen__search__wrapper">
         <button
           className="hero__screen__btn__search"
-          onClick={search}
+          // onClick={search}
         ></button>
         <input
           placeholder={'Let\'s find something true'}
           type="text"
           className="hero__screen_search_input search_inp"
-          value={query}
-          onChange={(event) => setQuery(event.target.value)}
+          // value={query}
+          // onChange={(event) => setQuery(event.target.value)}
         />
       </div>
       {/* endregion */}

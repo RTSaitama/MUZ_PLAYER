@@ -1,14 +1,14 @@
-import { useState } from "react";
+ import { useState } from "react";
 import '../styles/main.scss';
 import { SideMenu } from "../components/SideMenu/SideMenu";
 import { Footer } from "../components/Footer/Footer";
 import { Outlet } from "react-router-dom";
-import { PlayerProvider } from "../context/PlayerContext";
-import { usePlayerContext } from '../context/PlayerContext';
+
+
+
 
 const AppContent: React.FC = () => {
   const [menuMobile, setMenuMobile] = useState(false);
-  const { mediaIsRecording, playlistIsRecording } = usePlayerContext();
 
   return (
     <div className="App page__wrapper">
@@ -23,23 +23,18 @@ const AppContent: React.FC = () => {
         </button>
         <SideMenu mobile={menuMobile} />
         <div className="main__container container">
-          <Outlet />
+          <Outlet  />
         </div>
       </main>
       <Footer 
-        playlistIsRecording={playlistIsRecording} 
-        trackIsRecording={mediaIsRecording} 
+ 
       />
     </div>
   );
 };
 
 const App: React.FC = () => {
-  return (
-    <PlayerProvider>
-      <AppContent />
-    </PlayerProvider>
-  );
+  return <AppContent />;
 };
 
 export default App;
