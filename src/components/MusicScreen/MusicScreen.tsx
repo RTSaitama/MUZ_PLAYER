@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useGetTopTracksQuery, useGetTopAlbumsQuery } from '../../store/apis/itunesApi';
 import { setCurrentTrack, setPlaylistQueue } from '../../store/slices/playerSlice';
-import { Swiper } from '../Swiper/Swiper';
+import { SwiperScreen } from '../Swiper/SwiperScreen';
 import { Track, Album } from '../../types/typedefs';
 
 export const MusicScreen = () => {
@@ -22,7 +22,7 @@ export const MusicScreen = () => {
 
   return (
     <div className="music__screen container">
-      <Swiper />
+      <SwiperScreen />
       <div className="latest__music container music__screen__part">
         {/* АЛЬБОМИ */}
         <div className="latest__album latest__music__part">

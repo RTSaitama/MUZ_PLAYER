@@ -32,33 +32,31 @@
 .main__container {
   width: 100%;
   // height: 90%;
+  overflow: hidden;
 }
 
 .music__screen {
   max-height: 50vh;
   position: relative;
-  pointer-events: none;
 
   @media screen and (min-width: 300px) {
     display: none;
   }
 
-  // height: 45%;
-
   @media screen and (min-width: 700px) {
     display: flex;
     flex-direction: column;
-
     justify-content: center;
     align-items: center;
   }
 }
 
 .music__screen__part {
-
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  overflow: hidden;
 }
 
 .music__screen__heading {
@@ -66,18 +64,50 @@
   top: 10px;
   left: 10px;
   text-transform: uppercase;
-  // margin: 21px 51px;
   justify-self: start;
   align-self: flex-start;
- 
+  z-index: 10;
 }
 
-.music__list {
+.swiper__wrapper {
+  min-height: 50px;
+  max-height: 120px;
+  overflow: hidden;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: 2% 0;
+}
+ .music__list {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
+  max-width: 100%;
   gap: 10%;
+  overflow: hidden;
+}
+
+.swiper {
+  width: 100%;
+  max-width: 90%;
+  display: flex !important;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  overflow: hidden;
+}
+
+.swiper__wrapper .swiper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  overflow: hidden;
+  
 }
 
 .music__pictures {
@@ -88,48 +118,33 @@
   background-image: url(../assets/images/track__img__example.jpg);
   background-size: cover;
   background-position: center;
+  flex-shrink: 0;
 }
-
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  content: none !important;
+}
 .swiper__arrow {
-
   height: 35px;
   width: 20px;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
-}
-
-.swiper__wrapper {
-  min-height: 50px;
-  max-height: 120px;
-  overflow: hidden;
-  width: 100%;
-  display: flex;
-  flex-basis: 30%;
-  justify-content: center;
-  flex-direction: column;
-  margin: 2% 0 2% 0;
-
-}
-
-.swiper {
-  width: 90%;
-  max-height: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
+  background-size: contain;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
 }
 
 .arrow__prev {
   background-image: url(../assets/icons/swiper/arrow__prev.svg);
-  margin-right: 53px;
+  margin-right: auto;
 }
 
 .arrow__next {
   background-image: url(../assets/icons/swiper/arrow__next.svg);
-  margin-left: 53px;
-
+  margin-left: auto;
 }
 
 // #region Latest
