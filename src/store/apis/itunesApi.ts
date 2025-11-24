@@ -50,7 +50,7 @@ export const itunesApi = createApi({
 
   getAlbumTracks: builder.query<Track[], string>({
   query: (albumId) =>
-    `https://itunes.apple.com/lookup?id=${albumId}&entity=song&limit=200`,
+  `https://corsproxy.io/?https://itunes.apple.com/lookup?id=${albumId}&entity=song&limit=200`,
   transformResponse: (response: iTunesAlbumLookupResponse) => {
     if (!response.results || response.results.length < 2) {
       return [];
