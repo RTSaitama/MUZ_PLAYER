@@ -1,4 +1,4 @@
- import { createApi } from '@reduxjs/toolkit/query/react';
+import { createApi } from '@reduxjs/toolkit/query/react';
 import { Track, Album } from '../../types/typedefs';
 import { BaseQuery } from './baseQuery';
 
@@ -16,7 +16,7 @@ export const itunesApi = createApi({
   baseQuery: BaseQuery,
   endpoints: (builder) => ({
 
-     getTopTracks: builder.query<Track[], void>({
+    getTopTracks: builder.query<Track[], void>({
       query: () => 'topsongs/limit=20/json',
       transformResponse: (response: iTunesFeedResponse) => {
         return response.feed.entry.map((entry: any) => ({
@@ -33,7 +33,7 @@ export const itunesApi = createApi({
       keepUnusedDataFor: 300,
     }),
 
-     getTopAlbums: builder.query<Album[], void>({
+    getTopAlbums: builder.query<Album[], void>({
       query: () => 'topalbums/limit=20/json',
       transformResponse: (response: iTunesFeedResponse) => {
         return response.feed.entry.map((entry: any) => ({
@@ -41,23 +41,26 @@ export const itunesApi = createApi({
           title: entry['im:name'].label,
           artist: entry['im:artist'].label,
           image: entry['im:image'][2].label,
-          
+
         }));
       },
       keepUnusedDataFor: 300,
     }),
-    
 
-     getAlbumTracks: builder.query<Track[], string>({
+
+    getAlbumTracks: builder.query<Track[], string>({
       query: (albumId) =>
-         `https://api.allorigins.win/raw?url=https://itunes.apple.com/lookup?id=${albumId}&entity=song&limit=200`,
-      transformResponse: (response: iTunesAlbumLookupResponse,_, albumId) => {
-        if (!response.results || response.results.length < 2) {
+        `https://api.allorigins.win/raw?url=https://itunes.apple.com/lookup?id=${albumId}&entity=song&limit=200`,
+      transformResponse: (response: any) => {
+        // Якщо response рядок - парсимо
+        const data = typeof response === 'string' ? JSON.parse(response) : response;
+
+        if (!data.results || data.results.length < 2) {
           return [];
         }
 
-        const results = response.results.slice(1);
-        const albumImage = response.results[0].artworkUrl100 || '';
+        const results = data.results.slice(1);
+        const albumImage = data.results[0].artworkUrl100 || '';
 
         return results
           .filter((entry: any) => entry.trackId && entry.kind === 'song')
@@ -69,7 +72,7 @@ export const itunesApi = createApi({
             preview: entry.previewUrl || '',
             trackNumber: entry.trackNumber || 0,
           }))
-          .sort((a, b) => (a.trackNumber || 0) - (b.trackNumber || 0));
+          .sort((a: Track, b: Track) => (a.trackNumber || 0) - (b.trackNumber || 0));
       },
     }),
 
