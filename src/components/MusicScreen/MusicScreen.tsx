@@ -1,24 +1,15 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { useGetTopTracksQuery, useGetTopAlbumsQuery } from '../../store/apis/itunesApi';
-import { setCurrentTrack, setPlaylistQueue } from '../../store/slices/playerSlice';
+ import { usePlayer } from '../../hooks/usePlayer';
 import { SwiperScreen } from '../Swiper/SwiperScreen';
-import { Track, Album } from '../../types/typedefs';
 
 export const MusicScreen = () => {
-  const dispatch = useDispatch();
-  
-  const { data: tracks = [], isLoading: tracksLoading } = useGetTopTracksQuery();
-  const { data: albums = [], isLoading: albumsLoading } = useGetTopAlbumsQuery();
-
-  const handleTrackSelect = (track: Track) => {
-    dispatch(setCurrentTrack(track));
-    dispatch(setPlaylistQueue([track]));
-  };
-
-  const handleAlbumSelect = (album: Album) => {
-    console.log('Album selected:', album.id);
-  };
+  const {
+    topTracks,
+    topAlbums,
+    handleSelectTrack,
+    handleSelectAlbum,
+    tracksLoading,
+    albumsLoading,
+  } = usePlayer();
 
   return (
     <div className="music__screen container">
@@ -30,12 +21,12 @@ export const MusicScreen = () => {
           <ul className="latest__list">
             {albumsLoading ? (
               <p>Завантаження альбомів</p>
-            ) : albums.length > 0 ? (
-              albums.map((album) => (
+            ) : topAlbums.length > 0 ? (
+              topAlbums.map((album) => (
                 <li
                   className="latest__li"
                   key={album.id}
-                  onClick={() => handleAlbumSelect(album)}
+                  onClick={() => handleSelectAlbum(album)}
                   style={{ cursor: 'pointer' }}
                 >
                   <div className="track__wrapp">
@@ -63,12 +54,12 @@ export const MusicScreen = () => {
           <ul className="latest__list">
             {tracksLoading ? (
               <p>Завантаження треків</p>
-            ) : tracks.length > 0 ? (
-              tracks.map((track) => (
+            ) : topTracks.length > 0 ? (
+              topTracks.map((track) => (
                 <li
                   className="latest__li"
                   key={track.id}
-                  onClick={() => handleTrackSelect(track)}
+                  onClick={() => handleSelectTrack(track)}
                   style={{ cursor: 'pointer' }}
                 >
                   <div className="track__wrapp">

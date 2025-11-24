@@ -7,10 +7,12 @@ import 'swiper/css/scrollbar';
 import { useRef } from 'react';
 import { SlideNextButton } from './SlideNextButton';
 import { SlidePrevButton } from './SlidePrevButton';
+import { usePlayer } from '../../hooks/usePlayer';
 
 export const SwiperScreen = () => {
   const { data: albums = [], isLoading: albumsLoading } = useGetTopAlbumsQuery();
   const swiperRef = useRef(null);
+  const {handleSelectAlbum} = usePlayer();
 
   return (
     <div className="swiper__wrapper music__screen__part">
@@ -32,7 +34,8 @@ export const SwiperScreen = () => {
           ) : (
             albums.map(album => (
               <SwiperSlide key={album.id}>
-                <img src={album.image} alt="album img" className="music__pictures" />
+                <img  onClick={() => handleSelectAlbum(album)}
+                src={album.image} alt="album img" className="music__pictures" />
               </SwiperSlide>
             ))
           )}

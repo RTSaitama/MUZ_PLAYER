@@ -1,10 +1,10 @@
-import { useDispatch, useSelector } from "react-redux";
-import { 
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
   useGetTopTracksQuery,
   useGetTopAlbumsQuery,
   useGetAlbumTracksQuery,
-
-} from "../store/apis/itunesApi";
+} from '../store/apis/itunesApi';
 import {
   setCurrentTrack,
   setPlaylistQueue,
@@ -14,33 +14,43 @@ import {
   setSearchQuery,
   togglePlayPause,
   setIsPlaying,
-} from '../store/slices/playerSlice'
-import type { AppDispatch, RootState } from "../store/store";
-import { Track, Album } from "../types/typedefs";
+} from '../store/slices/playerSlice';
+import type { AppDispatch, RootState } from '../store/store';
+import { Track, Album } from '../types/typedefs';
 
-export const usePlayer = () =>{
-
+export const usePlayer = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const playerState = useSelector((state:RootState) =>state.player)
-  
+  const playerState = useSelector((state: RootState) => state.player);
+
   const { data: topTracks = [], isLoading: tracksLoading } = useGetTopTracksQuery();
   const { data: topAlbums = [], isLoading: albumsLoading } = useGetTopAlbumsQuery();
-  const { data: albumTracks = [], isFetching: tracksInProgress } = useGetAlbumTracksQuery(
-    playerState.currentTrack?.albumId || '',
-    { skip: !playerState.currentTrack?.albumId }
-  );
-  const handleSelectTrack  = (track: Track) => {
-    dispatch(setCurrentTrack(track));
-  }
 
-  const handleSelectAlbum = async (album: Album) => {
-     const tracks = await useGetAlbumTracksQuery(album.id);
-     if(tracks.data) {
-      dispatch(setPlaylistQueue(tracks.data))
-     }
-  }
-    return {
- 
+  const [selectedAlbumId, setSelectedAlbumId] = useState<string | null>(null);
+
+  const { data: albumTracks = [], isFetching: tracksInProgress } = useGetAlbumTracksQuery(
+    selectedAlbumId || '',
+    { skip: !selectedAlbumId }
+  );
+
+  // Коли альбом треки завантажилися - встановлюємо чергу
+  useEffect(() => {
+    if (albumTracks.length > 0) {
+      dispatch(setPlaylistQueue(albumTracks));
+      dispatch(setCurrentTrack(albumTracks[0]));
+      dispatch(setIsPlaying(true));
+    }
+  }, [albumTracks, dispatch]);
+
+  const handleSelectTrack = (track: Track) => {
+    dispatch(setCurrentTrack(track));
+    dispatch(setPlaylistQueue([track]));
+  };
+
+  const handleSelectAlbum = (album: Album) => {
+    setSelectedAlbumId(album.id);
+  };
+
+  return {
     currentTrack: playerState.currentTrack,
     playlistQueue: playerState.playlistQueue,
     currentQueueIndex: playerState.currentQueueIndex,
@@ -48,14 +58,13 @@ export const usePlayer = () =>{
     isPlaying: playerState.isPlaying,
     topTracks,
     topAlbums,
-
-
+    albumTracks,
     tracksLoading,
     albumsLoading,
     tracksInProgress,
-
     handleSelectTrack,
     handleSelectAlbum,
+    setSelectedAlbumId,
     playNextTrack: () => dispatch(playNextTrack()),
     playPreviousTrack: () => dispatch(playPreviousTrack()),
     setCurrentQueueIndex: (index: number) => dispatch(setCurrentQueueIndex(index)),
@@ -64,4 +73,4 @@ export const usePlayer = () =>{
     setIsPlaying: (isPlaying: boolean) => dispatch(setIsPlaying(isPlaying)),
     setPlaylistQueue: (tracks: Track[]) => dispatch(setPlaylistQueue(tracks)),
   };
-}
+};

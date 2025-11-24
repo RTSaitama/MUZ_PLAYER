@@ -7,7 +7,6 @@ interface iTunesFeedResponse {
     entry: any[];
   };
 }
-
 interface iTunesAlbumLookupResponse {
   results: any[];
 }
