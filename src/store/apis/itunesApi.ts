@@ -50,7 +50,7 @@ export const itunesApi = createApi({
 
      getAlbumTracks: builder.query<Track[], string>({
       query: (albumId) =>
-        `https://itunes.apple.com/lookup?id=${albumId}&entity=song&limit=200`,
+         `https://api.allorigins.win/raw?url=https://itunes.apple.com/lookup?id=${albumId}&entity=song&limit=200`,
       transformResponse: (response: iTunesAlbumLookupResponse,_, albumId) => {
         if (!response.results || response.results.length < 2) {
           return [];
