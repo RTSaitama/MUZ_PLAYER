@@ -1,5 +1,8 @@
- import { usePlayer } from '../../hooks/usePlayer';
+import { usePlayer } from '../../hooks/usePlayer';
+import { ButtonAddItem } from '../ButtonAddTrack/ButtonAddItem';
+import { ButtonItemSettings } from '../ButtonTrackSettings/ButtonItemSettings';
 import { SwiperScreen } from '../Swiper/SwiperScreen';
+import { ItemOrder } from '../ItemOrder/ItemOrder';
 
 export const MusicScreen = () => {
   const {
@@ -10,7 +13,6 @@ export const MusicScreen = () => {
     tracksLoading,
     albumsLoading,
   } = usePlayer();
-
   return (
     <div className="music__screen container">
       <SwiperScreen />
@@ -22,26 +24,35 @@ export const MusicScreen = () => {
             {albumsLoading ? (
               <p>Завантаження альбомів</p>
             ) : topAlbums.length > 0 ? (
-              topAlbums.map((album) => (
-                <li
+              topAlbums.map((album, index) => {
+                const preparedTitle = `${album.title.slice(0, 20)}...`
+                return (<li
                   className="latest__li"
                   key={album.id}
-                  onClick={() => handleSelectAlbum(album)}
                   style={{ cursor: 'pointer' }}
                 >
-                  <div className="track__wrapp">
+                  <div className="item__wrapp"
+                    onClick={() => handleSelectAlbum(album)}
+                  >
                     <img
-                      className="track__img"
+                      className="item__img"
                       src={album.image}
                       alt="album"
                     />
-                    <div className="track_info">
-                      <p className="track__name">{album.title}</p>
-                      <p className="track__artist">{album.artist}</p>
+                    <div className="item__info">
+                      <p className="item__name">{preparedTitle}</p>
+                      <p className="item__artist">{album.artist}</p>
                     </div>
                   </div>
-                </li>
-              ))
+                  <div className='item__options'>
+                    <ButtonItemSettings />
+                    <ItemOrder index={index} />
+                    <ButtonAddItem />
+                  </div>
+                </li>)
+              }
+
+              )
             ) : (
               <p>Немає альбомів</p>
             )}
@@ -55,26 +66,34 @@ export const MusicScreen = () => {
             {tracksLoading ? (
               <p>Завантаження треків</p>
             ) : topTracks.length > 0 ? (
-              topTracks.map((track) => (
-                <li
-                  className="latest__li"
-                  key={track.id}
-                  onClick={() => handleSelectTrack(track)}
-                  style={{ cursor: 'pointer' }}
-                >
-                  <div className="track__wrapp">
-                    <img
-                      className="track__img"
-                      src={track.image}
-                      alt="track"
-                    />
-                    <div className="track_info">
-                      <p className="track__name">{track.title}</p>
-                      <p className="track__artist">{track.artist}</p>
+              topTracks.map((track, index) => {
+                const preparedTitle = `${track.title.slice(0, 20)}...`
+                return (
+                  <li
+                    className="latest__li"
+                    key={track.id}
+                    onClick={() => handleSelectTrack(track)}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    <div className="item__wrapp">
+                      <img
+                        className="item__img"
+                        src={track.image}
+                        alt="track"
+                      />
+                      <div className="item__info">
+                        <p className="item__name">{preparedTitle}</p>
+                        <p className="item__artist">{track.artist}</p>
+                      </div>                  
                     </div>
-                  </div>
-                </li>
-              ))
+                     <div className='item__options'>
+                        <ButtonItemSettings />
+                        <ItemOrder index={index} />
+                        <ButtonAddItem />
+                      </div>
+                  </li>
+                )
+              })
             ) : (
               <p>Немає треків</p>
             )}

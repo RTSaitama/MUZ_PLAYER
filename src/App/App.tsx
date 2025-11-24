@@ -22,7 +22,7 @@ const AppContent: React.FC = () => {
           </svg>
         </button>
         <SideMenu mobile={menuMobile} />
-        <div className="main__container container">
+        <div className="main__container  ">
           <Outlet  />
         </div>
       </main>

@@ -1,4 +1,4 @@
- import { useGetTopAlbumsQuery } from '../../store/apis/itunesApi'
+import { useGetTopAlbumsQuery } from '../../store/apis/itunesApi'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Scrollbar } from 'swiper/modules';
 import 'swiper/css';
@@ -12,21 +12,40 @@ import { usePlayer } from '../../hooks/usePlayer';
 export const SwiperScreen = () => {
   const { data: albums = [], isLoading: albumsLoading } = useGetTopAlbumsQuery();
   const swiperRef = useRef(null);
-  const {handleSelectAlbum} = usePlayer();
+  const { handleSelectAlbum } = usePlayer();
 
   return (
     <div className="swiper__wrapper music__screen__part">
       <h3 className="music__screen__heading">top album</h3>
       <div className="swiper">
-     <SlidePrevButton swiperRef={ swiperRef }/>
-        
+        <SlidePrevButton swiperRef={swiperRef} />
+
         <Swiper
           ref={swiperRef}
           spaceBetween={50}
           slidesPerView={7}
+          centeredSlides={true}
           navigation={false}
           loop={true}
           modules={[Navigation, Scrollbar]}
+          breakpoints={{
+            320: {
+              slidesPerView: 2,
+              spaceBetween: 10,
+            },
+            640: {
+              slidesPerView: 3,
+              spaceBetween: 15,
+            },
+            1024: {
+              slidesPerView: 5,
+              spaceBetween: 30,
+            },
+            1280: {
+              slidesPerView: 7,
+              spaceBetween: 50,
+            }
+          }}
           className="music__list"
         >
           {albumsLoading ? (
@@ -34,15 +53,15 @@ export const SwiperScreen = () => {
           ) : (
             albums.map(album => (
               <SwiperSlide key={album.id}>
-                <img  onClick={() => handleSelectAlbum(album)}
-                src={album.image} alt="album img" className="music__pictures" />
+                <img onClick={() => handleSelectAlbum(album)}
+                  src={album.image} alt="album img" className="music__pictures" />
               </SwiperSlide>
             ))
           )}
         </Swiper>
-        
-          <SlideNextButton swiperRef={ swiperRef }/>
-      </div>
-    </div>
+
+        <SlideNextButton swiperRef={swiperRef} />
+      </div >
+    </div >
   )
 }

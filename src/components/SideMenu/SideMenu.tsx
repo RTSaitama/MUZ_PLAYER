@@ -5,8 +5,7 @@ import { FavouritesIcon } from '../../assets/icons/FavouritesIcon'
 import { GenreIcon } from '../../assets/icons/GenreIcon'
 import { PlaylistIcon } from '../../assets/icons/Playlist'
 import { PodcastIcon } from '../../assets/icons/PodcastIcon'
-import { SearchIcon } from '../../assets/icons/SearchIcon'
-import { TopChartsIcon } from '../../assets/icons/TopChartsIcon'
+ import { TopChartsIcon } from '../../assets/icons/TopChartsIcon'
 interface Props {
   mobile:Boolean
 }

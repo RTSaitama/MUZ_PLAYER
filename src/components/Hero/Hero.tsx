@@ -1,6 +1,4 @@
-import React, { useState } from 'react'
-
-
+import { SearchIcon } from "../../assets/icons/SearchIcon"
 export const Hero = () => {
 
 
@@ -12,7 +10,7 @@ export const Hero = () => {
         <button
           className="hero__screen__btn__search"
           // onClick={search}
-        ></button>
+        ><SearchIcon width={20} height={20}/></button>
         <input
           placeholder={'Let\'s find something true'}
           type="text"

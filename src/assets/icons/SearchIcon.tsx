@@ -1,4 +1,3 @@
-import React from 'react';
 
 type SearchIconProps = React.SVGProps<SVGSVGElement> & {
   className?: string;

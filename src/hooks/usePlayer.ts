@@ -32,7 +32,6 @@ export const usePlayer = () => {
     { skip: !selectedAlbumId }
   );
 
-  // Коли альбом треки завантажилися - встановлюємо чергу
   useEffect(() => {
     if (albumTracks.length > 0) {
       dispatch(setPlaylistQueue(albumTracks));
