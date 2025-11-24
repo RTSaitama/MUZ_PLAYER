@@ -49,7 +49,11 @@ export const usePlayer = () => {
   const handleSelectAlbum = (album: Album) => {
     setSelectedAlbumId(album.id);
   };
-
+useEffect(() => {
+  if (topTracks.length > 0 && !playerState.currentTrack) {
+    dispatch(setCurrentTrack(topTracks[0]));
+  }
+}, [topTracks, playerState.currentTrack, dispatch]);
   return {
     currentTrack: playerState.currentTrack,
     playlistQueue: playerState.playlistQueue,
