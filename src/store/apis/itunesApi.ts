@@ -48,33 +48,30 @@ export const itunesApi = createApi({
     }),
 
 
-    getAlbumTracks: builder.query<Track[], string>({
-      query: (albumId) =>
-        `https://api.allorigins.win/raw?url=https://itunes.apple.com/lookup?id=${albumId}&entity=song&limit=200`,
-      transformResponse: (response: any) => {
-        // Якщо response рядок - парсимо
-        const data = typeof response === 'string' ? JSON.parse(response) : response;
+  getAlbumTracks: builder.query<Track[], string>({
+  query: (albumId) =>
+    `https://itunes.apple.com/lookup?id=${albumId}&entity=song&limit=200`,
+  transformResponse: (response: iTunesAlbumLookupResponse) => {
+    if (!response.results || response.results.length < 2) {
+      return [];
+    }
 
-        if (!data.results || data.results.length < 2) {
-          return [];
-        }
+    const results = response.results.slice(1);
+    const albumImage = response.results[0].artworkUrl100 || '';
 
-        const results = data.results.slice(1);
-        const albumImage = data.results[0].artworkUrl100 || '';
-
-        return results
-          .filter((entry: any) => entry.trackId && entry.kind === 'song')
-          .map((entry: any) => ({
-            id: entry.trackId.toString(),
-            title: entry.trackName || 'Unknown',
-            artist: entry.artistName || '',
-            image: albumImage,
-            preview: entry.previewUrl || '',
-            trackNumber: entry.trackNumber || 0,
-          }))
-          .sort((a: Track, b: Track) => (a.trackNumber || 0) - (b.trackNumber || 0));
-      },
-    }),
+    return results
+      .filter((entry: any) => entry.trackId && entry.kind === 'song')
+      .map((entry: any) => ({
+        id: entry.trackId.toString(),
+        title: entry.trackName || 'Unknown',
+        artist: entry.artistName || '',
+        image: albumImage,
+        preview: entry.previewUrl || '',
+        trackNumber: entry.trackNumber || 0,
+      }))
+      .sort((a: Track, b: Track) => (a.trackNumber || 0) - (b.trackNumber || 0));
+  },
+}),
 
   }),
 });
