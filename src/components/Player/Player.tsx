@@ -15,8 +15,7 @@ export const Player: FC = () => {
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
 
-  // Коли змінився трек - перезавантажити аудіо
-  useEffect(() => {
+   useEffect(() => {
     if (currentTrack && audioRef.current) {
       const audio = audioRef.current;
       audio.pause();
@@ -24,7 +23,6 @@ export const Player: FC = () => {
     }
   }, [currentTrack]);
 
-  // Слухати loadedmetadata и timeupdate
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
@@ -46,7 +44,6 @@ export const Player: FC = () => {
     };
   }, []);
 
-  // Синхронізація слайдера з часом програвання
   useEffect(() => {
     let animationFrameId: number;
 
@@ -66,8 +63,7 @@ export const Player: FC = () => {
     };
   }, [isPlaying]);
 
-  // Запуск/паузу
-  useEffect(() => {
+   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
@@ -78,8 +74,7 @@ export const Player: FC = () => {
     }
   }, [isPlaying, currentTrack]);
 
-  // Автоматичний перехід на наступний трек
-  useEffect(() => {
+   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
@@ -143,6 +138,7 @@ export const Player: FC = () => {
         <input
           ref={sliderRef}
           type="range"
+          step="0.01"
           min="0"
           max={duration}
           onChange={(e) => {
