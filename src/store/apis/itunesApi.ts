@@ -46,32 +46,47 @@ export const itunesApi = createApi({
       },
       keepUnusedDataFor: 300,
     }),
+    searchTracks: builder.query<Track[], string>({
+      query: (searchTerm) =>
+        `https://corsproxy.io/?https://itunes.apple.com/search?term=${searchTerm}&media=music&entity=song&limit=20`,
+      transformResponse: (response: any) => {
+        if (!response.results) {
+          return [];
+        }
+        return response.results.filter((entry: any) => entry.trackId && entry.kind === 'song').map((entry: any) => ({
+          id: entry.trackId.toString(),
+          title: entry.trackName || 'Unknown',
+          artist: entry.artistName || '',
+          image: entry.artworkUrl100 || '',
+          preview: entry.previewUrl || '',
+          trackNumber: 0,
+        }))
+      }
+    }),
+    getAlbumTracks: builder.query<Track[], string>({
+      query: (albumId) =>
+        `https://corsproxy.io/?https://itunes.apple.com/lookup?id=${albumId}&entity=song&limit=200`,
+      transformResponse: (response: iTunesAlbumLookupResponse) => {
+        if (!response.results || response.results.length < 2) {
+          return [];
+        }
 
+        const results = response.results.slice(1);
+        const albumImage = response.results[0].artworkUrl100 || '';
 
-  getAlbumTracks: builder.query<Track[], string>({
-  query: (albumId) =>
-  `https://corsproxy.io/?https://itunes.apple.com/lookup?id=${albumId}&entity=song&limit=200`,
-  transformResponse: (response: iTunesAlbumLookupResponse) => {
-    if (!response.results || response.results.length < 2) {
-      return [];
-    }
-
-    const results = response.results.slice(1);
-    const albumImage = response.results[0].artworkUrl100 || '';
-
-    return results
-      .filter((entry: any) => entry.trackId && entry.kind === 'song')
-      .map((entry: any) => ({
-        id: entry.trackId.toString(),
-        title: entry.trackName || 'Unknown',
-        artist: entry.artistName || '',
-        image: albumImage,
-        preview: entry.previewUrl || '',
-        trackNumber: entry.trackNumber || 0,
-      }))
-      .sort((a: Track, b: Track) => (a.trackNumber || 0) - (b.trackNumber || 0));
-  },
-}),
+        return results
+          .filter((entry: any) => entry.trackId && entry.kind === 'song')
+          .map((entry: any) => ({
+            id: entry.trackId.toString(),
+            title: entry.trackName || 'Unknown',
+            artist: entry.artistName || '',
+            image: albumImage,
+            preview: entry.previewUrl || '',
+            trackNumber: entry.trackNumber || 0,
+          }))
+          .sort((a: Track, b: Track) => (a.trackNumber || 0) - (b.trackNumber || 0));
+      },
+    }),
 
   }),
 });
@@ -80,4 +95,5 @@ export const {
   useGetTopTracksQuery,
   useGetTopAlbumsQuery,
   useGetAlbumTracksQuery,
+  useSearchTracksQuery,
 } = itunesApi;

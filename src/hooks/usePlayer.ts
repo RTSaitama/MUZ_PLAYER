@@ -4,6 +4,7 @@ import {
   useGetTopTracksQuery,
   useGetTopAlbumsQuery,
   useGetAlbumTracksQuery,
+  useSearchTracksQuery,
 } from '../store/apis/itunesApi';
 import {
   setCurrentTrack,
@@ -19,12 +20,13 @@ import type { AppDispatch, RootState } from '../store/store';
 import { Track, Album } from '../types/typedefs';
 
 export const usePlayer = () => {
+  const [searchTerm, setSearchTerm] = useState<string>('')
   const dispatch = useDispatch<AppDispatch>();
   const playerState = useSelector((state: RootState) => state.player);
 
   const { data: topTracks = [], isLoading: tracksLoading } = useGetTopTracksQuery();
   const { data: topAlbums = [], isLoading: albumsLoading } = useGetTopAlbumsQuery();
-
+  const { data: searchResults = [], isFetching: searchResultsLoading } = useSearchTracksQuery(searchTerm, { skip: !searchTerm });
   const [selectedAlbumId, setSelectedAlbumId] = useState<string | null>(null);
 
   const { data: albumTracks = [], isFetching: tracksInProgress } = useGetAlbumTracksQuery(
@@ -48,11 +50,11 @@ export const usePlayer = () => {
   const handleSelectAlbum = (album: Album) => {
     setSelectedAlbumId(album.id);
   };
-useEffect(() => {
-  if (topTracks.length > 0 && !playerState.currentTrack) {
-    dispatch(setCurrentTrack(topTracks[0]));
-  }
-}, [topTracks, playerState.currentTrack, dispatch]);
+  useEffect(() => {
+    if (topTracks.length > 0 && !playerState.currentTrack) {
+      dispatch(setCurrentTrack(topTracks[0]));
+    }
+  }, [topTracks, playerState.currentTrack, dispatch]);
   return {
     currentTrack: playerState.currentTrack,
     playlistQueue: playerState.playlistQueue,
@@ -75,5 +77,9 @@ useEffect(() => {
     togglePlayPause: () => dispatch(togglePlayPause()),
     setIsPlaying: (isPlaying: boolean) => dispatch(setIsPlaying(isPlaying)),
     setPlaylistQueue: (tracks: Track[]) => dispatch(setPlaylistQueue(tracks)),
+    searchResults,
+    searchResultsLoading,
+    setSearchTerm,
+    searchTerm
   };
 };
