@@ -380,8 +380,13 @@
 .btn {}
 
 .footer__player__duration__wrapper {
-  // background-image: url(../assets/icons/player/TrackTime.jpg );
-  width: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;  
+  min-width: 25%;
+  max-width: 50%;
+  width: 100%;
   height: 5px;
   border-radius: 5px;
 
