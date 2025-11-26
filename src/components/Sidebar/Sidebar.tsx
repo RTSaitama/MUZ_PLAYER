@@ -1,16 +1,17 @@
-import React from 'react'
+import { NavLink } from 'react-router-dom'
 import classNames from 'classnames'
 import { DiscoverIcon } from '../../assets/icons/DiscoverIcon'
 import { FavouritesIcon } from '../../assets/icons/FavouritesIcon'
 import { GenreIcon } from '../../assets/icons/GenreIcon'
 import { PlaylistIcon } from '../../assets/icons/Playlist'
 import { PodcastIcon } from '../../assets/icons/PodcastIcon'
- import { TopChartsIcon } from '../../assets/icons/TopChartsIcon'
+import { TopChartsIcon } from '../../assets/icons/TopChartsIcon'
+import { LogoIcon } from '../../assets/icons/LogoIcon'
 interface Props {
-  mobile:Boolean
+  mobile: Boolean
 }
 
-export const SideMenu:React.FC<Props> = ({ mobile }) => {
+export const Sidebar: React.FC<Props> = ({ mobile }) => {
 
   return (
     <aside className={classNames("side__menu navigation ",
@@ -19,30 +20,36 @@ export const SideMenu:React.FC<Props> = ({ mobile }) => {
       }
     )}>
       <nav className=" browse__bar bar">
+        <NavLink to="/"><div className="  logo_icon">
+          <LogoIcon width={70} height={70} stroke={'white'} />
+
+        </div></NavLink>
+
         <ul className="bar__list">
+
           <li className="bar__li">
             <div className="bar__li__icon">
-             <DiscoverIcon width={36} height={36} stroke={'white'} />
+              <DiscoverIcon width={36} height={36} stroke={'white'} />
             </div>
-            <p className="bar__li__name">discover</p>
+            <NavLink to="discover" className="bar__li__name">discover</NavLink>
           </li>
           <li className="bar__li">
             <div className="bar__li__icon">
-               <GenreIcon width={36} height={36} stroke={'white'} />
+              <GenreIcon width={36} height={36} stroke={'white'} />
             </div>
-            <p className="bar__li__name">genre</p>
+            <NavLink to="genre" className="bar__li__name">genre</NavLink>
           </li>
           <li className="bar__li">
             <div className="bar__li__icon">
               <TopChartsIcon width={36} height={36} stroke={'white'} />
             </div>
-            <p className="bar__li__name">top charts</p>
+            <NavLink to="charts" className="bar__li__name">top charts</NavLink>
           </li>
           <li className="bar__li">
             <div className="bar__li__icon">
-               <PodcastIcon width={36} height={36} stroke={'white'} />
+              <PodcastIcon width={36} height={36} stroke={'white'} />
             </div>
-            <p className="bar__li__name">podcast</p>
+            <NavLink to="podcast" className="bar__li__name">podcast</NavLink>
           </li>
         </ul>
       </nav>
@@ -51,13 +58,13 @@ export const SideMenu:React.FC<Props> = ({ mobile }) => {
         <ul className="bar__list">
           <li className="bar__li">
             <div className="bar__li__icon">
-             <FavouritesIcon width={36} height={36} stroke={'white'} />
+              <FavouritesIcon width={36} height={36} stroke={'white'} />
             </div>
             <p className="bar__li__name">favourites</p>
           </li>
           <li className="bar__li">
             <div className="bar__li__icon">
-              <PlaylistIcon width={36} height={36} stroke={'white'}/>
+              <PlaylistIcon width={36} height={36} stroke={'white'} />
             </div>
             <p className="bar__li__name">playlist</p>
           </li>

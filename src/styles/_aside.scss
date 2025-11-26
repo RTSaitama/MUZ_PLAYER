@@ -68,7 +68,15 @@
   z-index: 1;
 }
 
+.logo_icon{
+width: 100%;
+ position: absolute;
+top: -50px;
+left: 0;
+opacity: 0.1;
+}
 .bar {
+  position: relative;
   margin: 50px;
   display: flex;
   justify-content: space-around;

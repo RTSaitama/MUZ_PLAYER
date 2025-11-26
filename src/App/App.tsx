@@ -1,13 +1,10 @@
- import { useState } from "react";
+import { useState } from "react";
 import '../styles/main.scss';
-import { SideMenu } from "../components/SideMenu/SideMenu";
+import { Sidebar } from "../components/Sidebar/Sidebar";
 import { Footer } from "../components/Footer/Footer";
 import { Outlet } from "react-router-dom";
 
-
-
-
-const AppContent: React.FC = () => {
+const App: React.FC = () => {
   const [menuMobile, setMenuMobile] = useState(false);
 
   return (
@@ -21,20 +18,14 @@ const AppContent: React.FC = () => {
             <use href="/icons/sprite.svg#burger__icon" />
           </svg>
         </button>
-        <SideMenu mobile={menuMobile} />
-        <div className="main__container  ">
-          <Outlet  />
+        <Sidebar mobile={menuMobile} />
+        <div className="main__container">
+          <Outlet />
         </div>
       </main>
-      <Footer 
- 
-      />
+      <Footer />
     </div>
   );
-};
-
-const App: React.FC = () => {
-  return <AppContent />;
 };
 
 export default App;
