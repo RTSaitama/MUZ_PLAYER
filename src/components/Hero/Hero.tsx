@@ -1,66 +1,64 @@
 import { useEffect, useState } from "react";
 import { SearchIcon } from "../../assets/icons/SearchIcon";
 import { usePlayer } from "../../hooks/usePlayer";
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export const Hero = () => {
   const { searchTerm, setSearchTerm, searchResults, searchResultsLoading, handleSelectTrack } = usePlayer();
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
-  useEffect(() =>{
+  
+  useEffect(() => {
     const searchTimer = setTimeout(() => {
       setDebouncedSearchTerm(searchTerm);
-    }, 1000);
+    }, 700);
     return () => clearTimeout(searchTimer);
-  },[searchTerm])
+  }, [searchTerm]);
+
   const containerVar = {
     hidden: { opacity: 0.1 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.05,
-      },
+      transition: { staggerChildren: 0.05 },
     },
+    exit: { opacity: 0, transition: { staggerChildren: 0.05, duration: 0.5 } },
   };
 
   const itemVar = {
     hidden: { opacity: 0.1 },
-    visible: {
-      opacity: 1,
-      transition: { duration: 1 },
-    },
+    visible: { opacity: 1, transition: { duration: 1 } },
+    exit: { opacity: 0, y: -10, transition: { duration: 0.7 } },
   };
-
 
   return (
     <div className="hero__screen container">
       <div className="hero__screen__search__wrapper">
-        <button
-          className="hero__screen__btn__search"
-        // onClick={search}
-        ><SearchIcon width={20} height={20} /></button>
+        <button className="hero__screen__btn__search">
+          <SearchIcon width={20} height={20} />
+        </button>
         <input
           onChange={(event) => setSearchTerm(event.target.value)}
-          placeholder={'Let\'s find something true'}
+          placeholder={"Let's find something true"}
           type="text"
           className="hero__screen_search_input search_inp"
-
         />
       </div>
-      {debouncedSearchTerm 
-        ?
 
-        searchResultsLoading ?
-          (
-            <div>in 1 moment from track you search....</div>
-          )
-          : (
-
+      <AnimatePresence mode="wait">
+        {debouncedSearchTerm ? (
+          searchResultsLoading ? (
+            <motion.div key="loading" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              in 1 moment from track you search....
+            </motion.div>
+          ) : (
             <motion.ul
+              key="results"
               variants={containerVar}
-              key={searchResults.length}
               initial="hidden"
               animate="visible"
-              className="search__results__screen" >{searchResults.map((track, index) => (
+              exit="exit"
+              className="search__results__screen"
+            >
+              {searchResults.map((track) => (
                 <motion.li
                   variants={itemVar}
                   onClick={() => handleSelectTrack(track)}
@@ -71,25 +69,22 @@ export const Hero = () => {
                 </motion.li>
               ))}
             </motion.ul>
-
-
           )
-        :
-        (
-          <>
-
-
-            <h2 className="hero__screen__heading">WHAT’S NEW?</h2>
+        ) : (
+          <motion.div
+            key="hero"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <h2 className="hero__screen__heading">WHAT'S NEW?</h2>
             <p className="hero__screen__subheading">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sed
-              pellentesque odio, nec iaculis turpis. Praesent convallis est vitae
-              auctor consequat. Aliquam pretium suscipit facilisis. Cras ornare
-              ligula nulla, non fringilla lacus tincidunt in. Aenean mattis id dui
-              sed semper.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit...
             </p>
-            <button className="hero__screen__btn btn__start btn">Start</button>  </>)
-      }
+            <button className="hero__screen__btn btn__start btn">Start</button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
-
-  )
-}
+  );
+};
