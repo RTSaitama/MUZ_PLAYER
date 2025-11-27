@@ -8,6 +8,9 @@ import { HomePage } from "./pages/HomePage"
 import { Genre } from "./pages/Genre"
 import { Charts } from "./pages/Charts"
 import { Podcast } from "./pages/Podcast"
+import { Favourites } from "./pages/Favourites"
+import { Library } from "./pages/Library"
+
 export const Root = () => (
   <Router>
     <Routes>
@@ -17,6 +20,8 @@ export const Root = () => (
         <Route path="genre" element={<Genre/>}></Route>
         <Route path="charts" element={<Charts />}></Route>
         <Route path="podcast" element={<Podcast/>}></Route>
+        <Route path="favourites" element={<Favourites/>}></Route>
+        <Route path="library" element={<Library/>}></Route>
       </Route>
     </Routes>
 
