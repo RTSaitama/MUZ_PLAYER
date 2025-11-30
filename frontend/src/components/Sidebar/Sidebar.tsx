@@ -60,13 +60,17 @@ export const Sidebar: React.FC<Props> = ({ mobile }) => {
             <div className="bar__li__icon">
               <FavouritesIcon width={36} height={36} stroke={'white'} />
             </div>
+            <NavLink to='/favourites'>
             <p className="bar__li__name">favourites</p>
+            </NavLink>
           </li>
           <li className="bar__li">
             <div className="bar__li__icon">
               <PlaylistIcon width={36} height={36} stroke={'white'} />
             </div>
+            <NavLink to="/playlists">
             <p className="bar__li__name">playlist</p>
+            </NavLink>
           </li>
         </ul>
       </div>

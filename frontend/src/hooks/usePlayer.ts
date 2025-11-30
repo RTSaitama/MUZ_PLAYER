@@ -55,6 +55,21 @@ export const usePlayer = () => {
       dispatch(setCurrentTrack(topTracks[0]));
     }
   }, [topTracks, playerState.currentTrack, dispatch]);
+
+const onHandleAddToPlaylist = (item: Track | Album) => {
+  console.log('add button click');
+
+  if ('preview' in item) {
+      const isAlreadyInPlaylist = playerState.playlistQueue.some(t => t.id === item.id);
+    if (!isAlreadyInPlaylist) {
+      dispatch(setPlaylistQueue([...playerState.playlistQueue, item]));
+    }
+   } else if ('tracks' in item && Array.isArray(item.tracks)) {
+      dispatch(setPlaylistQueue([...playerState.playlistQueue, ...item.tracks]));
+     dispatch(setCurrentTrack(item.tracks[0]));
+    dispatch(setCurrentQueueIndex(playerState.playlistQueue.length));  
+  }
+};
   return {
     currentTrack: playerState.currentTrack,
     playlistQueue: playerState.playlistQueue,
@@ -80,6 +95,7 @@ export const usePlayer = () => {
     searchResults,
     searchResultsLoading,
     setSearchTerm,
-    searchTerm
+    searchTerm,
+    onHandleAddToPlaylist
   };
 };

@@ -3,7 +3,7 @@ import { ButtonAddItem } from '../ButtonAddTrack/ButtonAddItem';
 import { ButtonItemSettings } from '../ButtonTrackSettings/ButtonItemSettings';
 import { SwiperScreen } from '../Swiper/SwiperScreen';
 import { ItemOrder } from '../ItemOrder/ItemOrder';
-
+ 
 export const MusicScreen = () => {
   const {
     topTracks,
@@ -13,6 +13,7 @@ export const MusicScreen = () => {
     tracksLoading,
     albumsLoading,
   } = usePlayer();
+
   return (
     <div className="music__screen container">
       <SwiperScreen />
@@ -47,7 +48,7 @@ export const MusicScreen = () => {
                   <div className='item__options'>
                     <ButtonItemSettings />
                     <ItemOrder index={index} />
-                    <ButtonAddItem />
+                    <ButtonAddItem item={album}/>
                   </div>
                 </li>)
               }
@@ -89,7 +90,7 @@ export const MusicScreen = () => {
                      <div className='item__options'>
                         <ButtonItemSettings />
                         <ItemOrder index={index} />
-                        <ButtonAddItem />
+                        <ButtonAddItem  item={track}/>
                       </div>
                   </li>
                 )

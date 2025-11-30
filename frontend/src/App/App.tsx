@@ -3,10 +3,10 @@ import '../styles/main.scss';
 import { Sidebar } from "../components/Sidebar/Sidebar";
 import { Footer } from "../components/Footer/Footer";
 import { Outlet } from "react-router-dom";
-
+import { ModalPlaylist } from "../components/ModalAddToPlaylist/ModalPlaylists";
 const App: React.FC = () => {
   const [menuMobile, setMenuMobile] = useState(false);
-
+  
   return (
     <div className="App page__wrapper">
       <main className="main">
@@ -24,6 +24,7 @@ const App: React.FC = () => {
         </div>
       </main>
       <Footer />
+      <ModalPlaylist />
     </div>
   );
 };

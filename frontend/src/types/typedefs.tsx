@@ -15,4 +15,9 @@ export interface Album {
   image: string;
 }
 
+export interface Playlist {
+  id:number
+  tracks: Track[];
+}
+
 export type MediaItem = Track | Album;
