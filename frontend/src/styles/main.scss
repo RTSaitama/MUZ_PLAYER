@@ -4,7 +4,8 @@
 @import "./variables";
 @import "./aside";
 @import "./hero";
-@import "./playlistsModal";
+@import "./modalPlaylists";
+@import "./modalPlaylistName";
 *{
   transition: all 0.3s ease;
 }
@@ -12,9 +13,7 @@
   background-color: var(--bg-color);
   height: 100%;
   width: 100%;
-  // display: grid;
-  // grid-template-columns: 30% 70%;
-  // grid-template-rows: 47% 47% 6%;
+ 
 }
 
 #root {

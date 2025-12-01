@@ -37,9 +37,9 @@ export const Playlists = () => {
             key={playlist.id}
             className="search__results__item"
           >
-            <img src={playlist.tracks[0].image} alt="first track of playlist image" />
+            {playlist.tracks?.length>0 && <img src={playlist.tracks[0].image} alt="first track of playlist image" />}
           </motion.li>
-        ))}
+        ))}3
       </motion.ul>
   )
 }

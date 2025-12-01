@@ -16,7 +16,8 @@ export interface Album {
 }
 
 export interface Playlist {
-  id:number
+  name:string;
+  id:number;
   tracks: Track[];
 }
 

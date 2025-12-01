@@ -1,4 +1,4 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi, fetchBaseQuery, } from "@reduxjs/toolkit/query/react";
 import type { Playlist,Track } from "../../types/typedefs";
 const baseUrl = process.env.REACT_APP_API_BASE_URL || 'http://localhost:3005/api';
 
@@ -6,11 +6,15 @@ const baseUrl = process.env.REACT_APP_API_BASE_URL || 'http://localhost:3005/api
  
 export const playlistsApi = createApi({
   reducerPath:'playlistsApi',
+
   baseQuery: fetchBaseQuery({baseUrl}),
+  tagTypes: ['Playlists'],
   endpoints: (builder) => ({
 
     getPlaylists: builder.query<Playlist[], void>({
       query: () => 'playlists',
+      providesTags: [{ type: 'Playlists' }],
+
     }),
 
     getPlaylist: builder.query<Playlist, number>({
@@ -21,7 +25,8 @@ export const playlistsApi = createApi({
         url:`playlists/`,
         method: "POST",
         body:{ name },
-      })
+      }),
+      invalidatesTags: [{ type: 'Playlists' }],
     }),
     deletePlaylist: builder.mutation<void, number>({
       query: ( id ) => ({

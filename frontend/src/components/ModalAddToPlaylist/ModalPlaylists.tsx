@@ -1,17 +1,21 @@
 import { useDispatch, useSelector} from 'react-redux';
-import { useGetPlaylistsQuery } from '../../store/apis/playlistsApi';
-import { toggleModal } from "../../store/slices/modalStatusSlice";
+import { useGetPlaylistsQuery,useCreatePlaylistMutation } from '../../store/apis/playlistsApi';
+import { toggleModal, toggleIsCreating } from "../../store/slices/modalStatusSlice";
 import type { RootState } from '../../store/store';
-
-type Playlist = { id: number; name: string };
+import { ModalNewPlaylist } from './ModalPlaylistName';
 
 export const ModalPlaylist = () => {
   const dispatch = useDispatch();
-   const isOpen = useSelector((state: RootState) => state.modalStatus.isOpen);
+  const isCreating = useSelector((state: RootState) => state.modalStatus.isCreating)
+  const isOpen = useSelector((state: RootState) => state.modalStatus.isOpen);
   const onToggle = () => dispatch(toggleModal());
-
+  
   const { data: playlists = [] } = useGetPlaylistsQuery();
- if (!isOpen) return null;
+  const onOpenPlaylistNaming = () => dispatch(toggleIsCreating());
+  
+
+ if (!isOpen) return null;  
+
   return (
     <div className="modal__overlay" onClick={() =>onToggle()}>
       <div className="modal__window" onClick={e => e.stopPropagation()}>
@@ -23,12 +27,20 @@ export const ModalPlaylist = () => {
                 type="button"
                 className="modal__button"
               >
-                {playlist.id}
+                {playlist.name}
               </button>
             </li>
           ))}
+          <button 
+          onClick={() => onOpenPlaylistNaming()}
+          type="button" className="modal__create__btn">
+          Create new playlist
+        </button>
+
+        {isCreating && <ModalNewPlaylist />}
+        
         </ul>
-        <button type="button" onClick={() =>onToggle()} className="modal__close__btn">
+        <button type="button" onClick={() => onToggle()} className="modal__close__btn">
           Закрити
         </button>
       </div>
