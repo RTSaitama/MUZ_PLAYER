@@ -1,11 +1,12 @@
-@import "./reset";
-@import "./typography";
-@import "./layouts";
-@import "./variables";
-@import "./aside";
-@import "./hero";
-@import "./modalPlaylists";
-@import "./modalPlaylistName";
+@use "./reset";
+@use "./typography";
+@use "./layouts";
+@use "./variables";
+@use "./aside";
+@use "./hero";
+@use "./modalPlaylists";
+@use "./modalPlaylistName";
+@use "./playlists";
 *{
   transition: all 0.3s ease;
 }

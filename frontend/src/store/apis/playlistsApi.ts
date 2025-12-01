@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery, } from "@reduxjs/toolkit/query/react";
 import type { Playlist,Track } from "../../types/typedefs";
-const baseUrl = process.env.REACT_APP_API_BASE_URL || 'http://localhost:3005/api';
+const baseUrl = import.meta.env.VITE_REACT_APP_API_BASE_URL || 'http://localhost:3005/api';
 
 
  

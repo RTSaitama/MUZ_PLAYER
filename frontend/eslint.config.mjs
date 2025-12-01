@@ -1,4 +1,3 @@
-// Імпортуємо існуючий TypeScript парсер з react-scripts
 import typescriptParser from '@typescript-eslint/parser';
 
 export default [
@@ -7,15 +6,12 @@ export default [
     languageOptions: {
       parser: typescriptParser,
       parserOptions: {
-        ecmaVersion: 'latest',
+        ecmaVersion: 2020,
         sourceType: 'module',
-        ecmaFeatures: {
-          jsx: true,
-        },
-        project: './tsconfig.json',
+        ecmaFeatures: { jsx: true },
+        project: ['./tsconfig.json'],
       },
       globals: {
-        // Браузерні API
         window: 'readonly',
         document: 'readonly',
         console: 'readonly',
@@ -28,12 +24,8 @@ export default [
         cancelAnimationFrame: 'readonly',
         URL: 'readonly',
         URLSearchParams: 'readonly',
-        
-        // React
         React: 'readonly',
         JSX: 'readonly',
-        
-        // Node.js globals
         process: 'readonly',
         Buffer: 'readonly',
         __dirname: 'readonly',
@@ -45,36 +37,21 @@ export default [
       },
     },
     rules: {
-      // Основні правила
       'no-console': 'warn',
       'no-debugger': 'error',
       'prefer-const': 'error',
       'no-var': 'error',
       'no-undef': 'error',
-      'no-unused-vars': ['warn', { 
-        argsIgnorePattern: '^_',
-        varsIgnorePattern: '^_',
-        ignoreRestSiblings: true 
-      }],
+      'no-unused-vars': ['warn', { argsIgnorePattern: '^_', varsIgnorePattern: '^_', ignoreRestSiblings: true }],
     },
   },
   {
     files: ['src/**/*.{js,jsx}'],
     languageOptions: {
-      ecmaVersion: 'latest',
+      ecmaVersion: 2020,
       sourceType: 'module',
-      parserOptions: {
-        ecmaFeatures: {
-          jsx: true,
-        },
-      },
-      globals: {
-        window: 'readonly',
-        document: 'readonly',
-        console: 'readonly',
-        React: 'readonly',
-        process: 'readonly',
-      },
+      parserOptions: { ecmaFeatures: { jsx: true } },
+      globals: { window: 'readonly', document: 'readonly', console: 'readonly', React: 'readonly', process: 'readonly' },
     },
     rules: {
       'no-console': 'warn',
@@ -86,7 +63,6 @@ export default [
   {
     ignores: [
       'dist/**',
-      'build/**',
       'node_modules/**',
       '*.config.*',
       'coverage/**',
@@ -95,7 +71,6 @@ export default [
       '.prettierrc.js',
       'vite.config.ts',
       'tailwind.config.js',
-      'craco.config.js',
     ],
   },
 ];
