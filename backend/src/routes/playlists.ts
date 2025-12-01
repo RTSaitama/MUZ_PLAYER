@@ -6,7 +6,9 @@ export default (prisma: PrismaClient) => {
 
   router.get('/playlists', async(req: Request, res: Response) => {
     try {
-      const playlists = await prisma.playlist.findMany();
+      const playlists = await prisma.playlist.findMany({
+        include: { tracks: true }
+      });
       res.json(playlists)
     } catch (error) {
       res.status(500).json({ error: 'Failed to fetch playlists' })
