@@ -9,7 +9,7 @@ import { Genre } from "./pages/Genre"
 import { Charts } from "./pages/Charts"
 import { Podcast } from "./pages/Podcast"
 import { Favourites } from "./pages/Favourites"
-import { Playlists } from "./pages/Playlists"
+import { PlaylistsPage } from "./pages/PlaylistsPage"
 
 export const Root = () => (
   <Router>
@@ -21,7 +21,7 @@ export const Root = () => (
         <Route path="charts" element={<Charts />}></Route>
         <Route path="podcast" element={<Podcast/>}></Route>
         <Route path="favourites" element={<Favourites/>}></Route>
-        <Route path="playlists" element={<Playlists/>}></Route>
+        <Route path="playlists" element={<PlaylistsPage/>}></Route>
       </Route>
     </Routes>
 

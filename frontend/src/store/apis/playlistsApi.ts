@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery, } from "@reduxjs/toolkit/query/react";
-import type { Playlist,Track } from "../../types/typedefs";
+import type { Playlist,MediaItem } from "../../types/typedefs";
 const baseUrl = import.meta.env.VITE_REACT_APP_API_BASE_URL || 'http://localhost:3005/api';
 
 
@@ -32,21 +32,28 @@ export const playlistsApi = createApi({
       query: ( id ) => ({
         url: `playlists/${id}`,
         method: "DELETE",
-      })
+      }),
+      invalidatesTags: [{ type: 'Playlists' }],
     }),
 
-    addTrackToPlaylist: builder.mutation<Playlist, { playlistId:number, track: Track }>({
-      query: ({ playlistId, track }) => ({
+    addMediaItemToPlaylist: builder.mutation<Playlist, { playlistId:number, MediaItem: MediaItem }>({
+      query: ({ playlistId, MediaItem }) => ({
         url: `playlists/${playlistId}/tracks`,
         method:'POST',
-        body:track,
-      }) 
+        body:MediaItem,
+      }),
+      invalidatesTags:(result, error, {playlistId}) => [
+        { type: 'Playlists', id: playlistId }
+      ]
     }),
    removeTrackFromPlaylist: builder.mutation<Playlist, { playlistId:number, trackId:string}>({
       query: ({ playlistId, trackId }) => ({
         url: `playlists/${playlistId}/tracks/${trackId}`,
         method: 'DELETE',
-      })
+      }),
+      invalidatesTags:(result, error, {playlistId}) => [
+        { type: 'Playlists', id: playlistId }
+      ]
     }),
   })
 })
@@ -56,6 +63,6 @@ export const {
   useGetPlaylistQuery,
   useCreatePlaylistMutation,
   useDeletePlaylistMutation,
-  useAddTrackToPlaylistMutation,
+  useAddMediaItemToPlaylistMutation,
   useRemoveTrackFromPlaylistMutation,
   } = playlistsApi;

@@ -1,4 +1,4 @@
-import React, { FC, useState, useRef, useEffect } from 'react';
+ import React, { FC, useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { playNextTrack, playPreviousTrack, togglePlayPause } from '../../store/slices/playerSlice';
 import type { RootState } from '../../store/store';
@@ -14,6 +14,7 @@ export const Player: FC = () => {
 
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
+  const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
 
    useEffect(() => {
     if (currentTrack && audioRef.current) {
@@ -134,7 +135,10 @@ export const Player: FC = () => {
           disabled={!canPlayNext}
         />
       </div>
-      <div className="footer__player__duration__wrapper">
+      <div 
+        className="footer__player__duration__wrapper"
+        style={{ '--progress': `${progress}%` } as React.CSSProperties}
+      >
         <input
           ref={sliderRef}
           type="range"

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-import type { Track, Album } from '../../types/typedefs'
+import type { Track } from '../../types/typedefs'
 interface PlayerState {
   currentTrack: Track | null;
   playlistQueue: Track[];

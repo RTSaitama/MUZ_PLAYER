@@ -1,18 +1,16 @@
 import { AddItemIcon } from "../../assets/icons/AddTrackIcon"
-import type { Track, Album } from "../../types/typedefs"
-import { useSelector, useDispatch } from "react-redux";
-import type { RootState } from '../../store/store';
+import type {  MediaItem } from "../../types/typedefs"
+import {  useDispatch } from "react-redux";
 import { toggleModal } from "../../store/slices/modalStatusSlice";
 
 type ButtonAddItemProps = {
-  item: Track | Album;
+  mediaItem: MediaItem
 }
 
-export const ButtonAddItem = ({ item }: ButtonAddItemProps) => {
+export const ButtonAddItem = ({ mediaItem }: ButtonAddItemProps) => {
 
-  const isOpen = useSelector((state: RootState) => state.modalStatus.isOpen);
-  const dispatch = useDispatch();
-  const onToggle = () => dispatch(toggleModal())
+   const dispatch = useDispatch();
+  const onToggle = () => dispatch(toggleModal(mediaItem))
 
   return (
     <button

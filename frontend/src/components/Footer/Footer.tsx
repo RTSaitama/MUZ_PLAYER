@@ -3,7 +3,7 @@ import { Player } from '../Player/Player';
 
 
   export const Footer = () => {
-  const { currentTrack, isPlaying, playlistQueue } = usePlayer();
+  const { currentTrack } = usePlayer();
   const preparedTitle = currentTrack?.title && currentTrack.title.length <= 20 
   ? currentTrack.title 
   : `${currentTrack?.title?.slice(0, 20)}...`;

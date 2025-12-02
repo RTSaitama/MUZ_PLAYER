@@ -22,3 +22,7 @@ export interface Playlist {
 }
 
 export type MediaItem = Track | Album;
+
+export type MediaItemToAdd = {
+  selectedItem: MediaItem | null
+}

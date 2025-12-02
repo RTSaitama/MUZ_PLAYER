@@ -48,7 +48,7 @@ export const MusicScreen = () => {
                   <div className='item__options'>
                     <ButtonItemSettings />
                     <ItemOrder index={index} />
-                    <ButtonAddItem item={album}/>
+                    <ButtonAddItem mediaItem={album}/>
                   </div>
                 </li>)
               }
@@ -90,7 +90,7 @@ export const MusicScreen = () => {
                      <div className='item__options'>
                         <ButtonItemSettings />
                         <ItemOrder index={index} />
-                        <ButtonAddItem  item={track}/>
+                        <ButtonAddItem  mediaItem={track}/>
                       </div>
                   </li>
                 )
