@@ -3,8 +3,10 @@ import { ButtonAddItem } from '../ButtonAddTrack/ButtonAddItem';
 import { ButtonItemSettings } from '../ButtonTrackSettings/ButtonItemSettings';
 import { SwiperScreen } from '../Swiper/SwiperScreen';
 import { ItemOrder } from '../ItemOrder/ItemOrder';
- 
+import { useTranslation } from 'react-i18next';
 export const MusicScreen = () => {
+  const { t } = useTranslation();
+  
   const {
     topTracks,
     topAlbums,
@@ -20,7 +22,7 @@ export const MusicScreen = () => {
       <div className="latest__music container music__screen__part">
         {/* АЛЬБОМИ */}
         <div className="latest__album latest__music__part">
-          <h3 className="latest__heading">latest album</h3>
+          <h3 className="latest__heading">{t('latest albums')}</h3>
           <ul className="latest__list">
             {albumsLoading ? (
               <p>Завантаження альбомів</p>
@@ -62,7 +64,7 @@ export const MusicScreen = () => {
 
         {/* ТРЕКИ */}
         <div className="latest__singles latest__music__part">
-          <h3 className="latest__heading">latest songs</h3>
+          <h3 className="latest__heading">{t('latest songs')}</h3>
           <ul className="latest__list">
             {tracksLoading ? (
               <p>Завантаження треків</p>

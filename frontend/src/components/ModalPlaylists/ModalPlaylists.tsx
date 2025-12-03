@@ -12,7 +12,7 @@ export const ModalPlaylist = () => {
   const isOpen = useSelector((state: RootState) => state.modalStatus.isOpen);
   const { data: playlists = [] } = useGetPlaylistsQuery();
   const [onDeletePlaylist] = useDeletePlaylistMutation();
-  const [onAddMediaItemToPlaylist] = useAddMediaItemToPlaylistMutation()
+  const [addMediaItemToPlaylist] = useAddMediaItemToPlaylistMutation()
   const onOpenPlaylistNaming = () => dispatch(toggleIsCreating());
   const selectedMediaItem = useSelector((state: RootState) => state.modalStatus.selectedItem)
   const onHandleDeletePlaylist = async (id: number) => {
@@ -20,10 +20,10 @@ export const ModalPlaylist = () => {
   }
   if (!isOpen) return null;
   
-const onHandleAddItem = async (playlistId: number) => {
+const onHandleAddItemToPlaylist = async (playlistId: number) => {
   if (!selectedMediaItem) return;
 
-  await onAddMediaItemToPlaylist({
+  await addMediaItemToPlaylist({
     playlistId,
     MediaItem: selectedMediaItem,
   });
@@ -45,7 +45,7 @@ const onHandleAddItem = async (playlistId: number) => {
         <ul className="modal__list">
           {playlists.map(playlist => (
             <li
-              onClick={() => onHandleAddItem(playlist.id)}
+              onClick={() => onHandleAddItemToPlaylist(playlist.id)}
               key={playlist.id}
               className={clsx(
                 "modal__list__item",

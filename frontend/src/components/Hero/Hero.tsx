@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { SearchIcon } from "../../assets/icons/SearchIcon";
 import { usePlayer } from "../../hooks/usePlayer";
 import { motion, AnimatePresence } from 'framer-motion';
-
+import { useTranslation } from "react-i18next";
 export const Hero = () => {
+  const { t } = useTranslation();
   const { searchTerm, setSearchTerm, searchResults, searchResultsLoading, handleSelectTrack } = usePlayer();
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
   
@@ -77,7 +78,7 @@ export const Hero = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            <h2 className="hero__screen__heading">WHAT'S NEW?</h2>
+            <h2 className="hero__screen__heading">{t('HERO HEADING')}</h2>
             <p className="hero__screen__subheading">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit...
             </p>

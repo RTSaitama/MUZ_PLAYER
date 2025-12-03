@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-
+import './i18n/i18n'
 import { Root } from './Root';
 import './styles/main.scss';
 import { Provider } from 'react-redux';

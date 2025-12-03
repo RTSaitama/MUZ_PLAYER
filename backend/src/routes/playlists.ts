@@ -82,14 +82,13 @@ router.post('/playlists/:id/tracks', async (req: Request, res: Response) => {
     };
   });
 
-      // Додай всі треки
       for (const track of tracks) {
         await prisma.track.create({ data: track });
       }
 
       res.status(201).json({ message: `Added ${tracks.length} tracks from album` });
     } else {
-      // Це трек - додай як є
+      
       const { id: trackId, title, artist, image, preview, albumId = '' } = mediaItem;
 
       const track = await prisma.track.create({

@@ -8,15 +8,16 @@ import { useRef } from 'react';
 import { SlideNextButton } from './SlideNextButton';
 import { SlidePrevButton } from './SlidePrevButton';
 import { usePlayer } from '../../hooks/usePlayer';
-
+import { useTranslation } from 'react-i18next';
 export const SwiperScreen = () => {
+  const { t } = useTranslation();
   const { data: albums = [], isLoading: albumsLoading } = useGetTopAlbumsQuery();
   const swiperRef = useRef(null);
   const { handleSelectAlbum } = usePlayer();
 
   return (
     <div className="swiper__wrapper music__screen__part">
-      <h3 className="music__screen__heading">top album</h3>
+      <h3 className="music__screen__heading">{t('TOP ALBUMS')}</h3>
       <div className="swiper">
         <SlidePrevButton swiperRef={swiperRef} />
 
