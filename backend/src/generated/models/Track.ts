@@ -270,11 +270,12 @@ export type TrackOrderByWithRelationInput = {
 
 export type TrackWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  trackId?: string
+  trackId_playlistId?: Prisma.TrackTrackIdPlaylistIdCompoundUniqueInput
   AND?: Prisma.TrackWhereInput | Prisma.TrackWhereInput[]
   OR?: Prisma.TrackWhereInput[]
   NOT?: Prisma.TrackWhereInput | Prisma.TrackWhereInput[]
   playlistId?: Prisma.IntFilter<"Track"> | number
+  trackId?: Prisma.StringFilter<"Track"> | string
   title?: Prisma.StringFilter<"Track"> | string
   artist?: Prisma.StringFilter<"Track"> | string
   image?: Prisma.StringFilter<"Track"> | string
@@ -282,7 +283,7 @@ export type TrackWhereUniqueInput = Prisma.AtLeast<{
   albumId?: Prisma.StringNullableFilter<"Track"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Track"> | Date | string
   playlist?: Prisma.XOR<Prisma.PlaylistScalarRelationFilter, Prisma.PlaylistWhereInput>
-}, "id" | "trackId">
+}, "id" | "trackId_playlistId">
 
 export type TrackOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -404,6 +405,11 @@ export type TrackListRelationFilter = {
 
 export type TrackOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type TrackTrackIdPlaylistIdCompoundUniqueInput = {
+  trackId: string
+  playlistId: number
 }
 
 export type TrackCountOrderByAggregateInput = {

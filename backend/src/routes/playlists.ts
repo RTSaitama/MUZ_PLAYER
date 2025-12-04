@@ -83,6 +83,9 @@ router.post('/playlists/:id/tracks', async (req: Request, res: Response) => {
   });
 
       for (const track of tracks) {
+        const existing =  await prisma.track.findUnique({
+          where: {trackId: track.trackId}
+        });
         await prisma.track.create({ data: track });
       }
 

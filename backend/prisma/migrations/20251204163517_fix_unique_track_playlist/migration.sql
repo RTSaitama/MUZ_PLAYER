@@ -15,13 +15,13 @@ CREATE TABLE "Track" (
     "artist" TEXT NOT NULL,
     "image" TEXT NOT NULL,
     "preview" TEXT NOT NULL,
-    "albumId" TEXT NOT NULL,
+    "albumId" TEXT,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT "Track_playlistId_fkey" FOREIGN KEY ("playlistId") REFERENCES "Playlist" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Track_trackId_key" ON "Track"("trackId");
+CREATE INDEX "Track_playlistId_idx" ON "Track"("playlistId");
 
 -- CreateIndex
-CREATE INDEX "Track_playlistId_idx" ON "Track"("playlistId");
+CREATE UNIQUE INDEX "Track_trackId_playlistId_key" ON "Track"("trackId", "playlistId");

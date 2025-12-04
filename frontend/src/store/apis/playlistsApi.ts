@@ -13,8 +13,14 @@ export const playlistsApi = createApi({
 
     getPlaylists: builder.query<Playlist[], void>({
       query: () => 'playlists',
-      providesTags: [{ type: 'Playlists' }],
-
+      providesTags: (result) => 
+        result 
+      ? [
+        ...result.map(({ id }) => ({ type: 'Playlists' as const, id})),
+         { type: 'Playlists', id: 'LIST' },
+        ]
+      : [{ type: 'Playlists', id: 'LIST' }],
+    
     }),
 
     getPlaylist: builder.query<Playlist, number>({

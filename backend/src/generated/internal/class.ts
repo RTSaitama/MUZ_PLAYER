@@ -20,7 +20,7 @@ const config: runtime.GetPrismaClientConfig = {
   "clientVersion": "7.0.1",
   "engineVersion": "f09f2815f091dbba658cdcd2264306d88bb5bda6",
   "activeProvider": "sqlite",
-  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../src/generated\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n}\n\nmodel Playlist {\n  id        Int      @id @default(autoincrement())\n  name      String\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n  tracks    Track[]\n}\n\nmodel Track {\n  id         Int      @id @default(autoincrement())\n  playlistId Int\n  playlist   Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)\n\n  trackId String  @unique\n  title   String\n  artist  String\n  image   String\n  preview String\n  albumId String?\n\n  createdAt DateTime @default(now())\n\n  @@index([playlistId])\n}\n",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../src/generated\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n}\n\nmodel Playlist {\n  id        Int      @id @default(autoincrement())\n  name      String\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n  tracks    Track[]\n}\n\nmodel Track {\n  id         Int      @id @default(autoincrement())\n  playlistId Int\n  playlist   Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)\n\n  trackId String\n  title   String\n  artist  String\n  image   String\n  preview String\n  albumId String?\n\n  createdAt DateTime @default(now())\n\n  @@unique([trackId, playlistId])\n  @@index([playlistId])\n}\n",
   "runtimeDataModel": {
     "models": {},
     "enums": {},

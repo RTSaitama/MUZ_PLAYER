@@ -20,7 +20,7 @@ model Track {
   playlistId Int 
   playlist   Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
 
-  trackId   String @unique
+  trackId   String  
   title     String
   artist    String
   image     String
@@ -29,5 +29,6 @@ model Track {
 
   createdAt DateTime @default(now())
 
+  @@unique([trackId, playlistId])
   @@index([playlistId])
 }

@@ -23,10 +23,12 @@ export const Sidebar: React.FC<Props> = ({ mobile }) => {
       }
     )}>
       <nav className=" browse__bar bar">
-        <NavLink to="/"><div className="  logo_icon">
-          <LogoIcon width={70} height={70} stroke={'white'} />
+        <NavLink to="/">
+          <div className="logo_icon">
+            <LogoIcon width={70} height={70} stroke={'white'} />
 
-        </div></NavLink>
+          </div>
+        </NavLink>
 
         <ul className="bar__list">
 
@@ -64,7 +66,7 @@ export const Sidebar: React.FC<Props> = ({ mobile }) => {
               <FavouritesIcon width={36} height={36} stroke={'white'} />
             </div>
             <NavLink to='/favourites'>
-            <p className="bar__li__name">{t('favourites')}</p>
+              <p className="bar__li__name">{t('favourites')}</p>
             </NavLink>
           </li>
           <li className="bar__li">
@@ -72,7 +74,7 @@ export const Sidebar: React.FC<Props> = ({ mobile }) => {
               <PlaylistIcon width={36} height={36} stroke={'white'} />
             </div>
             <NavLink to="/playlists">
-            <p className="bar__li__name">{t('playlist')}</p>
+              <p className="bar__li__name">{t('playlist')}</p>
             </NavLink>
           </li>
         </ul>

@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { usePlayer } from '../hooks/usePlayer';
 import { SearchIcon } from '@/assets/icons/SearchIcon';
 import { useState, useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
 
 export const PlaylistsPage = () => {
   const { data: playlists, isLoading, error } = useGetPlaylistsQuery();
@@ -94,7 +95,9 @@ export const PlaylistsPage = () => {
           <motion.ul className="playlists__list users__playlists_list">
             {playlists?.map((playlist) => {
               console.log(playlist.tracks)
+              const preparedAlbumLink = `/playlists/playlist/${playlist.id}`
               return(
+                <NavLink to={preparedAlbumLink}>
               <motion.li
                 key={playlist.id}
                 className="playlists__list__item"
@@ -111,9 +114,10 @@ export const PlaylistsPage = () => {
                   })}
                   alt="playlist cover"
                 />
-                <p className="playlist__track">{playlist.name}, length =  {playlist.tracks.length}</p>
+                <p className="playlist__track_name">{playlist.name}</p>
               
               </motion.li>
+              </NavLink>
             )})}
           </motion.ul>)}
         
