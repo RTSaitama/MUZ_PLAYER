@@ -29,7 +29,7 @@
   display: grid;
   gap: 1%;
   grid-template-columns: repeat(5, 1fr);
-  grid-template-rows:  repeat( 3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
   list-style: none;
   padding: 0;
   margin: 10px 0;
@@ -51,29 +51,31 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  a{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-  }
 }
-.modal__list__item_name{
+.modal__list__item a {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.modal__list__item_name {
   width: 100px;
   text-align: center;
-  position: absolute;bottom: 0;
+  position: absolute;
+  bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
 }
- .modal__list__item_img{
+
+.modal__list__item_img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  
- }
+}
 
 .modal__create__btn {
   width: 100%;
@@ -82,17 +84,15 @@
   border-radius: 6px;
   border: none;
   background-color: #4a4a44;
-  color: #fff; // Білий текст
+  color: #fff;
   font-size: 16px;
   cursor: pointer;
-
-  &:hover {
-    background-color: #5a5a53;
-  }
-
-  &:active {
-    background-color: #3b3b36;
-  }
+}
+.modal__create__btn:hover {
+  background-color: #5a5a53;
+}
+.modal__create__btn:active {
+  background-color: #3b3b36;
 }
 
 .modal__delete__btn {
@@ -100,7 +100,7 @@
   height: 24px;
   position: absolute;
   right: 0;
-  top: 0
+  top: 0;
 }
 
 .modal__close__btn {
@@ -111,8 +111,7 @@
   background-color: #ddd;
   border-radius: 4px;
   transition: background-color 0.2s ease;
-
-  &:hover {
-    background-color: #ccc;
-  }
+}
+.modal__close__btn:hover {
+  background-color: #ccc;
 }

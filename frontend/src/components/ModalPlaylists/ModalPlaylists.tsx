@@ -4,7 +4,6 @@ import { toggleIsCreating, closeModal } from "../../store/slices/modalStatusSlic
 import type { RootState } from '../../store/store';
 import { ModalNewPlaylist } from './ModalPlaylistName';
 import { CloseItemIcon } from '../../../src/assets/icons/CloseItemIcon';
-import clsx from 'clsx';
 
 export const ModalPlaylist = () => {
   const dispatch = useDispatch();
@@ -19,17 +18,17 @@ export const ModalPlaylist = () => {
     onDeletePlaylist(id)
   }
   if (!isOpen) return null;
-  
-const onHandleAddItemToPlaylist = async (playlistId: number) => {
-  if (!selectedMediaItem) return;
 
-  await addMediaItemToPlaylist({
-    playlistId,
-    MediaItem: selectedMediaItem,
-  });
+  const onHandleAddItemToPlaylist = async (playlistId: number) => {
+    if (!selectedMediaItem) return;
 
-  dispatch(closeModal());
-};
+    await addMediaItemToPlaylist({
+      playlistId,
+      MediaItem: selectedMediaItem,
+    });
+
+    dispatch(closeModal());
+  };
   const onHandleCloseModal = () => {
     dispatch(closeModal())
   }
@@ -43,25 +42,23 @@ const onHandleAddItemToPlaylist = async (playlistId: number) => {
           Create new playlist
         </button>
         <ul className="modal__list">
-          {playlists.map(playlist => (
+          {playlists.map(playlist => {
+            console.log(playlist);
+            return (         
             <li
               onClick={() => onHandleAddItemToPlaylist(playlist.id)}
               key={playlist.id}
-              className={clsx(
-                "modal__list__item",
-                {
-                  "playlist_bg": playlist.tracks?.[0]?.image,
-                  "playlist_no_bg": !playlist.tracks?.[0]?.image,
-                }
-              )}>
+              className='modal__list__item'>
+                <img className='modal__list__item_img' src={playlist.tracks?.length > 0 ? playlist.tracks[0].image : '../frontend/src/assets/images/playlist_logo.webp'}/>
               <p
                 className='modal__list__item_name'>{playlist.name}</p>
               <button
                 onClick={() => onHandleDeletePlaylist(playlist.id)}
                 className='modal__delete__btn'> <CloseItemIcon /></button>
             </li>
-          ))}
-
+          )
+        }
+          )}
 
           {isCreating && <ModalNewPlaylist />}
 
