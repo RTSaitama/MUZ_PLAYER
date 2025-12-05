@@ -208,5 +208,38 @@ exports["default"] = (function (prisma) {
             }
         });
     }); });
+    router["delete"]('/playlists/:playlistId/tracks/:trackId', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+        var playlistId, trackId, track, error_6;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 3, , 4]);
+                    playlistId = Number(req.params.playlistId);
+                    trackId = req.params.trackId;
+                    return [4 /*yield*/, prisma.track.findFirst({
+                            where: {
+                                playlistId: playlistId,
+                                trackId: trackId
+                            }
+                        })];
+                case 1:
+                    track = _a.sent();
+                    if (!track) {
+                        return [2 /*return*/, res.status(404).json({ error: "Track not found" })];
+                    }
+                    return [4 /*yield*/, prisma.track["delete"]({
+                            where: { id: track.id }
+                        })];
+                case 2:
+                    _a.sent();
+                    return [2 /*return*/, res.status(200).json({ message: "Track deleted successfully" })];
+                case 3:
+                    error_6 = _a.sent();
+                    console.error('Error deleting track:', error_6);
+                    return [2 /*return*/, res.status(500).json({ error: "Internal server error" })];
+                case 4: return [2 /*return*/];
+            }
+        });
+    }); });
     return router;
 });

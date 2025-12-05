@@ -7,7 +7,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
     return r;
 };
 exports.__esModule = true;
-exports.useRemoveTrackFromPlaylistMutation = exports.useAddMediaItemToPlaylistMutation = exports.useDeletePlaylistMutation = exports.useCreatePlaylistMutation = exports.useGetPlaylistQuery = exports.useGetPlaylistsQuery = exports.playlistsApi = void 0;
+exports.useRemoveMediaItemFromPlaylistMutation = exports.useAddMediaItemToPlaylistMutation = exports.useDeletePlaylistMutation = exports.useCreatePlaylistMutation = exports.useGetPlaylistQuery = exports.useGetPlaylistsQuery = exports.playlistsApi = void 0;
 var react_1 = require("@reduxjs/toolkit/query/react");
 var baseUrl = import.meta.env.VITE_REACT_APP_API_BASE_URL || 'http://localhost:3005/api';
 exports.playlistsApi = react_1.createApi({
@@ -28,7 +28,10 @@ exports.playlistsApi = react_1.createApi({
             }
         }),
         getPlaylist: builder.query({
-            query: function (id) { return "playlists/" + id; }
+            query: function (id) { return "playlists/" + id; },
+            providesTags: function (result, error, id) { return [
+                { type: 'Playlists', id: id }
+            ]; }
         }),
         createPlaylist: builder.mutation({
             query: function (name) { return ({
@@ -61,7 +64,7 @@ exports.playlistsApi = react_1.createApi({
                 ];
             }
         }),
-        removeTrackFromPlaylist: builder.mutation({
+        removeMediaItemFromPlaylist: builder.mutation({
             query: function (_a) {
                 var playlistId = _a.playlistId, trackId = _a.trackId;
                 return ({
@@ -78,4 +81,4 @@ exports.playlistsApi = react_1.createApi({
         })
     }); }
 });
-exports.useGetPlaylistsQuery = exports.playlistsApi.useGetPlaylistsQuery, exports.useGetPlaylistQuery = exports.playlistsApi.useGetPlaylistQuery, exports.useCreatePlaylistMutation = exports.playlistsApi.useCreatePlaylistMutation, exports.useDeletePlaylistMutation = exports.playlistsApi.useDeletePlaylistMutation, exports.useAddMediaItemToPlaylistMutation = exports.playlistsApi.useAddMediaItemToPlaylistMutation, exports.useRemoveTrackFromPlaylistMutation = exports.playlistsApi.useRemoveTrackFromPlaylistMutation;
+exports.useGetPlaylistsQuery = exports.playlistsApi.useGetPlaylistsQuery, exports.useGetPlaylistQuery = exports.playlistsApi.useGetPlaylistQuery, exports.useCreatePlaylistMutation = exports.playlistsApi.useCreatePlaylistMutation, exports.useDeletePlaylistMutation = exports.playlistsApi.useDeletePlaylistMutation, exports.useAddMediaItemToPlaylistMutation = exports.playlistsApi.useAddMediaItemToPlaylistMutation, exports.useRemoveMediaItemFromPlaylistMutation = exports.playlistsApi.useRemoveMediaItemFromPlaylistMutation;

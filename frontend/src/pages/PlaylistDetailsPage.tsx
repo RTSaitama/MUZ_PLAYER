@@ -2,22 +2,31 @@ import { usePlayer } from "@/hooks/usePlayer";
 import { useParams } from "react-router-dom";
 import { ButtonItemSettings } from "@/components/ButtonTrackSettings/ButtonItemSettings";
 import { ItemOrder } from "@/components/ItemOrder/ItemOrder";
-import { useGetPlaylistQuery } from "@/store/apis/playlistsApi";
- 
+import { useGetPlaylistQuery, useRemoveMediaItemFromPlaylistMutation } from "@/store/apis/playlistsApi";
 export const PlaylistDetailsPage = () => {
-const { id } = useParams<{ id: string }>();
-const playlistId = Number(id);
-const { data: playlist, isLoading, isError } = useGetPlaylistQuery(playlistId, {skip: !playlistId});
+  const { id } = useParams<{ id: string }>();
+  const playlistId = Number(id);
+  const { data: playlist, isLoading, isError } = useGetPlaylistQuery(playlistId, { skip: !playlistId });
   const { handleSelectTrack } = usePlayer();
-  
-  const  playlistTracks = playlist?.tracks;
-  if (isLoading) return <div>Завантаження...</div>;
+  const [removeMediaItemFromPlaylist] = useRemoveMediaItemFromPlaylistMutation();
+
+  const onHandleRemoveMediaItemFromPlaylist = async (playlistId: number, trackId: string) => {
+    console.log('remove button click');
+    try {
+      await removeMediaItemFromPlaylist({ playlistId, trackId }).unwrap();
+      console.log('Media item removed from playlist successfully');
+    } catch (error) {
+      console.error('Error removing media item from playlist:', error);
+    }
+  }
+  const playlistTracks = playlist?.tracks;
+  if (isLoading) return <div>Завантаження</div>;
   if (isError) return <div>Помилка завантаження плейлиста</div>;
   if (!playlist) return <div>Плейлист не знайдено</div>;
 
   return (
     <div className="pages__wrapper playlistDetail__page_wrapper">
-                 <h3 className="latest__heading playlist_details__heading">{playlist.name}</h3>
+      <h3 className="latest__heading playlist_details__heading">{playlist.name}</h3>
 
       <ul className="latest__list playlist_details__list">
         {playlistTracks?.map((track, index) => {
@@ -37,7 +46,9 @@ const { data: playlist, isLoading, isError } = useGetPlaylistQuery(playlistId, {
                 </div>
               </div>
               <div className="item__options">
-                <ButtonItemSettings />
+                <ButtonItemSettings
+                  onClick={() => track.trackId && onHandleRemoveMediaItemFromPlaylist(playlistId, track.trackId)}
+                />
                 <ItemOrder index={index} />
               </div>
             </li>

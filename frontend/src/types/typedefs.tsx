@@ -6,6 +6,7 @@ export interface Track {
   preview: string;
   trackNumber?:number;
   albumId?:string;
+  trackId?:string;
 }
 
 export interface Album {

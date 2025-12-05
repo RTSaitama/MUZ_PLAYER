@@ -9,19 +9,17 @@ import { TopChartsIcon } from '../../assets/icons/TopChartsIcon'
 import { LogoIcon } from '../../assets/icons/LogoIcon'
 import { useTranslation } from 'react-i18next'
 
-interface Props {
-  mobile: boolean
-}
-
-export const Sidebar: React.FC<Props> = ({ mobile }) => {
+ 
+export const Sidebar = () => {
   const { t } = useTranslation();
 
   return (
+    <>
     <aside className={classNames("side__menu navigation ",
-      {
-        [mobile ? 'is-open' : 'is-close']: true
-      }
-    )}>
+    //   {
+    //     [mobile ? 'is-open' : 'is-close']: true
+    //   }
+     )}>
       <nav className=" browse__bar bar">
         <NavLink to="/">
           <div className="logo_icon">
@@ -80,5 +78,6 @@ export const Sidebar: React.FC<Props> = ({ mobile }) => {
         </ul>
       </div>
     </aside>
+    </>
   )
 }

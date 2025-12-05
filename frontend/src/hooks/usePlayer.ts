@@ -17,7 +17,7 @@ import {
   setIsPlaying,
 } from '../store/slices/playerSlice';
 import type { AppDispatch, RootState } from '../store/store';
-import { Track, Album } from '../types/typedefs';
+import { Track, Album, MediaItem } from '../types/typedefs';
 
 export const usePlayer = () => {
   const [searchTerm, setSearchTerm] = useState<string>('')
@@ -28,7 +28,7 @@ export const usePlayer = () => {
   const { data: topAlbums = [], isLoading: albumsLoading } = useGetTopAlbumsQuery();
   const { data: searchResults = [], isFetching: searchResultsLoading } = useSearchTracksQuery(searchTerm, { skip: !searchTerm });
   const [selectedAlbumId, setSelectedAlbumId] = useState<string | null>(null);
-
+ 
   const { data: albumTracks = [], isFetching: tracksInProgress } = useGetAlbumTracksQuery(
     selectedAlbumId || '',
     { skip: !selectedAlbumId }
@@ -56,7 +56,7 @@ export const usePlayer = () => {
     }
   }, [topTracks, playerState.currentTrack, dispatch]);
 
-const onHandleAddToPlaylist = (item: Track | Album) => {
+const onHandleAddToPlaylist = (item: MediaItem) => {
   console.log('add button click');
 
   if ('preview' in item) {
@@ -70,6 +70,7 @@ const onHandleAddToPlaylist = (item: Track | Album) => {
     dispatch(setCurrentQueueIndex(playerState.playlistQueue.length));  
   }
 };
+
   return {
     currentTrack: playerState.currentTrack,
     playlistQueue: playerState.playlistQueue,
@@ -96,6 +97,6 @@ const onHandleAddToPlaylist = (item: Track | Album) => {
     searchResultsLoading,
     setSearchTerm,
     searchTerm,
-    onHandleAddToPlaylist
+    onHandleAddToPlaylist,
   };
 };
