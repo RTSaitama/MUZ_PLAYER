@@ -97,9 +97,8 @@ export const PlaylistsPage = () => {
               console.log(playlist.tracks)
               const preparedAlbumLink = `/playlists/playlist/${playlist.id}`
               return(
-                <NavLink to={preparedAlbumLink}>
+                <NavLink to={preparedAlbumLink}  key={playlist.id}>
               <motion.li
-                key={playlist.id}
                 className="playlists__list__item"
                 variants={itemVar}
                 initial="hidden"
