@@ -39,16 +39,21 @@
    }
  }
 
- .playlists_screen {}
+ 
+ .playslists_list__item {
 
- .playslists_list__item {}
+  height: 150px;
+  width: 150px;
+ }
 
+ 
  .playlist__list__item_img {
-   object-fit: contain;
+   object-fit: cover;
    height: 150px;
    width: 150px;
  }
  .playlist__track_name{
+  width: 100%;
   text-align: center;
   background-color: #02020275;
  }

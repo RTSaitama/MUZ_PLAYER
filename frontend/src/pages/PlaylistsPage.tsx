@@ -1,7 +1,6 @@
 import { useGetPlaylistsQuery } from '../store/apis/playlistsApi';
-import clsx from "clsx";
 import { motion, AnimatePresence } from 'framer-motion';
-
+import playlistLogo from '../assets/images/playlist__logo.png'
 import { usePlayer } from '../hooks/usePlayer';
 import { SearchIcon } from '@/assets/icons/SearchIcon';
 import { useState, useEffect } from 'react';
@@ -62,7 +61,7 @@ export const PlaylistsPage = () => {
               key="loading"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              exit={{ opacity: 0, animationDuration:0.8 }}
+              exit={{ opacity: 0, animationDuration: 0.8 }}
             >
               in 1 moment from track you search....
             </motion.div>
@@ -96,30 +95,30 @@ export const PlaylistsPage = () => {
             {playlists?.map((playlist) => {
               console.log(playlist.tracks)
               const preparedAlbumLink = `/playlists/playlist/${playlist.id}`
-              return(
-                <NavLink to={preparedAlbumLink}  key={playlist.id}>
-              <motion.li
-                className="playlists__list__item"
-                variants={itemVar}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-              >
-                <img
-                  src={playlist.tracks?.[0]?.image}
-                  className={clsx("playlist__list__item_img", {
-                    "playlist_bg": playlist.tracks?.[0]?.image,
-                    "playlist_no_bg": !playlist.tracks?.[0]?.image,
-                  })}
-                  alt="playlist cover"
-                />
-                <p className="playlist__track_name">{playlist.name}</p>
-              
-              </motion.li>
-              </NavLink>
-            )})}
+              return (
+
+                <motion.li
+                  className="playlists__list__item"
+                  variants={itemVar}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                  key={playlist.id}
+                >
+                  <NavLink to={preparedAlbumLink} >
+                    <img
+                      src={playlist.tracks?.[0]?.image || playlistLogo}
+                      className="playlist__list__item_img"
+                      alt="playlist cover"
+                    />
+                    <p className="playlist__track_name">{playlist.name}</p>
+                  </NavLink>
+                </motion.li>
+
+              )
+            })}
           </motion.ul>)}
-        
+
       </AnimatePresence>
     </div>
   );
