@@ -2,7 +2,7 @@ import {
   HashRouter as Router,
   Routes, Route
 } from "react-router-dom"
-import App from "./App/App"
+import App from "./pages/App"
 import { HomePage } from "./pages/HomePage"
  import { Discover } from "./pages/Discover"
 import { Genre } from "./pages/Genre"
@@ -22,7 +22,7 @@ export const Root = () => (
         <Route path="podcast" element={<Podcast/>}></Route>
         <Route path="favourites" element={<Favourites/>}></Route>
         <Route path="playlists" element={<PlaylistsPage/>}></Route>
-        <Route path="playlists/playlist/:id" element={<PlaylistDetailsPage/>}></Route>
+        <Route path="playlists/:id" element={<PlaylistDetailsPage/>}></Route>
       </Route>
     </Routes>
 

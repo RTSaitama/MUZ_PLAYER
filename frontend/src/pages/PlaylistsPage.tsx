@@ -94,7 +94,7 @@ export const PlaylistsPage = () => {
           <motion.ul className="playlists__list users__playlists_list">
             {playlists?.map((playlist) => {
               console.log(playlist.tracks)
-              const preparedAlbumLink = `/playlists/playlist/${playlist.id}`
+              const preparedAlbumLink = `/playlists/${playlist.id}`
               return (
 
                 <motion.li
