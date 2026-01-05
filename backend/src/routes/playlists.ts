@@ -21,8 +21,7 @@ export default (prisma: PrismaClient) => {
     }
   });
 
-  // Створити новий плейлист
-  router.post('/playlists', authMiddleware, async (req: Request, res: Response) => {
+   router.post('/playlists', authMiddleware, async (req: Request, res: Response) => {
     try {
       const { name } = req.body;
       const userId = req.user?.userId;
@@ -45,8 +44,7 @@ export default (prisma: PrismaClient) => {
     }
   });
 
-  // Отримати конкретний плейлист
-  router.get('/playlists/:playlistId', authMiddleware, async (req: Request, res: Response) => {
+   router.get('/playlists/:playlistId', authMiddleware, async (req: Request, res: Response) => {
     try {
       const playlistId = parseInt(req.params.playlistId);
       const userId = req.user?.userId;
@@ -71,8 +69,7 @@ export default (prisma: PrismaClient) => {
     }
   });
 
-  // Видалити плейлист
-  router.delete('/playlists/:playlistId', authMiddleware, async (req: Request, res: Response) => {
+   router.delete('/playlists/:playlistId', authMiddleware, async (req: Request, res: Response) => {
     try {
       const playlistId = parseInt(req.params.playlistId);
       const userId = req.user?.userId;
@@ -100,8 +97,7 @@ export default (prisma: PrismaClient) => {
     }
   });
 
-  // Додати трек у плейлист
-  router.post('/playlists/:playlistId/tracks', authMiddleware, async (req: Request, res: Response) => {
+   router.post('/playlists/:playlistId/tracks', authMiddleware, async (req: Request, res: Response) => {
     try {
       const playlistId = parseInt(req.params.playlistId);
       const userId = req.user?.userId;
