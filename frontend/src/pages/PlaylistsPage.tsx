@@ -1,4 +1,4 @@
-import { useGetPlaylistsQuery } from '../store/apis/playlistsApi';
+import { useGetPlaylistsQuery } from '../redux/apis/playlistsApi';
 import { motion, AnimatePresence } from 'framer-motion';
 import playlistLogo from '../assets/images/playlist__logo.png'
 import { usePlayer } from '../hooks/usePlayer';

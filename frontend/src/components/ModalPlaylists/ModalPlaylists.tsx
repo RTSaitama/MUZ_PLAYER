@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useGetPlaylistsQuery, useDeletePlaylistMutation, useAddMediaItemToPlaylistMutation } from '../../store/apis/playlistsApi';
-import { toggleIsCreating, closeModal } from "../../store/slices/modalStatusSlice";
-import type { RootState } from '../../store/store';
+import { useGetPlaylistsQuery, useDeletePlaylistMutation, useAddMediaItemToPlaylistMutation } from '../../redux/apis/playlistsApi';
+import { toggleIsCreating, closeModal } from "../../redux/slices/modalStatusSlice";
+import type { RootState } from '../../redux/store';
 import { ModalNewPlaylist } from './ModalPlaylistName';
 import { CloseItemIcon } from '../../../src/assets/icons/CloseItemIcon';
 

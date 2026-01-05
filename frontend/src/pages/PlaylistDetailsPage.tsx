@@ -2,7 +2,7 @@ import { usePlayer } from "@/hooks/usePlayer";
 import { useParams } from "react-router-dom";
 import { ButtonItemSettings } from "@/components/ButtonTrackSettings/ButtonItemSettings";
 import { ItemOrder } from "@/components/ItemOrder/ItemOrder";
-import { useGetPlaylistQuery, useRemoveMediaItemFromPlaylistMutation } from "@/store/apis/playlistsApi";
+import { useGetPlaylistQuery, useRemoveMediaItemFromPlaylistMutation } from "@/redux/apis/playlistsApi";
 export const PlaylistDetailsPage = () => {
   const { id } = useParams<{ id: string }>();
   const playlistId = Number(id);

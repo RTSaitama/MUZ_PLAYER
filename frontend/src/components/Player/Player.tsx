@@ -1,7 +1,7 @@
  import React, { FC, useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { playNextTrack, playPreviousTrack, togglePlayPause } from '../../store/slices/playerSlice';
-import type { RootState } from '../../store/store';
+import { playNextTrack, playPreviousTrack, togglePlayPause } from '../../redux/slices/playerSlice';
+import type { RootState } from '../../redux/store';
 
 export const Player: FC = () => {
   const dispatch = useDispatch();

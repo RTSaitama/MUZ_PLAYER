@@ -1,5 +1,5 @@
 import { motion,   } from 'framer-motion';
-import { useGetPlaylistsQuery } from '../../store/apis/playlistsApi';
+import { useGetPlaylistsQuery } from '../../redux/apis/playlistsApi';
 export const Playlists = () => {
   const {
     data: playlists,

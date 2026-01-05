@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
-import { toggleIsCreating } from "../../store/slices/modalStatusSlice";
+import { toggleIsCreating } from "../../redux/slices/modalStatusSlice";
 import { useState } from "react";
-import { useCreatePlaylistMutation } from "../../store/apis/playlistsApi";
+import { useCreatePlaylistMutation } from "../../redux/apis/playlistsApi";
 
 export const ModalNewPlaylist = () => {
   const dispatch = useDispatch();

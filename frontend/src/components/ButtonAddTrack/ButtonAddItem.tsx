@@ -1,7 +1,7 @@
 import { AddItemIcon } from "../../assets/icons/AddTrackIcon"
 import type {  MediaItem } from "../../types/typedefs"
 import {  useDispatch } from "react-redux";
-import { toggleModal } from "../../store/slices/modalStatusSlice";
+import { toggleModal } from "../../redux/slices/modalStatusSlice";
 
 type ButtonAddItemProps = {
   mediaItem: MediaItem

@@ -1,4 +1,4 @@
-import { useGetTopAlbumsQuery } from '../../store/apis/itunesApi'
+import { useGetTopAlbumsQuery } from '../../redux/apis/itunesApi'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Scrollbar } from 'swiper/modules';
 import 'swiper/css';

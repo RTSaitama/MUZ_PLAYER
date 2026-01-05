@@ -1,4 +1,4 @@
-import { useGetPlaylistQuery } from "@/store/apis/playlistsApi"
+import { useGetPlaylistQuery } from "@/redux/apis/playlistsApi"
 import { useParams } from "react-router-dom";
 import type { Track } from "@/types/typedefs";
 

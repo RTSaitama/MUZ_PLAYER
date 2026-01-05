@@ -5,7 +5,7 @@ import {
   useGetTopAlbumsQuery,
   useGetAlbumTracksQuery,
   useSearchTracksQuery,
-} from '../store/apis/itunesApi';
+} from '../redux/apis/itunesApi';
 import {
   setCurrentTrack,
   setPlaylistQueue,
@@ -15,8 +15,8 @@ import {
   setSearchQuery,
   togglePlayPause,
   setIsPlaying,
-} from '../store/slices/playerSlice';
-import type { AppDispatch, RootState } from '../store/store';
+} from '../redux/slices/playerSlice';
+import type { AppDispatch, RootState } from '../redux/store';
 import { Track, Album, MediaItem } from '../types/typedefs';
 
 export const usePlayer = () => {
