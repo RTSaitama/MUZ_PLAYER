@@ -24,7 +24,7 @@ export const ModalPlaylist = () => {
 
     await addMediaItemToPlaylist({
       playlistId,
-      MediaItem: selectedMediaItem,
+      mediaItem: selectedMediaItem,
     });
 
     dispatch(closeModal());

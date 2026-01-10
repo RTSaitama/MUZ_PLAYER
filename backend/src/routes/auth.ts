@@ -6,13 +6,12 @@ import { generateAccessToken, generateRefreshToken, verifyRefreshToken } from '.
 export default (prisma: PrismaClient) => {
   const router = express.Router();
 
-  // Реєстрація
   router.post('/register', async (req: Request, res: Response) => {
     try {
       const { email, password } = req.body;
 
       if (!email || !password) {
-        return res.status(400).json({ error: 'Email and password are required' });
+        return res.status(400).json({ error: 'both email and password are required' });
       }
 
       const existingUser = await prisma.user.findUnique({
@@ -20,7 +19,7 @@ export default (prisma: PrismaClient) => {
       });
 
       if (existingUser) {
-        return res.status(409).json({ error: 'User already exists' });
+        return res.status(409).json({ error: 'user already registered' });
       }
 
       const hashedPassword = await bcryptjs.hash(password, 10);
@@ -62,7 +61,6 @@ export default (prisma: PrismaClient) => {
     }
   });
 
-  // Логін
   router.post('/login', async (req: Request, res: Response) => {
     try {
       const { email, password } = req.body;
@@ -115,7 +113,6 @@ export default (prisma: PrismaClient) => {
     }
   });
 
-  // Refresh токена
   router.post('/refresh', async (req: Request, res: Response) => {
     try {
       const refreshToken = req.cookies.refreshToken;
@@ -152,7 +149,6 @@ export default (prisma: PrismaClient) => {
     }
   });
 
-  // Логаут
   router.post('/logout', (req: Request, res: Response) => {
     res.clearCookie('refreshToken');
     return res.status(200).json({ message: 'Logged out successfully' });

@@ -11,11 +11,15 @@ import { Podcast } from "./pages/Podcast"
 import { Favourites } from "./pages/Favourites"
 import { PlaylistsPage } from "./pages/PlaylistsPage"
 import { PlaylistDetailsPage } from "./pages/PlaylistDetailsPage"
+import { LoginForm } from "./components/Forms/LoginForm/LoginForm"
+import { RegisterForm } from "./components/Forms/RegisterForm/RegisterForm"
 export const Root = () => (
   <Router>
     <Routes>
       <Route path="/" element={<App />}>
         <Route index element ={<HomePage/>} />
+        <Route path="register" element={<RegisterForm />}></Route>
+        <Route path="login" element={<LoginForm />}></Route>
         <Route path="discover" element={<Discover />}></Route>
         <Route path="genre" element={<Genre/>}></Route>
         <Route path="charts" element={<Charts />}></Route>

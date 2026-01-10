@@ -5,7 +5,7 @@ import { authMiddleware } from '../middleware/authMiddlware';
 export default (prisma: PrismaClient) => {
   const router = express.Router();
 
-   router.get('/playlists', authMiddleware, async (req: Request, res: Response) => {
+  router.get('/playlists', authMiddleware, async (req: Request, res: Response) => {
     try {
       const userId = req.user?.userId;
 
@@ -21,14 +21,10 @@ export default (prisma: PrismaClient) => {
     }
   });
 
-   router.post('/playlists', authMiddleware, async (req: Request, res: Response) => {
+  router.post('/playlists', authMiddleware, async (req: Request, res: Response) => {
     try {
       const { name } = req.body;
       const userId = req.user?.userId;
-
-      if (!name) {
-        return res.status(400).json({ error: 'Playlist name is required' });
-      }
 
       const playlist = await prisma.playlist.create({
         data: {
@@ -44,9 +40,9 @@ export default (prisma: PrismaClient) => {
     }
   });
 
-   router.get('/playlists/:playlistId', authMiddleware, async (req: Request, res: Response) => {
+  router.get('/playlists/:id', authMiddleware, async (req: Request, res: Response) => {
     try {
-      const playlistId = parseInt(req.params.playlistId);
+      const playlistId = parseInt(req.params.id);
       const userId = req.user?.userId;
 
       const playlist = await prisma.playlist.findUnique({
@@ -69,9 +65,9 @@ export default (prisma: PrismaClient) => {
     }
   });
 
-   router.delete('/playlists/:playlistId', authMiddleware, async (req: Request, res: Response) => {
+  router.delete('/playlists/:id', authMiddleware, async (req: Request, res: Response) => {
     try {
-      const playlistId = parseInt(req.params.playlistId);
+      const playlistId = parseInt(req.params.id);
       const userId = req.user?.userId;
 
       const playlist = await prisma.playlist.findUnique({
@@ -97,9 +93,9 @@ export default (prisma: PrismaClient) => {
     }
   });
 
-   router.post('/playlists/:playlistId/tracks', authMiddleware, async (req: Request, res: Response) => {
+  router.post('/playlists/:id/tracks', authMiddleware, async (req: Request, res: Response) => {
     try {
-      const playlistId = parseInt(req.params.playlistId);
+      const playlistId = parseInt(req.params.id);
       const userId = req.user?.userId;
       const mediaItem = req.body;
 
@@ -230,7 +226,7 @@ export default (prisma: PrismaClient) => {
     }
   });
 
-   router.delete('/playlists/:playlistId/tracks/:trackId', authMiddleware, async (req: Request, res: Response) => {
+  router.delete('/playlists/:playlistId/tracks/:trackId', authMiddleware, async (req: Request, res: Response) => {
     try {
       const playlistId = Number(req.params.playlistId);
       const trackId = req.params.trackId;
@@ -261,7 +257,7 @@ export default (prisma: PrismaClient) => {
 
       return res.status(200).json({ message: 'Track deleted successfully' });
     } catch (error) {
-      console.error('Delete track error:', error);
+      console.error('Error deleting track:', error);
       return res.status(500).json({ error: 'Internal server error' });
     }
   });

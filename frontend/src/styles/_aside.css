@@ -63,12 +63,13 @@
 }
 
 .logo_icon {
-  width: 100%;
+  width: 50%;
   position: absolute;
   top: -50px;
   left: 0;
   opacity: 0.2;
 }
+ 
 
 .bar {
   position: relative;

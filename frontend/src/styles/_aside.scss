@@ -67,14 +67,22 @@
 .navigation {
   z-index: 1;
 }
-
-.logo_icon{
+.logo_n_profile_wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+position: relative;
 width: 100%;
-position: absolute;
-top: -50px;
-left: 0;
+max-height: 30px;
+}
+.logo_icon{
+width: 50%;
 opacity: 0.2;
 }
+.register_icon{
+width: 50%;
+}
+
 .bar {
   position: relative;
   margin: 50px;

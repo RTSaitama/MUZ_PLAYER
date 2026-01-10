@@ -5,7 +5,7 @@ import { Footer } from "../components/Footer/Footer";
 import { Outlet } from "react-router-dom";
 import { ModalPlaylist } from "../components/ModalPlaylists/ModalPlaylists";
 import { useAuth } from '../hooks/useAuth';
-import { LoginForm } from '../components/LoginForm/LoginForm';
+import { LoginForm } from '../components/Forms/LoginForm/LoginForm';
 
 const App: React.FC = () => {
   // const [menuMobile, setMenuMobile] = useState(false);

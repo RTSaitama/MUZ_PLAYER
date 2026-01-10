@@ -21,13 +21,20 @@ export const Sidebar = () => {
     //   }
      )}>
       <nav className=" browse__bar bar">
+        <div className="logo_n_profile_wrapper">
         <NavLink to="/">
           <div className="logo_icon">
             <LogoIcon width={70} height={70} stroke={'white'} />
 
           </div>
         </NavLink>
+              <NavLink to="/login">
+          <div className="register_icon">
+            <LogoIcon width={70} height={70} stroke={'white'} />
 
+          </div>
+        </NavLink>
+        </div>
         <ul className="bar__list">
 
           <li className="bar__li">

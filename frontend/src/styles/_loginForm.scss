@@ -89,3 +89,19 @@
     }
   }
 }
+
+.login-form__link-text {
+  text-align: center;
+  color: #e0e0e0;
+  font-size: 0.9rem;
+}
+
+.login-form__link {
+  color: #4a9eff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.login-form__link:hover {
+  text-decoration: underline;
+}
