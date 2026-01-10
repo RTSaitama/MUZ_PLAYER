@@ -16,7 +16,7 @@ export const LogoIcon: React.FC<LogoIconProps> = ({ className, ...props }) => (
   >
 
 <g transform="translate(0.000000,1536.000000) scale(0.100000,-0.100000)"
-fill="#ffffff" stroke="none">
+fill={'#796a5dd2'} stroke="none">
 <path d="M4900 11590 c-800 -43 -1556 -329 -2176 -821 -153 -122 -415 -381
 -537 -531 -227 -279 -412 -580 -553 -903 -60 -137 -155 -417 -145 -428 4 -4
 70 -6 146 -5 l139 3 58 155 c252 672 715 1257 1313 1657 459 307 1000 504
