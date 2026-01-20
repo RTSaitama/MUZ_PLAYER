@@ -1,8 +1,7 @@
  import express, { Request, Response } from 'express';
  import type { PrismaClient } from '../../prisma/generated/client'; 
 import { authMiddleware } from '../middleware/authMiddlware';
-
-// Додаємо інтерфейс для розширення Request, щоб TS бачив user
+ 
 interface AuthRequest extends Request {
   user?: {
     userId: number;
