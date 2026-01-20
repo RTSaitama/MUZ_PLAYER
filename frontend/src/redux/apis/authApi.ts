@@ -25,12 +25,12 @@ export interface RefreshResponse {
   accessToken: string;
 }
 
-const baseUrl = import.meta.env.VITE_REACT_APP_API_BASE_URL || 'http://localhost:3005/api';
+const baseUrl = 'https://muz-player.onrender.com/api';
 
 export const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({
-    baseUrl,
+    baseUrl, 
     credentials: 'include',
      prepareHeaders: (headers) => {
     headers.set('Content-Type', 'application/json');
