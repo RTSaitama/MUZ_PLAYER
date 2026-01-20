@@ -1,6 +1,6 @@
 import { usePlayer } from "@/hooks/usePlayer";
 import { useParams } from "react-router-dom";
-import { ButtonItemSettings } from "@/components/ButtonTrackSettings/ButtonItemSettings";
+import { ItemSettingsBtn } from "@/components/Buttons/ItemSettings/ItemSettingsBtn";
 import { ItemOrder } from "@/components/ItemOrder/ItemOrder";
 import { useGetPlaylistQuery, useRemoveMediaItemFromPlaylistMutation } from "@/redux/apis/playlistsApi";
 export const PlaylistDetailsPage = () => {
@@ -46,7 +46,7 @@ export const PlaylistDetailsPage = () => {
                 </div>
               </div>
               <div className="item__options">
-                <ButtonItemSettings
+                <ItemSettingsBtn
                   onClick={() => track.trackId && onHandleRemoveMediaItemFromPlaylist(playlistId, track.trackId)}
                 />
                 <ItemOrder index={index} />

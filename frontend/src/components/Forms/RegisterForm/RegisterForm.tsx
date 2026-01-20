@@ -1,27 +1,36 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+
+const registerFormSchema = z.object({
+  email: z.string().min(1, 'Email is required').email('Invalid email'),
+  password: z.string().min(8, 'Password must contain 8-16 symbols').max(16),
+  confirmPassword: z.string().min(8).max(16),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: 'Passwords do not match',
+  path: ['confirmPassword']
+});
+
+type registerFormData = z.infer<typeof registerFormSchema>;
 
 export const RegisterForm = () => {
-  const { register, isLoading, error } = useAuth();
-  const navigate = useNavigate();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [passwordMismatch, setPasswordMismatch] = useState(false);
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    if (password !== confirmPassword) {
-      setPasswordMismatch(true);
-      return;
+  const { register, handleSubmit, formState: { errors } } = useForm<registerFormData>({
+    resolver: zodResolver(registerFormSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+      confirmPassword: '',
     }
+  });
 
-    setPasswordMismatch(false);
+  const { register: authRegister, isLoading, error } = useAuth();
+  const navigate = useNavigate();
 
+  const onSubmit = async (data: registerFormData) => {
     try {
-      await register(email, password);
+      await authRegister(data.email, data.password);
       navigate('/playlists');
     } catch (err) {
       console.error('Register error:', err);
@@ -29,51 +38,44 @@ export const RegisterForm = () => {
   };
 
   return (
-    <form className="register-form" onSubmit={handleSubmit}>
+    <form className="register-form" onSubmit={handleSubmit(onSubmit)}>
       <h1 className="register-form__title">Register</h1>
 
       <div className="register-form__group">
         <label htmlFor="email" className="register-form__label">Email:</label>
         <input
+          {...register('email')}
           id="email"
           type="email"
           className="register-form__input"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-          required
           disabled={isLoading}
         />
+        {errors.email && <p className="register-form__error">{errors.email.message}</p>}
       </div>
 
       <div className="register-form__group">
         <label htmlFor="password" className="register-form__label">Password:</label>
         <input
+          {...register('password')}
           id="password"
           type="password"
           className="register-form__input"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-          required
           disabled={isLoading}
         />
+        {errors.password && <p className="register-form__error">{errors.password.message}</p>}
       </div>
 
       <div className="register-form__group">
-        <label htmlFor="confirm-password" className="register-form__label">Please confirm Password:</label>
+        <label htmlFor="confirmPassword" className="register-form__label">Confirm Password:</label>
         <input
-          id="confirm-password"
+          {...register('confirmPassword')}
+          id="confirmPassword"
           type="password"
           className="register-form__input"
-          value={confirmPassword}
-          onChange={(event) => setConfirmPassword(event.target.value)}
-          required
           disabled={isLoading}
         />
+        {errors.confirmPassword && <p className="register-form__error">{errors.confirmPassword.message}</p>}
       </div>
-
-      {passwordMismatch && (
-        <p className="register-form__error">Passwords don`t match</p>
-      )}
 
       {error && <p className="register-form__error">{error}</p>}
 

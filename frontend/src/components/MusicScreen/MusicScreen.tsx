@@ -1,6 +1,6 @@
 import { usePlayer } from '../../hooks/usePlayer';
-import { ButtonAddItem } from '../ButtonAddTrack/ButtonAddItem';
-import { ButtonItemSettings } from '../ButtonTrackSettings/ButtonItemSettings';
+import { AdditemBtn } from '../Buttons/Additem/AdditemBtn';
+import { ItemSettingsBtn } from '../Buttons/ItemSettings/ItemSettingsBtn';
 import { SwiperScreen } from '../Swiper/SwiperScreen';
 import { ItemOrder } from '../ItemOrder/ItemOrder';
 import { useTranslation } from 'react-i18next';
@@ -48,9 +48,9 @@ export const MusicScreen = () => {
                     </div>
                   </div>
                   <div className='item__options'>
-                    <ButtonItemSettings />
+                    <ItemSettingsBtn />
                     <ItemOrder index={index} />
-                    <ButtonAddItem mediaItem={album}/>
+                    <AdditemBtn mediaItem={album}/>
                   </div>
                 </li>)
               }
@@ -90,9 +90,9 @@ export const MusicScreen = () => {
                       </div>                  
                     </div>
                      <div className='item__options'>
-                        <ButtonItemSettings />
+                        <ItemSettingsBtn />
                         <ItemOrder index={index} />
-                        <ButtonAddItem  mediaItem={track}/>
+                        <AdditemBtn  mediaItem={track}/>
                       </div>
                   </li>
                 )

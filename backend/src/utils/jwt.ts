@@ -1,4 +1,4 @@
-// src/utils/jwt.ts
+
 import jwt from 'jsonwebtoken';
 
 const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET || 'access-secret-key-change-in-env';

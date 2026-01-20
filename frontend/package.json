@@ -13,6 +13,7 @@
   },
   "homepage": "https://RTSaitama.github.io/MUZ_PLAYER",
   "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
     "@reduxjs/toolkit": "^2.10.1",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -23,12 +24,14 @@
     "i18next": "^25.7.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-hook-form": "^7.71.1",
     "react-i18next": "^16.3.5",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.6.3",
     "sass": "^1.89.1",
     "swiper": "^12.0.3",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "zod": "^4.3.5"
   },
   "devDependencies": {
     "@eslint/css": "^0.9.0",

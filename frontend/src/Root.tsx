@@ -1,35 +1,100 @@
 import {
   HashRouter as Router,
-  Routes, Route
+  Routes,
+  Route
 } from "react-router-dom"
-import App from "./pages/App"
-import { HomePage } from "./pages/HomePage"
- import { Discover } from "./pages/Discover"
-import { Genre } from "./pages/Genre"
-import { Charts } from "./pages/Charts"
-import { Podcast } from "./pages/Podcast"
-import { Favourites } from "./pages/Favourites"
-import { PlaylistsPage } from "./pages/PlaylistsPage"
-import { PlaylistDetailsPage } from "./pages/PlaylistDetailsPage"
-import { LoginForm } from "./components/Forms/LoginForm/LoginForm"
-import { RegisterForm } from "./components/Forms/RegisterForm/RegisterForm"
-export const Root = () => (
-  <Router>
-    <Routes>
-      <Route path="/" element={<App />}>
-        <Route index element ={<HomePage/>} />
-        <Route path="register" element={<RegisterForm />}></Route>
-        <Route path="login" element={<LoginForm />}></Route>
-        <Route path="discover" element={<Discover />}></Route>
-        <Route path="genre" element={<Genre/>}></Route>
-        <Route path="charts" element={<Charts />}></Route>
-        <Route path="podcast" element={<Podcast/>}></Route>
-        <Route path="favourites" element={<Favourites/>}></Route>
-        <Route path="playlists" element={<PlaylistsPage/>}></Route>
-        <Route path="playlists/:id" element={<PlaylistDetailsPage/>}></Route>
-      </Route>
-    </Routes>
 
-  </Router>
+import {
+  App,
+  HomePage,
+  Discover,
+  Genre,
+  Charts,
+  Podcast,
+  Favourites,
+  PlaylistsPage,
+  PlaylistDetailsPage
+} from "./pages"
 
-)
+import { LoginForm,RegisterForm } from "./components/Forms/"
+ 
+
+interface RouteConfig {
+  path: string
+  element: React.ReactNode
+  isIndex?: boolean
+}
+
+const routes: RouteConfig[] = [
+  {
+    path: "",
+    element: <HomePage />,
+    isIndex: true
+  },
+  {
+    path: "register",
+    element: <RegisterForm />
+  },
+  {
+    path: "login",
+    element: <LoginForm />
+  },
+  {
+    path: "discover",
+    element: <Discover />
+  },
+  {
+    path: "genre",
+    element: <Genre />
+  },
+  {
+    path: "charts",
+    element: <Charts />
+  },
+  {
+    path: "podcast",
+    element: <Podcast />
+  },
+  {
+    path: "favourites",
+    element: <Favourites />
+  },
+  {
+    path: "playlists",
+    element: <PlaylistsPage />
+  },
+  {
+    path: "playlists/:id",
+    element: <PlaylistDetailsPage />
+  }
+]
+
+export const Root = () => {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<App />}>
+          {routes.map((route) => {
+            if (route.isIndex) {
+              return (
+                <Route
+                  key={route.path}
+                  index
+                  element={route.element}
+                />
+              )
+            }
+
+            return (
+              <Route
+                key={route.path}
+                path={route.path}
+                element={route.element}
+              />
+            )
+          })}
+        </Route>
+      </Routes>
+    </Router>
+  )
+}

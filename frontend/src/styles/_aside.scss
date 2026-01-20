@@ -68,12 +68,25 @@
   z-index: 1;
 }
 .logo_n_profile_wrapper{
+  align-self: center  ;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content:center;
   position: relative;
-  width: 100%;
-  max-height: 100px;
+  width: 90%;
+  max-height: 70px;
+  border: 1px solid var(--fill-color);
+  background-color: var(--bg-color);
+  border-radius: 20%;
+
+    svg{
+
+      &:hover{
+      transform: scale(1.15)   
+     }
+ 
+  }
+ 
 }
  
  
@@ -153,4 +166,4 @@
 
 
 
-.bar__svg {}
+ 

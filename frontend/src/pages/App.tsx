@@ -7,7 +7,7 @@ import { ModalPlaylist } from "../components/ModalPlaylists/ModalPlaylists";
 import { useAuth } from '../hooks/useAuth';
 import { LoginForm } from '../components/Forms/LoginForm/LoginForm';
 
-const App: React.FC = () => {
+export const App: React.FC = () => {
   // const [menuMobile, setMenuMobile] = useState(false);
   
     const { isAuthenticated, accessToken  } = useAuth();
@@ -37,5 +37,3 @@ const App: React.FC = () => {
     </div>
   );
 };
-
-export default App;

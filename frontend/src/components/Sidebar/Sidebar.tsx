@@ -1,15 +1,15 @@
 import { NavLink } from 'react-router-dom'
 import classNames from 'classnames'
-import { DiscoverIcon } from '../../assets/icons/DiscoverIcon'
-import { FavouritesIcon } from '../../assets/icons/FavouritesIcon'
-import { GenreIcon } from '../../assets/icons/GenreIcon'
-import { PlaylistIcon } from '../../assets/icons/Playlist'
-import { PodcastIcon } from '../../assets/icons/PodcastIcon'
-import { TopChartsIcon } from '../../assets/icons/TopChartsIcon'
-import { LogoIcon } from '../../assets/icons/LogoIcon'
+import { DiscoverIcon } from '../../assets/icons/sidebar/DiscoverIcon'
+import { FavouritesIcon } from '../../assets/icons/sidebar/FavouritesIcon'
+import { GenreIcon } from '../../assets/icons/sidebar/GenreIcon'
+import { PlaylistIcon } from '../../assets/icons/sidebar/Playlist'
+import { PodcastIcon } from '../../assets/icons/sidebar/PodcastIcon'
+import { TopChartsIcon } from '../../assets/icons/sidebar/TopChartsIcon'
+import { LogoIcon } from '../../assets/icons/logo/LogoIcon'
 import { useTranslation } from 'react-i18next'
 // import { RoundRegisterIcon, SquareRegisterIcon } from '@/assets/icons/SquareRegisterIcon'
-import { RegisterIcon2 } from '@/assets/icons/RegisterIcon2'
+import { RegisterIcon2 } from '@/assets/icons/logo/RegisterIcon2'
 
 
 export const Sidebar = () => {

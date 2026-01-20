@@ -21,12 +21,20 @@ import { Track, Album, MediaItem } from '../types/typedefs';
 
 export const usePlayer = () => {
   const [searchTerm, setSearchTerm] = useState<string>('')
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState<string>('')
   const dispatch = useDispatch<AppDispatch>();
   const playerState = useSelector((state: RootState) => state.player);
 
+  useEffect(() => {
+    const searchTimer = setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm);
+    }, 700);
+    return () => clearTimeout(searchTimer);
+  }, [searchTerm]);
+
   const { data: topTracks = [], isLoading: tracksLoading } = useGetTopTracksQuery();
   const { data: topAlbums = [], isLoading: albumsLoading } = useGetTopAlbumsQuery();
-  const { data: searchResults = [], isFetching: searchResultsLoading } = useSearchTracksQuery(searchTerm, { skip: !searchTerm });
+  const { data: searchResults = [], isFetching: searchResultsLoading } = useSearchTracksQuery(debouncedSearchTerm, { skip: !debouncedSearchTerm });
   const [selectedAlbumId, setSelectedAlbumId] = useState<string | null>(null);
  
   const { data: albumTracks = [], isFetching: tracksInProgress } = useGetAlbumTracksQuery(
@@ -50,26 +58,27 @@ export const usePlayer = () => {
   const handleSelectAlbum = (album: Album) => {
     setSelectedAlbumId(album.id);
   };
+  
   useEffect(() => {
     if (topTracks.length > 0 && !playerState.currentTrack) {
       dispatch(setCurrentTrack(topTracks[0]));
     }
   }, [topTracks, playerState.currentTrack, dispatch]);
 
-const onHandleAddToPlaylist = (item: MediaItem) => {
-  console.log('add button click');
+  const onHandleAddToPlaylist = (item: MediaItem) => {
+    console.log('add button click');
 
-  if ('preview' in item) {
+    if ('preview' in item) {
       const isAlreadyInPlaylist = playerState.playlistQueue.some(t => t.id === item.id);
-    if (!isAlreadyInPlaylist) {
-      dispatch(setPlaylistQueue([...playerState.playlistQueue, item]));
-    }
-   } else if ('tracks' in item && Array.isArray(item.tracks)) {
+      if (!isAlreadyInPlaylist) {
+        dispatch(setPlaylistQueue([...playerState.playlistQueue, item]));
+      }
+    } else if ('tracks' in item && Array.isArray(item.tracks)) {
       dispatch(setPlaylistQueue([...playerState.playlistQueue, ...item.tracks]));
-     dispatch(setCurrentTrack(item.tracks[0]));
-    dispatch(setCurrentQueueIndex(playerState.playlistQueue.length));  
-  }
-};
+      dispatch(setCurrentTrack(item.tracks[0]));
+      dispatch(setCurrentQueueIndex(playerState.playlistQueue.length));  
+    }
+  };
 
   return {
     currentTrack: playerState.currentTrack,
@@ -97,6 +106,7 @@ const onHandleAddToPlaylist = (item: MediaItem) => {
     searchResultsLoading,
     setSearchTerm,
     searchTerm,
+    debouncedSearchTerm,
     onHandleAddToPlaylist,
   };
 };

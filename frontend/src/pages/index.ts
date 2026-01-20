@@ -1,0 +1,9 @@
+export { HomePage } from "./HomePage"
+export { Discover } from "./Discover"
+export { Genre } from "./Genre"
+export { Charts } from "./Charts"
+export { Podcast } from "./Podcast"
+export { Favourites } from "./Favourites"
+export { PlaylistsPage } from "./PlaylistsPage"
+export { PlaylistDetailsPage } from "./PlaylistDetailsPage"
+export { App } from './App'

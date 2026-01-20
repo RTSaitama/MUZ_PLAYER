@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { SearchIcon } from "../../assets/icons/SearchIcon";
-import { usePlayer } from "../../hooks/usePlayer";
+ import { usePlayer } from "../../hooks/usePlayer";
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from "react-i18next";
+import { Search } from "../Search/Search";
 export const Hero = () => {
   const { t } = useTranslation();
-  const { searchTerm, setSearchTerm, searchResults, searchResultsLoading, handleSelectTrack } = usePlayer();
+  const { searchTerm,  searchResults,setSearchTerm, searchResultsLoading, handleSelectTrack } = usePlayer();
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
   
   useEffect(() => {
@@ -32,17 +32,7 @@ export const Hero = () => {
 
   return (
     <div className="hero__screen container">
-      <div className="hero__screen__search__wrapper">
-        <button className="hero__screen__btn__search">
-          <SearchIcon width={20} height={20} />
-        </button>
-        <input
-          onChange={(event) => setSearchTerm(event.target.value)}
-          placeholder={"Let's find something true"}
-          type="text"
-          className="hero__screen_search_input search_inp"
-        />
-      </div>
+      <Search setSearchTerm={setSearchTerm} />
 
       <AnimatePresence mode="wait">
         {debouncedSearchTerm ? (
@@ -80,7 +70,7 @@ export const Hero = () => {
           >
             <h2 className="hero__screen__heading">{t('HERO HEADING')}</h2>
             <p className="hero__screen__subheading">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+              "In the words of AC/DC: We roll tonight -- to the guitar bite -- and for those about to rock -- I salute you."
             </p>
             <button className="hero__screen__btn btn__start btn">Start</button>
           </motion.div>

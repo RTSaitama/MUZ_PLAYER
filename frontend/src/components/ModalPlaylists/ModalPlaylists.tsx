@@ -3,7 +3,7 @@ import { useGetPlaylistsQuery, useDeletePlaylistMutation, useAddMediaItemToPlayl
 import { toggleIsCreating, closeModal } from "../../redux/slices/modalStatusSlice";
 import type { RootState } from '../../redux/store';
 import { ModalNewPlaylist } from './ModalPlaylistName';
-import { CloseItemIcon } from '../../../src/assets/icons/CloseItemIcon';
+import { CloseItemIcon } from '../../assets/icons/item_options/CloseItemIcon';
 
 export const ModalPlaylist = () => {
   const dispatch = useDispatch();
