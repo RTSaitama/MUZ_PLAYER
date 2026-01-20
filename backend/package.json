@@ -7,31 +7,30 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsx src/server.ts",
     "postinstall": "prisma generate --schema=./prisma/schema.prisma",
-    "build": "tsc && prisma generate"
+    "build": "prisma generate --schema=./prisma/schema.prisma && tsc"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "@prisma/adapter-better-sqlite3": "^7.2.0",
-    "@prisma/adapter-pg": "^7.2.0",
+ "dependencies": {
     "@prisma/client": "^7.2.0",
+    "express": "^5.1.0",
+    "pg": "^8.17.1",
     "bcryptjs": "^3.0.3",
-    "better-sqlite3": "^12.5.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
-    "express": "^5.1.0",
     "jsonwebtoken": "^9.0.3",
-    "pg": "^8.17.1",
     "tsx": "^4.20.6",
-    "@types/bcryptjs": "^2.4.6",
-    "@types/cookie-parser": "^1.4.10",
+    "prisma": "^7.2.0",
+    "typescript": "^5.9.3",
+    "@types/node": "^22.10.9",
+    "@types/express": "^5.0.0",
+    "@types/pg": "^8.11.10",
     "@types/cors": "^2.8.19",
-    "@types/express": "^5.0.6",
-    "@types/jsonwebtoken": "^9.0.10",
-    "@types/node": "^24.10.9",
-    "@types/pg": "^8.16.0"
+    "@types/cookie-parser": "^1.4.8",
+    "@types/jsonwebtoken": "^9.0.8",
+    "@types/bcryptjs": "^2.4.6"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
