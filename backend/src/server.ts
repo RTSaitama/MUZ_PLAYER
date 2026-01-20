@@ -1,6 +1,6 @@
  import 'dotenv/config';
 import express from 'express';
- import {prisma} from './prisma/prismaClient';
+ import {prisma} from '../prisma/prismaClient';
  import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import playlistsRouter from './routes/playlists';

@@ -1,5 +1,5 @@
  import express, { Request, Response } from 'express';
- import type { PrismaClient } from '../prisma/generated/client'; 
+ import type { PrismaClient } from '../../prisma/generated//client'; 
 import bcryptjs from 'bcryptjs';
 import { generateAccessToken, generateRefreshToken, verifyRefreshToken } from '../utils/jwt';
 
