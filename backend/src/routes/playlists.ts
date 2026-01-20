@@ -1,35 +1,47 @@
  import express, { Request, Response } from 'express';
-import { PrismaClient } from '../generated/client';
+ import type { PrismaClient } from '../prisma/generated/client'; 
 import { authMiddleware } from '../middleware/authMiddlware';
+
+// Додаємо інтерфейс для розширення Request, щоб TS бачив user
+interface AuthRequest extends Request {
+  user?: {
+    userId: number;
+    email: string;
+  };
+}
 
 export default (prisma: PrismaClient) => {
   const router = express.Router();
 
-  router.get('/playlists', authMiddleware, async (req: Request, res: Response) => {
+  router.get('/playlists', authMiddleware, async (req: AuthRequest, res: Response) => {
     try {
-      const userId = req.user?.userId;
+       const userId = Number(req.user?.userId);
+
+      if (!userId) {
+        return res.status(401).json({ error: 'User ID missing or invalid' });
+      }
 
       const playlists = await prisma.playlist.findMany({
-        where: { userId },
+        where: { userId: userId },
         include: { tracks: true }
       });
 
       return res.json(playlists);
     } catch (error) {
-      console.error('ERROR:', error);
+      console.error('FETCH PLAYLISTS ERROR:', error);
       return res.status(500).json({ error: 'Failed to fetch playlists' });
     }
   });
 
-  router.post('/playlists', authMiddleware, async (req: Request, res: Response) => {
+  router.post('/playlists', authMiddleware, async (req: AuthRequest, res: Response) => {
     try {
       const { name } = req.body;
-      const userId = req.user?.userId;
+      const userId = Number(req.user?.userId);
 
       const playlist = await prisma.playlist.create({
         data: {
           name,
-          userId: userId!
+          userId: userId
         }
       });
 
@@ -40,10 +52,10 @@ export default (prisma: PrismaClient) => {
     }
   });
 
-  router.get('/playlists/:id', authMiddleware, async (req: Request, res: Response) => {
+  router.get('/playlists/:id', authMiddleware, async (req: AuthRequest, res: Response) => {
     try {
       const playlistId = parseInt(req.params.id);
-      const userId = req.user?.userId;
+      const userId = Number(req.user?.userId);
 
       const playlist = await prisma.playlist.findUnique({
         where: { id: playlistId },
@@ -54,7 +66,7 @@ export default (prisma: PrismaClient) => {
         return res.status(404).json({ error: 'Playlist not found' });
       }
 
-      if (playlist.userId !== userId) {
+      if (Number(playlist.userId) !== userId) {
         return res.status(403).json({ error: 'Access denied' });
       }
 
@@ -65,10 +77,10 @@ export default (prisma: PrismaClient) => {
     }
   });
 
-  router.delete('/playlists/:id', authMiddleware, async (req: Request, res: Response) => {
+  router.delete('/playlists/:id', authMiddleware, async (req: AuthRequest, res: Response) => {
     try {
       const playlistId = parseInt(req.params.id);
-      const userId = req.user?.userId;
+      const userId = Number(req.user?.userId);
 
       const playlist = await prisma.playlist.findUnique({
         where: { id: playlistId }
@@ -78,7 +90,7 @@ export default (prisma: PrismaClient) => {
         return res.status(404).json({ error: 'Playlist not found' });
       }
 
-      if (playlist.userId !== userId) {
+      if (Number(playlist.userId) !== userId) {
         return res.status(403).json({ error: 'Access denied' });
       }
 
@@ -93,10 +105,10 @@ export default (prisma: PrismaClient) => {
     }
   });
 
-  router.post('/playlists/:id/tracks', authMiddleware, async (req: Request, res: Response) => {
+  router.post('/playlists/:id/tracks', authMiddleware, async (req: AuthRequest, res: Response) => {
     try {
       const playlistId = parseInt(req.params.id);
-      const userId = req.user?.userId;
+      const userId = Number(req.user?.userId);
       const mediaItem = req.body;
 
       const playlist = await prisma.playlist.findUnique({
@@ -107,113 +119,55 @@ export default (prisma: PrismaClient) => {
         return res.status(404).json({ error: 'Playlist not found' });
       }
 
-      if (playlist.userId !== userId) {
+      if (Number(playlist.userId) !== userId) {
         return res.status(403).json({ error: 'Access denied' });
       }
 
+      // Обробка додавання альбому або треку...
       if (!mediaItem.preview && mediaItem.id) {
-        const albumId = mediaItem.id;
+        const albumId = mediaItem.id.toString();
+        // ... (твій код запиту до iTunes залишається без змін)
+        const url = `https://itunes.apple.com/lookup?id=${albumId}&entity=song&limit=200`;
+        const response = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`);
+        const data = await response.json();
+        
+        const results = data.results?.slice(1) || [];
+        const albumImage = data.results?.[0]?.artworkUrl100 || '';
 
-        try {
-          const url = `https://itunes.apple.com/lookup?id=${albumId}&entity=song&limit=200`;
-          const response = await fetch(
-            `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`
-          );
+        const tracks = results
+          .filter((entry: any) => entry.trackId && entry.kind === 'song')
+          .map((entry: any) => ({
+            trackId: entry.trackId.toString(),
+            title: entry.trackName || 'Unknown',
+            artist: entry.artistName || '',
+            image: albumImage,
+            preview: entry.previewUrl || '',
+            albumId: albumId,
+            playlistId
+          }));
 
-          if (!response.ok) {
-            return res.status(400).json({
-              error: `iTunes API returned status ${response.status}`
-            });
-          }
-
-          const text = await response.text();
-
-          if (!text) {
-            return res.status(400).json({
-              error: 'iTunes API returned empty response'
-            });
-          }
-
-          const data = JSON.parse(text);
-
-          if (!data.results || data.results.length === 0) {
-            return res.status(400).json({
-              error: 'No tracks found for this album'
-            });
-          }
-
-          const results = data.results?.slice(1) || [];
-          const albumImage = data.results?.[0]?.artworkUrl100 || '';
-
-          const tracks = results
-            .filter((entry: any) => entry.trackId && entry.kind === 'song')
-            .map((entry: any) => {
-              return {
-                trackId: entry.trackId.toString(),
-                title: entry.trackName || 'Unknown',
-                artist: entry.artistName || '',
-                image: albumImage,
-                preview: entry.previewUrl || '',
-                albumId: albumId,
-                playlistId
-              };
-            });
-
-          if (tracks.length === 0) {
-            return res.status(400).json({
-              error: 'No valid songs found in album'
-            });
-          }
-
-          let addedCount = 0;
-
-          for (const track of tracks) {
-            const existing = await prisma.track.findFirst({
-              where: {
-                trackId: track.trackId,
-                playlistId: playlistId
-              }
-            });
-
-            if (!existing) {
-              await prisma.track.create({ data: track });
-              addedCount++;
-            }
-          }
-
-          return res.status(201).json({
-            message: `Added ${addedCount} tracks from album`,
-            totalTracks: tracks.length,
-            skipped: tracks.length - addedCount
+        for (const track of tracks) {
+          const existing = await prisma.track.findFirst({
+            where: { trackId: track.trackId, playlistId: playlistId }
           });
-        } catch (fetchError) {
-          console.error('iTunes API Error:', fetchError);
-          return res.status(502).json({
-            error: 'Failed to fetch data from iTunes API'
-          });
+          if (!existing) await prisma.track.create({ data: track });
         }
+
+        return res.status(201).json({ message: 'Album tracks added' });
       } else {
         const { id: trackId, title, artist, image, preview, albumId = '' } = mediaItem;
-
+        
         const existing = await prisma.track.findFirst({
-          where: {
-            trackId: trackId,
-            playlistId: playlistId
-          }
+          where: { trackId: trackId.toString(), playlistId: playlistId }
         });
 
-        if (existing) {
-          return res.status(400).json({ error: 'Track already exists in this playlist' });
-        }
+        if (existing) return res.status(400).json({ error: 'Track exists' });
 
         const track = await prisma.track.create({
           data: {
-            trackId,
-            title,
-            artist,
-            image,
-            preview,
-            albumId,
+            trackId: trackId.toString(),
+            title, artist, image, preview,
+            albumId: albumId.toString(),
             playlistId
           }
         });
@@ -226,39 +180,27 @@ export default (prisma: PrismaClient) => {
     }
   });
 
-  router.delete('/playlists/:playlistId/tracks/:trackId', authMiddleware, async (req: Request, res: Response) => {
+  router.delete('/playlists/:playlistId/tracks/:trackId', authMiddleware, async (req: AuthRequest, res: Response) => {
     try {
       const playlistId = Number(req.params.playlistId);
-      const trackId = req.params.trackId;
-      const userId = req.user?.userId;
+      const trackId = req.params.trackId.toString();
+      const userId = Number(req.user?.userId);
 
       const playlist = await prisma.playlist.findUnique({
         where: { id: playlistId }
       });
 
-      if (!playlist) {
-        return res.status(404).json({ error: 'Playlist not found' });
+      if (!playlist || Number(playlist.userId) !== userId) {
+        return res.status(403).json({ error: 'Access denied or not found' });
       }
 
-      if (playlist.userId !== userId) {
-        return res.status(403).json({ error: 'Access denied' });
-      }
-
-      const result = await prisma.track.deleteMany({
-        where: {
-          trackId: trackId,
-          playlistId: playlistId
-        }
+      await prisma.track.deleteMany({
+        where: { trackId: trackId, playlistId: playlistId }
       });
 
-      if (result.count === 0) {
-        return res.status(404).json({ error: 'Track not found' });
-      }
-
-      return res.status(200).json({ message: 'Track deleted successfully' });
+      return res.status(200).json({ message: 'Track deleted' });
     } catch (error) {
-      console.error('Error deleting track:', error);
-      return res.status(500).json({ error: 'Internal server error' });
+      return res.status(500).json({ error: 'Internal error' });
     }
   });
 

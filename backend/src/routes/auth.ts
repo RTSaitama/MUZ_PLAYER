@@ -1,5 +1,5 @@
  import express, { Request, Response } from 'express';
-import { PrismaClient } from '../generated/client';
+ import type { PrismaClient } from '../prisma/generated/client'; 
 import bcryptjs from 'bcryptjs';
 import { generateAccessToken, generateRefreshToken, verifyRefreshToken } from '../utils/jwt';
 
@@ -14,8 +14,10 @@ export default (prisma: PrismaClient) => {
         return res.status(400).json({ error: 'both email and password are required' });
       }
 
+      const normalizedEmail = email.toLowerCase();
+
       const existingUser = await prisma.user.findUnique({
-        where: { email }
+        where: { email: normalizedEmail }
       });
 
       if (existingUser) {
@@ -26,7 +28,7 @@ export default (prisma: PrismaClient) => {
 
       const newUser = await prisma.user.create({
         data: {
-          email,
+          email: normalizedEmail,
           password: hashedPassword
         }
       });
@@ -43,8 +45,8 @@ export default (prisma: PrismaClient) => {
 
       res.cookie('refreshToken', refreshToken, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
+        secure: true, 
+        sameSite: 'none',
         maxAge: 7 * 24 * 60 * 60 * 1000
       });
 
@@ -70,9 +72,9 @@ export default (prisma: PrismaClient) => {
       }
 
       const user = await prisma.user.findUnique({
-        where: { email }
+        where: { email: email.toLowerCase() }
       });
-
+      console.log('Login Attempt:', { foundUser: !!user, email: email.toLowerCase() });
       if (!user) {
         return res.status(401).json({ error: 'Invalid credentials' });
       }
@@ -95,8 +97,8 @@ export default (prisma: PrismaClient) => {
 
       res.cookie('refreshToken', refreshToken, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
+        secure: true,
+        sameSite: 'none',
         maxAge: 7 * 24 * 60 * 60 * 1000
       });
 
@@ -123,12 +125,12 @@ export default (prisma: PrismaClient) => {
 
       const decoded = verifyRefreshToken(refreshToken);
 
-      if (!decoded) {
+      if (!decoded || !decoded.userId) {
         return res.status(401).json({ error: 'Invalid or expired refresh token' });
       }
-
+ 
       const user = await prisma.user.findUnique({
-        where: { id: decoded.userId }
+        where: { id: Number(decoded.userId) }
       });
 
       if (!user) {
@@ -150,7 +152,12 @@ export default (prisma: PrismaClient) => {
   });
 
   router.post('/logout', (req: Request, res: Response) => {
-    res.clearCookie('refreshToken');
+ 
+    res.clearCookie('refreshToken', {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'none'
+    });
     return res.status(200).json({ message: 'Logged out successfully' });
   });
 

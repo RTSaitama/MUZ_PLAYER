@@ -1,16 +1,11 @@
  import 'dotenv/config';
 import express from 'express';
-import { PrismaClient } from './generated/client';
-import { PrismaPg } from '@prisma/adapter-pg';
+ import {prisma} from './prisma/prismaClient';
  import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import playlistsRouter from './routes/playlists';
 import authRouter from './routes/auth';
 
-const connectionString = `${process.env.DATABASE_URL}`
-
-const adapter = new PrismaPg({ connectionString })
-const prisma = new PrismaClient({ adapter });
 
 const app = express();
 

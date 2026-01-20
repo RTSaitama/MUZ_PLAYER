@@ -1,10 +1,13 @@
 import { Request, Response, NextFunction } from 'express';
 import { verifyAccessToken, TokenPayload } from '../utils/jwt';
 
-declare global {
+ declare global {
   namespace Express {
     interface Request {
-      user?: TokenPayload;
+      user?: {
+        userId: number;
+        email: string;
+      };
     }
   }
 }
@@ -25,10 +28,14 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
   const accessToken = tokenParts[1];
   const decoded = verifyAccessToken(accessToken);
 
-  if (!decoded) {
+  if (!decoded || !decoded.userId) {
     return res.status(401).json({ error: 'Invalid or expired token' });
   }
+ 
+  req.user = {
+    userId: Number(decoded.userId),
+    email: decoded.email
+  };
 
-  req.user = decoded;
   next();
 };
