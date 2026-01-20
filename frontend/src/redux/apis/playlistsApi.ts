@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery, } from "@reduxjs/toolkit/query/react";
 import type { Playlist, MediaItem } from "../../types/typedefs";
 import type { RootState } from "../store";
 
-const baseUrl = import.meta.env.VITE_REACT_APP_API_BASE_URL || 'http://localhost:3005/api';
+const baseUrl = 'https://muz-player.onrender.com/api';
 
 const baseQueryWithAuth = fetchBaseQuery({
   baseUrl,
