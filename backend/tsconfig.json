@@ -8,6 +8,6 @@
     "skipLibCheck": true,
     "resolveJsonModule": true
   },
-  "include": ["src"],
+  "include": ["src", "test-db-connect.ts"],
   "types": ["node"]
 }
