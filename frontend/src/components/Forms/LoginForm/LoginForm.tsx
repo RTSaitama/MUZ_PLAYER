@@ -1,8 +1,9 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+ 
 const loginFormSchema = z.object({
   email: z.string().min(4, 'email is required and must contain 4-16symbols').email('Invalid email'),
   password: z.string().min(8, 'Password must contain 8-16 symbols').max(16),
@@ -66,7 +67,7 @@ export const LoginForm = () => {
       </button>
 
       <p className="login-form__link-text">
-        Ще не маєте аккаунту? <a href="#/register" className="login-form__link">Реєструйтесь</a>
+        Ще не маєте аккаунту? <NavLink to="/register" className="login-form__link">Реєструйтесь</NavLink>
       </p>
     </form>
   );
