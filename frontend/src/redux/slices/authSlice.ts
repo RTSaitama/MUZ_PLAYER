@@ -1,7 +1,6 @@
- // src/store/slices/authSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { User } from '../apis/authApi';
-
+import { isTokenValid } from '../../utils/AuthInit'
 export interface AuthState {
   user: User | null;
   accessToken: string | null;
@@ -9,10 +8,17 @@ export interface AuthState {
   error: string | null;
 }
 
+const storedToken = localStorage.getItem('accessToken');
+const validToken = isTokenValid(storedToken);
+
+if (!validToken && storedToken) {
+  localStorage.removeItem('accessToken');
+}
+
 const initialState: AuthState = {
   user: null,
-  accessToken: localStorage.getItem('accessToken'),
-  isAuthenticated: !!localStorage.getItem('accessToken'),
+  accessToken: validToken ? storedToken : null,
+  isAuthenticated: validToken,
   error: null
 };
 
