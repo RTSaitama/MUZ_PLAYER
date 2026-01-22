@@ -4,8 +4,10 @@ import { toggleIsCreating, closeModal } from "../../redux/slices/modalStatusSlic
 import type { RootState } from '../../redux/store';
 import { ModalNewPlaylist } from './ModalPlaylistName';
 import { CloseItemIcon } from '../../assets/icons/item_options/CloseItemIcon';
-
+import { AuthRequiredPage } from '../../pages/AuthRequiredPage';
+import { useAuth } from '../../hooks/useAuth';
 export const ModalPlaylist = () => {
+  const { isAuthenticated } = useAuth();
   const dispatch = useDispatch();
   const isCreating = useSelector((state: RootState) => state.modalStatus.isCreating)
   const isOpen = useSelector((state: RootState) => state.modalStatus.isOpen);
@@ -32,7 +34,10 @@ export const ModalPlaylist = () => {
   const onHandleCloseModal = () => {
     dispatch(closeModal())
   }
-  return (
+  console.log(isAuthenticated)
+  if(!isAuthenticated)  return    (<AuthRequiredPage/>)
+
+    return (
     <div className="modal__overlay" onClick={() => onHandleCloseModal()}>
       <div className="modal__window" onClick={e => e.stopPropagation()}>
         <h3>Виберіть плейліст</h3>

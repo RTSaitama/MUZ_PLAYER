@@ -423,3 +423,17 @@ input[type="range"]::-moz-range-thumb {
   position: absolute;
   right: 0;
 }
+
+.shouldBeLogged__message{
+  align-self: center;
+  font-size: 2rem;
+  justify-self: center;
+}
+
+.shouldBeLogged__window{
+ display: flex;
+ flex-direction: column;
+ gap: 20px;
+ justify-content: center;
+ align-items: center;
+}
