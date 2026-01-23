@@ -1,6 +1,6 @@
 
 export const Podcast = () => {
   return (
-    <div>Podcast</div>
+    <div className='pages__wrapper'>Podcast</div>
   )
 }

@@ -1,6 +1,6 @@
 
 export const Discover = () => {
   return (
-    <div>Discover</div>
+    <div className="pages__wrapper">Discover</div>
   )
 }

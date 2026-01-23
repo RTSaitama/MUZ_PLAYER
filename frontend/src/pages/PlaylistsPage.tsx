@@ -39,7 +39,7 @@ export const PlaylistsPage = () => {
     visible: { opacity: 1, transition: { duration: 0.5 } },
     exit: { opacity: 0, y: -10, transition: { duration: 0.5 } },
   };
-
+ 
   return (
     <div className="pages__wrapper">
       <div className="playlists__search__wrapper">
@@ -63,7 +63,7 @@ export const PlaylistsPage = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0, animationDuration: 0.8 }}
             >
-              in 1 moment from track you search....
+              in 1 moment from tracks you search
             </motion.div>
           ) : (
             <motion.ul

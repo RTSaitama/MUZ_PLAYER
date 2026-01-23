@@ -3,5 +3,5 @@ export const Favourites = () => {
  
 
   return(
-   <div></div>)
+   <div className='pages__wrapper'></div>)
 }

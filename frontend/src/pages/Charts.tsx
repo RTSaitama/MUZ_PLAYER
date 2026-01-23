@@ -1,6 +1,6 @@
 
 export const Charts = () => {
   return (
-    <div>Charts</div>
+    <div className='pages__wrapper'>Charts</div>
   )
 }

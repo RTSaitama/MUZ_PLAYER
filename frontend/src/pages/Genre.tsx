@@ -1,6 +1,6 @@
 
 export const Genre = () => {
   return (
-    <div>Genre</div>
+    <div className='pages__wrapper'>Genre</div>
   )
 }
