@@ -26,7 +26,8 @@ export const MusicScreen = () => {
           <ul className="latest__list">
             {albumsLoading ? (
               <p>Завантаження альбомів</p>
-            ) : topAlbums.length > 0 ? (
+            ) : topAlbums.length > 0 ? 
+            (
               topAlbums.map((album, index) => {
                 const preparedTitle = `${album.title.slice(0, 20)}...`
                 return (<li

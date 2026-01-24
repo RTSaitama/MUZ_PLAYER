@@ -1,13 +1,15 @@
- import { createApi } from '@reduxjs/toolkit/query/react';
-import { Track, Album } from '../../types/typedefs';
+import { createApi } from '@reduxjs/toolkit/query/react';
+import { Track, Album, Podcast } from '../../types/typedefs';
 import { BaseQuery } from './baseQuery';
-import type { 
+import type {
   iTunesFeedResponse,
   iTunesFeedEntry,
-  iTunesSearchResponse, 
-  iTunesSearchResult, 
-  iTunesAlbumLookupResponse, 
-  iTunesAlbumResult
+  iTunesSearchResponse,
+  iTunesSearchResult,
+  iTunesPodcastsResponse,
+  iTunesAlbumResult,
+  iTunesAlbumLookupResponse,
+  iTunesPodcast
 } from '../../types/typedefs';
 
 
@@ -89,6 +91,24 @@ export const itunesApi = createApi({
           .sort((a: Track, b: Track) => (a.trackNumber || 0) - (b.trackNumber || 0));
       },
     }),
+   getPodcasts: builder.query<Podcast[], void>({
+  query: () => 'https://itunes.apple.com/search?term=podcast_name&media=podcast&limit=50',
+  transformResponse: (response: iTunesPodcastsResponse) => {
+    if (!response.results || response.results.length < 2) {
+      return [];
+    }
+    return response.results.map((podcast: iTunesPodcast) => {
+      return {
+        id: podcast.trackId,
+        name: podcast.artistName,
+        feedUrl: podcast.feedUrl,
+        artwork: podcast.artworkUrl600,
+        genres: podcast.genres,
+      };
+    });
+  },
+}),
+   
   }),
 });
 
@@ -97,4 +117,5 @@ export const {
   useGetTopAlbumsQuery,
   useGetAlbumTracksQuery,
   useSearchTracksQuery,
+  useGetPodcastsQuery
 } = itunesApi;

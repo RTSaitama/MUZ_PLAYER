@@ -89,3 +89,29 @@ export interface iTunesAlbumResult {
 export interface iTunesAlbumLookupResponse {
   results: iTunesAlbumResult[];
 }
+export interface iTunesPodcast {
+  wrapperType: "track";
+  kind: "podcast";
+  artistId: number;
+  trackId: number;
+  artistName: string;
+  feedUrl: string;
+  artworkUrl600: string;
+  artworkUrl100?: string;
+  genres: string[];
+  copyright?: string;
+  url?: string;
+}
+
+export interface iTunesPodcastsResponse {
+  resultCount: number;
+  results: iTunesPodcast[];
+}
+
+export interface Podcast {
+  id: number;
+  name: string;
+  feedUrl: string;
+  artwork: string;
+  genres: string[];
+}

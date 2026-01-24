@@ -5,6 +5,7 @@ import {
   useGetTopAlbumsQuery,
   useGetAlbumTracksQuery,
   useSearchTracksQuery,
+  useGetPodcastsQuery,
 } from '../redux/apis/itunesApi';
 import {
   setCurrentTrack,
@@ -34,6 +35,7 @@ export const usePlayer = () => {
 
   const { data: topTracks = [], isLoading: tracksLoading } = useGetTopTracksQuery();
   const { data: topAlbums = [], isLoading: albumsLoading } = useGetTopAlbumsQuery();
+  const { data: podcasts = [], isLoading: podcastsLoading } = useGetPodcastsQuery();
   const { data: searchResults = [], isFetching: searchResultsLoading } = useSearchTracksQuery(debouncedSearchTerm, { skip: !debouncedSearchTerm });
   const [selectedAlbumId, setSelectedAlbumId] = useState<string | null>(null);
  
@@ -88,6 +90,8 @@ export const usePlayer = () => {
     isPlaying: playerState.isPlaying,
     topTracks,
     topAlbums,
+    podcasts,
+    podcastsLoading,
     albumTracks,
     tracksLoading,
     albumsLoading,

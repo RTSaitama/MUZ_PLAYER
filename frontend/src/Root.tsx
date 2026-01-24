@@ -10,7 +10,7 @@ import {
   Discover,
   Genre,
   Charts,
-  Podcast,
+  PodcastPage,
   Favourites,
   PlaylistsPage,
   PlaylistDetailsPage
@@ -53,7 +53,7 @@ const routes: RouteConfig[] = [
   },
   {
     path: "podcast",
-    element: <Podcast />
+    element: <PodcastPage />
   },
   {
     path: "favourites",
