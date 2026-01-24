@@ -10,7 +10,8 @@ import {
   Discover,
   GenresPage,
   Charts,
-  PodcastPage,
+  PodcastsPage,
+  PodcastDetailsPage,
   Favourites,
   PlaylistsPage,
   PlaylistDetailsPage
@@ -53,7 +54,11 @@ const routes: RouteConfig[] = [
   },
   {
     path: "podcast",
-    element: <PodcastPage />
+    element: <PodcastsPage />
+  },
+  {
+    path:'podcast/:id',
+    element:<PodcastDetailsPage/>
   },
   {
     path: "favourites",

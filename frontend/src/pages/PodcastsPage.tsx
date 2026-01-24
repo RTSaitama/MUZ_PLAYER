@@ -1,7 +1,7 @@
 import { usePlayer } from "@/hooks/usePlayer"
 import { Podcast } from '../types/typedefs'
 
-export const PodcastPage  = () => {
+export const PodcastsPage  = () => {
   const { podcasts, podcastsLoading } = usePlayer();
   
   return (
