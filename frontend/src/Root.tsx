@@ -8,7 +8,7 @@ import {
   App,
   HomePage,
   Discover,
-  Genre,
+  GenresPage,
   Charts,
   PodcastPage,
   Favourites,
@@ -45,7 +45,7 @@ const routes: RouteConfig[] = [
   },
   {
     path: "genre",
-    element: <Genre />
+    element: <GenresPage />
   },
   {
     path: "charts",

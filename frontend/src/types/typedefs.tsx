@@ -115,3 +115,7 @@ export interface Podcast {
   artwork: string;
   genres: string[];
 }
+export type PodcastGenre {
+  id: number,
+  name:string,
+}

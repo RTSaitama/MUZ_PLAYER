@@ -1,0 +1,79 @@
+.genres_page__wrapper {
+  display: flex;
+  padding: 20px;
+  gap: 10px;
+}
+
+.genres__category-wrapper {
+  flex-grow: 1;
+}
+
+.genres__list-title {
+  color: #ffffff;
+  background-color: rgba(33, 26, 26, 0.7);
+  margin-bottom: 20px;
+  font-size: 3rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 12px;
+  border-radius: 4px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.genres__list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 100%;
+  overflow-x: scroll;
+  scrollbar-width: none;
+}
+
+.genres__list-item {
+  width: 100%;
+  border: 1px solid rgba(33, 26, 26, 0.8);
+  font-size: 2rem;
+  background-color: rgba(33, 26, 26, 0.75);
+  color: #ffffff;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+  padding: 10px 14px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  font-weight: 500;
+
+  &:hover {
+    background-color: rgba(33, 26, 26, 0.85);
+    border-color: rgba(214, 130, 28, 0.8);
+    color: rgba(214, 130, 28, 1);
+  }
+}
+
+@media (max-width: 768px) {
+  .genres_page__wrapper {
+    flex-direction: column;
+    padding: 15px;
+    gap: 15px;
+  }
+
+  .genres__list-title {
+    font-size: 2rem;
+    padding: 10px;
+    margin-bottom: 15px;
+  }
+
+  .genres__list-item {
+    font-size: 1.5rem;
+    padding: 8px 12px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .genres_page__wrapper {
+    gap: 20px;
+  }
+
+  .genres__category-wrapper {
+    flex: 1 1 45%;
+  }
+}

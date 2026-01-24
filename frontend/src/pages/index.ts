@@ -1,6 +1,6 @@
 export { HomePage } from "./HomePage"
 export { Discover } from "./Discover"
-export { Genre } from "./Genre"
+export { GenresPage } from "./GenresPage"
 export { Charts } from "./Charts"
 export { PodcastPage } from "./PodcastPage"
 export { Favourites } from "./Favourites"
