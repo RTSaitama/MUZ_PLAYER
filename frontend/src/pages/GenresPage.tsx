@@ -1,5 +1,5 @@
 import { PODCAST_GENRES, MUSIC_GENRES } from "@/constants/constants";
-import type { PodcastGenre } from "@/types/typedefs";
+import type { PodcastGenre, MusicGenre } from "@/types/typedefs";
 
 export const GenresPage = () => {
 
@@ -17,7 +17,7 @@ export const GenresPage = () => {
           <div className="genres__category-wrapper music_genres">
             <h3 className="genres__list-title">Music Genres</h3>
         <ul className="genres__list music_genres-list">
-          {MUSIC_GENRES.map((genre: PodcastGenre) =>
+          {MUSIC_GENRES.map((genre: MusicGenre) =>
             <li key={ genre.id} className="genres__list-item">
               {genre.name}
             </li>)}

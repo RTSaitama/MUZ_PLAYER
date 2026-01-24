@@ -115,7 +115,11 @@ export interface Podcast {
   artwork: string;
   genres: string[];
 }
-export type PodcastGenre {
+export type PodcastGenre ={
+  id: number,
+  name:string,
+}
+export type MusicGenre ={
   id: number,
   name:string,
 }
