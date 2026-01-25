@@ -108,6 +108,42 @@ export const itunesApi = createApi({
     });
   },
 }),
+  searchTracksByGenre: builder.query<Track[], string>({
+      query: (trackGenreId) =>
+        `https://api.allorigins.win/raw?url=${encodeURIComponent(`https://itunes.apple.com/search?term=${trackGenreId}&media=music&entity=song&limit=20`)}`,
+      transformResponse: (response: iTunesSearchResponse) => {
+        if (!response.results) {
+          return [];
+        }
+        return response.results
+          .map((entry: iTunesSearchResult) => ({
+            id: entry.trackId.toString(),
+            title: entry.trackName || 'Unknown',
+            artist: entry.artistName || '',
+            image: entry.artworkUrl100 || '',
+            preview: entry.previewUrl || '',
+            trackNumber: 0,
+          }));
+      }
+    }),
+searchPodcastsByGenre: builder.query<Podcast[], string>({
+  query: (podcastGenreId) =>
+    `https://api.allorigins.win/raw?url=${encodeURIComponent(`https://itunes.apple.com/search?term=${podcastGenreId}&media=podcast&limit=20`)}`,
+  transformResponse: (response: iTunesPodcastsResponse) => {
+    if (!response.results) {
+      return [];
+    }
+    return response.results.map((trackByGenre) => {
+      return {
+        id: trackByGenre.trackId,
+        name: trackByGenre.artistName,
+        feedUrl: trackByGenre.feedUrl,
+        artwork: trackByGenre.artworkUrl600,
+        genres: trackByGenre.genres,
+      };
+    });
+  },
+}),
    
   }),
 });
@@ -117,5 +153,7 @@ export const {
   useGetTopAlbumsQuery,
   useGetAlbumTracksQuery,
   useSearchTracksQuery,
-  useGetPodcastsQuery
+  useGetPodcastsQuery,
+  useSearchPodcastsByGenreQuery,
+  useSearchTracksByGenreQuery
 } = itunesApi;
