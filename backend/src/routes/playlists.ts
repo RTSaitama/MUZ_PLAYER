@@ -258,7 +258,7 @@ export default (prisma: PrismaClient) => {
     }
   });
 
-  router.get('/topsongs/limit=20/json', authMiddleware, async (req: AuthRequest, res: Response) => {
+  router.get('/topsongs/limit=20/json',  async (req: AuthRequest, res: Response) => {
     try {
       const url = 'https://itunes.apple.com/us/rss/topsongs/limit=20/json';
 
@@ -272,7 +272,7 @@ export default (prisma: PrismaClient) => {
     }
   });
 
-  router.get('/topalbums/limit=20/json', authMiddleware, async (req: AuthRequest, res: Response) => {
+  router.get('/topalbums/limit=20/json',  async (req: AuthRequest, res: Response) => {
     try {
       const url = 'https://itunes.apple.com/us/rss/topalbums/limit=20/json';
 

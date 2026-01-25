@@ -7,9 +7,7 @@ import { useMemo } from "react";
 export const GenresPage = () => {
   const { podcastsByGenre, searchPodcastByGenre, resetPodcastSearchByGenre } = usePodcastSearch();
   const { tracksByGenre, searchTrackByGenre, resetTrackSearchByGenre } = useTrackSearch();
-    
-  console.log('podcastsByGenre:', podcastsByGenre);
-  console.log('tracksByGenre:', tracksByGenre);
+
   const itemsToShow = useMemo(() => {
     if (podcastsByGenre && podcastsByGenre.length > 0) {
       return podcastsByGenre;
@@ -67,7 +65,6 @@ export const GenresPage = () => {
               })}
             </ul>
           </>
-
         ) :
         (
           <>
@@ -105,7 +102,6 @@ export const GenresPage = () => {
             </div>
           </>
         )
-
       }
     </div>
   );
