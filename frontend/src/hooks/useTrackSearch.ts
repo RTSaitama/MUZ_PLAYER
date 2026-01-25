@@ -1,14 +1,17 @@
-import { useSearchTracksByGenreQuery } from "@/redux/apis/itunesApi";
+import { useLazySearchTracksByGenreQuery } from "@/redux/apis/itunesApi";
 
-export const useTrackSearch = ( genreId:string ) => {
-  const { data: tracksByGenre } = useSearchTracksByGenreQuery(genreId);
+export const useTrackSearch = () => {
+  const [trigger, { data: tracksByGenre, reset}] = useLazySearchTracksByGenreQuery();
   
-  // const filterByGenre = (genre: string) => {
-  //   return tracksByGenre?.filter(music => music.genres?.includes(genre)) || [];
-  // };
-  
+  const searchTrackByGenre = (genreId: string) => {
+    trigger(genreId);
+  };
+    const resetTrackSearchByGenre = () => {
+    reset();
+  };
   return {
     tracksByGenre,
-    // filterByGenre,
+    searchTrackByGenre,
+    resetTrackSearchByGenre,
   };
 };

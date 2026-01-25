@@ -1,15 +1,22 @@
-import { useSearchPodcastsByGenreQuery } from "@/redux/apis/itunesApi";
-export const usePodcastSearch = (genreId:string) => {
+import { useLazySearchPodcastsByGenreQuery } from "@/redux/apis/itunesApi";
 
-  const { data: podcastsByGenre } = useSearchPodcastsByGenreQuery(genreId);
+export const usePodcastSearch = () => {
+   const [trigger, { data: podcastsByGenre, reset }] = useLazySearchPodcastsByGenreQuery();
   
+   const searchPodcastByGenre = (genreId: string) => {
+    trigger(genreId);
+  };
   // const filterByGenre = (genre: string) => {
   //   return podcastsByTerm?.filter(p => p.genres?.includes(genre)) || [];
   // };
+  const resetPodcastSearchByGenre = () => {
+    reset();
+  };
   
   return {
-
     podcastsByGenre,
+    searchPodcastByGenre,
+    resetPodcastSearchByGenre,
     // filterByGenre,
   };
 };

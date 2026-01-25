@@ -144,7 +144,7 @@ searchPodcastsByGenre: builder.query<Podcast[], string>({
     });
   },
 }),
-   
+
   }),
 });
 
@@ -155,5 +155,7 @@ export const {
   useSearchTracksQuery,
   useGetPodcastsQuery,
   useSearchPodcastsByGenreQuery,
-  useSearchTracksByGenreQuery
+  useLazySearchPodcastsByGenreQuery,
+  useSearchTracksByGenreQuery,
+  useLazySearchTracksByGenreQuery,
 } = itunesApi;
