@@ -108,39 +108,25 @@ export const itunesApi = createApi({
         });
       },
     }),
-    searchTracksByGenre: builder.query<Track[], string>({
-      query: (trackGenreId) => `/search/tracks-by-genre/${trackGenreId}`,
-      transformResponse: (response: iTunesSearchResponse) => {
-          if (!Array.isArray(response)) {
+searchTracksByGenre: builder.query<Track[], string>({
+  query: (trackGenreId) => `/search/tracks-by-genre/${trackGenreId}`,
+  transformResponse: (response: Track[]) => {
+    if (!Array.isArray(response)) {
       return [];
     }
-        return response.map((entry: iTunesSearchResult) => ({
-            id: entry.trackId.toString(),
-            title: entry.trackName || 'Unknown',
-            artist: entry.artistName || '',
-            image: entry.artworkUrl100 || '',
-            preview: entry.previewUrl || '',
-            trackNumber: 0,
-          }));
-      }
-    }),
-    searchPodcastsByGenre: builder.query<Podcast[], string>({
-      query: (podcastGenreId) => `/search/podcasts-by-genre/${podcastGenreId}`,
-      transformResponse: (response: iTunesPodcastsResponse) => {
-      if (!Array.isArray(response)) {
+    return response;
+  }
+}),
+
+searchPodcastsByGenre: builder.query<Podcast[], string>({
+  query: (podcastGenreId) => `/search/podcasts-by-genre/${podcastGenreId}`,
+  transformResponse: (response: Podcast[]) => {
+    if (!Array.isArray(response)) {
       return [];
     }
-        return response.map((trackByGenre) => {
-          return {
-            id: trackByGenre.trackId,
-            name: trackByGenre.artistName,
-            feedUrl: trackByGenre.feedUrl,
-            artwork: trackByGenre.artworkUrl600,
-            genres: trackByGenre.genres,
-          };
-        });
-      },
-    }),
+    return response;
+  }
+}),
 
   }),
 });
