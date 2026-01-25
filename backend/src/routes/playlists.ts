@@ -1,7 +1,7 @@
- import express, { Request, Response } from 'express';
- import type { PrismaClient } from '../../prisma/generated/client'; 
+import express, { Request, Response } from 'express';
+import type { PrismaClient } from '../../prisma/generated/client';
 import { authMiddleware } from '../middleware/authMiddlware';
- 
+
 interface AuthRequest extends Request {
   user?: {
     userId: number;
@@ -14,7 +14,7 @@ export default (prisma: PrismaClient) => {
 
   router.get('/playlists', authMiddleware, async (req: AuthRequest, res: Response) => {
     try {
-       const userId = Number(req.user?.userId);
+      const userId = Number(req.user?.userId);
 
       if (!userId) {
         return res.status(401).json({ error: 'User ID missing or invalid' });
@@ -122,13 +122,12 @@ export default (prisma: PrismaClient) => {
         return res.status(403).json({ error: 'Access denied' });
       }
 
- 
       if (!mediaItem.preview && mediaItem.id) {
         const albumId = mediaItem.id.toString();
-         const url = `https://itunes.apple.com/lookup?id=${albumId}&entity=song&limit=200`;
-        const response = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`);
+        const url = `https://itunes.apple.com/lookup?id=${albumId}&entity=song&limit=200`;
+        const response = await fetch(url);
         const data = await response.json();
-        
+
         const results = data.results?.slice(1) || [];
         const albumImage = data.results?.[0]?.artworkUrl100 || '';
 
@@ -154,7 +153,7 @@ export default (prisma: PrismaClient) => {
         return res.status(201).json({ message: 'Album tracks added' });
       } else {
         const { id: trackId, title, artist, image, preview, albumId = '' } = mediaItem;
-        
+
         const existing = await prisma.track.findFirst({
           where: { trackId: trackId.toString(), playlistId: playlistId }
         });
@@ -201,88 +200,91 @@ export default (prisma: PrismaClient) => {
       return res.status(500).json({ error: 'Internal error' });
     }
   });
-router.get('/search/tracks-by-genre/:genreId', authMiddleware, async (req: AuthRequest, res: Response) => {
-  try {
-    const { genreId } = req.params;
-    const url = `https://itunes.apple.com/search?term=${genreId}&media=music&entity=song&limit=20`;
-    
-    const response = await fetch(url);
-    const data = await response.json();
-    
-    if (!data.results) {
-      return res.json([]);
-    }
 
-    const tracks = data.results
-      .filter((entry: any) => entry.trackId && entry.kind === 'song')
-      .map((entry: any) => ({
-        id: entry.trackId.toString(),
-        title: entry.trackName || 'Unknown',
-        artist: entry.artistName || '',
-        image: entry.artworkUrl100 || '',
-        preview: entry.previewUrl || '',
-        trackNumber: 0,
+  router.get('/search/tracks-by-genre/:genreId', authMiddleware, async (req: AuthRequest, res: Response) => {
+    try {
+      const { genreId } = req.params;
+      const url = `https://itunes.apple.com/search?term=${genreId}&media=music&entity=song&limit=20`;
+
+      const response = await fetch(url);
+      const data = await response.json();
+
+      if (!data.results) {
+        return res.json([]);
+      }
+
+      const tracks = data.results
+        .filter((entry: any) => entry.trackId && entry.kind === 'song')
+        .map((entry: any) => ({
+          id: entry.trackId.toString(),
+          title: entry.trackName || 'Unknown',
+          artist: entry.artistName || '',
+          image: entry.artworkUrl100 || '',
+          preview: entry.previewUrl || '',
+          trackNumber: 0,
+        }));
+
+      return res.json(tracks);
+    } catch (error) {
+      console.error('Search tracks by genre error:', error);
+      return res.status(500).json({ error: 'Failed to search tracks' });
+    }
+  });
+
+  router.get('/search/podcasts-by-genre/:genreId', authMiddleware, async (req: AuthRequest, res: Response) => {
+    try {
+      const { genreId } = req.params;
+      const url = `https://itunes.apple.com/search?term=${genreId}&media=podcast&limit=20`;
+
+      const response = await fetch(url);
+      const data = await response.json();
+
+      if (!data.results) {
+        return res.json([]);
+      }
+
+      const podcasts = data.results.map((podcast: any) => ({
+        id: podcast.trackId,
+        name: podcast.artistName,
+        feedUrl: podcast.feedUrl,
+        artwork: podcast.artworkUrl600,
+        genres: podcast.genres,
       }));
 
-    return res.json(tracks);
-  } catch (error) {
-    console.error('Search tracks by genre error:', error);
-    return res.status(500).json({ error: 'Failed to search tracks' });
-  }
-});
-
-router.get('/search/podcasts-by-genre/:genreId', authMiddleware, async (req: AuthRequest, res: Response) => {
-  try {
-    const { genreId } = req.params;
-    const url = `https://itunes.apple.com/search?term=${genreId}&media=podcast&limit=20`;
-    
-    const response = await fetch(url);
-    const data = await response.json();
-    
-    if (!data.results) {
-      return res.json([]);
+      return res.json(podcasts);
+    } catch (error) {
+      console.error('Search podcasts by genre error:', error);
+      return res.status(500).json({ error: 'Failed to search podcasts' });
     }
+  });
 
-    const podcasts = data.results.map((podcast: any) => ({
-      id: podcast.trackId,
-      name: podcast.artistName,
-      feedUrl: podcast.feedUrl,
-      artwork: podcast.artworkUrl600,
-      genres: podcast.genres,
-    }));
+  router.get('/topsongs/limit=20/json', authMiddleware, async (req: AuthRequest, res: Response) => {
+    try {
+      const url = 'https://itunes.apple.com/us/rss/topsongs/limit=20/json';
 
-    return res.json(podcasts);
-  } catch (error) {
-    console.error('Search podcasts by genre error:', error);
-    return res.status(500).json({ error: 'Failed to search podcasts' });
-  }
-});
+      const response = await fetch(url);
+      const data = await response.json();
 
-router.get('/search/podcasts-by-genre/:genreId', authMiddleware, async (req: AuthRequest, res: Response) => {
-  try {
-    const { genreId } = req.params;
-    const url = `https://itunes.apple.com/search?term=${genreId}&media=podcast&limit=20`;
-    
-    const response = await fetch(url);
-    const data = await response.json();
-    
-    if (!data.results) {
-      return res.json([]);
+      return res.json(data);
+    } catch (error) {
+      console.error('Get top songs error:', error);
+      return res.status(500).json({ error: 'Failed to fetch top songs' });
     }
+  });
 
-    const podcasts = data.results.map((podcast: any) => ({
-      id: podcast.trackId,
-      name: podcast.artistName,
-      feedUrl: podcast.feedUrl,
-      artwork: podcast.artworkUrl600,
-      genres: podcast.genres,
-    }));
+  router.get('/topalbums/limit=20/json', authMiddleware, async (req: AuthRequest, res: Response) => {
+    try {
+      const url = 'https://itunes.apple.com/us/rss/topalbums/limit=20/json';
 
-    return res.json(podcasts);
-  } catch (error) {
-    console.error('Search podcasts by genre error:', error);
-    return res.status(500).json({ error: 'Failed to search podcasts' });
-  }
-});
+      const response = await fetch(url);
+      const data = await response.json();
+
+      return res.json(data);
+    } catch (error) {
+      console.error('Get top albums error:', error);
+      return res.status(500).json({ error: 'Failed to fetch top albums' });
+    }
+  });
+
   return router;
 };
