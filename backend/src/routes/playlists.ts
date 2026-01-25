@@ -201,12 +201,12 @@ export default (prisma: PrismaClient) => {
       return res.status(500).json({ error: 'Internal error' });
     }
   });
-  router.get('/search/tracks-by-genre/:genreId', authMiddleware, async (req: AuthRequest, res: Response) => {
+router.get('/search/tracks-by-genre/:genreId', authMiddleware, async (req: AuthRequest, res: Response) => {
   try {
     const { genreId } = req.params;
     const url = `https://itunes.apple.com/search?term=${genreId}&media=music&entity=song&limit=20`;
     
-    const response = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`);
+    const response = await fetch(url);
     const data = await response.json();
     
     if (!data.results) {
@@ -236,7 +236,34 @@ router.get('/search/podcasts-by-genre/:genreId', authMiddleware, async (req: Aut
     const { genreId } = req.params;
     const url = `https://itunes.apple.com/search?term=${genreId}&media=podcast&limit=20`;
     
-    const response = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`);
+    const response = await fetch(url);
+    const data = await response.json();
+    
+    if (!data.results) {
+      return res.json([]);
+    }
+
+    const podcasts = data.results.map((podcast: any) => ({
+      id: podcast.trackId,
+      name: podcast.artistName,
+      feedUrl: podcast.feedUrl,
+      artwork: podcast.artworkUrl600,
+      genres: podcast.genres,
+    }));
+
+    return res.json(podcasts);
+  } catch (error) {
+    console.error('Search podcasts by genre error:', error);
+    return res.status(500).json({ error: 'Failed to search podcasts' });
+  }
+});
+
+router.get('/search/podcasts-by-genre/:genreId', authMiddleware, async (req: AuthRequest, res: Response) => {
+  try {
+    const { genreId } = req.params;
+    const url = `https://itunes.apple.com/search?term=${genreId}&media=podcast&limit=20`;
+    
+    const response = await fetch(url);
     const data = await response.json();
     
     if (!data.results) {
