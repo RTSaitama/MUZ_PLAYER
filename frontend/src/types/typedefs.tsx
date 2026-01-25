@@ -123,3 +123,4 @@ export type MusicGenre ={
   id: number,
   name:string,
 }
+export type GenreSearchResults =  'podcast' | 'music';

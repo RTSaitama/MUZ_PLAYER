@@ -122,11 +122,10 @@ export default (prisma: PrismaClient) => {
         return res.status(403).json({ error: 'Access denied' });
       }
 
-      // Обробка додавання альбому або треку...
+ 
       if (!mediaItem.preview && mediaItem.id) {
         const albumId = mediaItem.id.toString();
-        // ... (твій код запиту до iTunes залишається без змін)
-        const url = `https://itunes.apple.com/lookup?id=${albumId}&entity=song&limit=200`;
+         const url = `https://itunes.apple.com/lookup?id=${albumId}&entity=song&limit=200`;
         const response = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`);
         const data = await response.json();
         
@@ -202,6 +201,61 @@ export default (prisma: PrismaClient) => {
       return res.status(500).json({ error: 'Internal error' });
     }
   });
+  router.get('/search/tracks-by-genre/:genreId', authMiddleware, async (req: AuthRequest, res: Response) => {
+  try {
+    const { genreId } = req.params;
+    const url = `https://itunes.apple.com/search?term=${genreId}&media=music&entity=song&limit=20`;
+    
+    const response = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`);
+    const data = await response.json();
+    
+    if (!data.results) {
+      return res.json([]);
+    }
 
+    const tracks = data.results
+      .filter((entry: any) => entry.trackId && entry.kind === 'song')
+      .map((entry: any) => ({
+        id: entry.trackId.toString(),
+        title: entry.trackName || 'Unknown',
+        artist: entry.artistName || '',
+        image: entry.artworkUrl100 || '',
+        preview: entry.previewUrl || '',
+        trackNumber: 0,
+      }));
+
+    return res.json(tracks);
+  } catch (error) {
+    console.error('Search tracks by genre error:', error);
+    return res.status(500).json({ error: 'Failed to search tracks' });
+  }
+});
+
+router.get('/search/podcasts-by-genre/:genreId', authMiddleware, async (req: AuthRequest, res: Response) => {
+  try {
+    const { genreId } = req.params;
+    const url = `https://itunes.apple.com/search?term=${genreId}&media=podcast&limit=20`;
+    
+    const response = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`);
+    const data = await response.json();
+    
+    if (!data.results) {
+      return res.json([]);
+    }
+
+    const podcasts = data.results.map((podcast: any) => ({
+      id: podcast.trackId,
+      name: podcast.artistName,
+      feedUrl: podcast.feedUrl,
+      artwork: podcast.artworkUrl600,
+      genres: podcast.genres,
+    }));
+
+    return res.json(podcasts);
+  } catch (error) {
+    console.error('Search podcasts by genre error:', error);
+    return res.status(500).json({ error: 'Failed to search podcasts' });
+  }
+});
   return router;
 };

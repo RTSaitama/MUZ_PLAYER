@@ -91,26 +91,25 @@ export const itunesApi = createApi({
           .sort((a: Track, b: Track) => (a.trackNumber || 0) - (b.trackNumber || 0));
       },
     }),
-   getPodcasts: builder.query<Podcast[], void>({
-  query: () => 'https://itunes.apple.com/search?term=podcast_name&media=podcast&limit=50',
-  transformResponse: (response: iTunesPodcastsResponse) => {
-    if (!response.results || response.results.length < 2) {
-      return [];
-    }
-    return response.results.map((podcast: iTunesPodcast) => {
-      return {
-        id: podcast.trackId,
-        name: podcast.artistName,
-        feedUrl: podcast.feedUrl,
-        artwork: podcast.artworkUrl600,
-        genres: podcast.genres,
-      };
-    });
-  },
-}),
-  searchTracksByGenre: builder.query<Track[], string>({
-      query: (trackGenreId) =>
-        `https://api.allorigins.win/raw?url=${encodeURIComponent(`https://itunes.apple.com/search?term=${trackGenreId}&media=music&entity=song&limit=20`)}`,
+    getPodcasts: builder.query<Podcast[], void>({
+      query: () => 'https://itunes.apple.com/search?term=podcast_name&media=podcast&limit=50',
+      transformResponse: (response: iTunesPodcastsResponse) => {
+        if (!response.results || response.results.length < 2) {
+          return [];
+        }
+        return response.results.map((podcast: iTunesPodcast) => {
+          return {
+            id: podcast.trackId,
+            name: podcast.artistName,
+            feedUrl: podcast.feedUrl,
+            artwork: podcast.artworkUrl600,
+            genres: podcast.genres,
+          };
+        });
+      },
+    }),
+    searchTracksByGenre: builder.query<Track[], string>({
+      query: (trackGenreId) => `/search/tracks-by-genre/${trackGenreId}`,
       transformResponse: (response: iTunesSearchResponse) => {
         if (!response.results) {
           return [];
@@ -126,24 +125,23 @@ export const itunesApi = createApi({
           }));
       }
     }),
-searchPodcastsByGenre: builder.query<Podcast[], string>({
-  query: (podcastGenreId) =>
-    `https://api.allorigins.win/raw?url=${encodeURIComponent(`https://itunes.apple.com/search?term=${podcastGenreId}&media=podcast&limit=20`)}`,
-  transformResponse: (response: iTunesPodcastsResponse) => {
-    if (!response.results) {
-      return [];
-    }
-    return response.results.map((trackByGenre) => {
-      return {
-        id: trackByGenre.trackId,
-        name: trackByGenre.artistName,
-        feedUrl: trackByGenre.feedUrl,
-        artwork: trackByGenre.artworkUrl600,
-        genres: trackByGenre.genres,
-      };
-    });
-  },
-}),
+    searchPodcastsByGenre: builder.query<Podcast[], string>({
+      query: (podcastGenreId) => `/search/podcasts-by-genre/${podcastGenreId}`,
+      transformResponse: (response: iTunesPodcastsResponse) => {
+        if (!response.results) {
+          return [];
+        }
+        return response.results.map((trackByGenre) => {
+          return {
+            id: trackByGenre.trackId,
+            name: trackByGenre.artistName,
+            feedUrl: trackByGenre.feedUrl,
+            artwork: trackByGenre.artworkUrl600,
+            genres: trackByGenre.genres,
+          };
+        });
+      },
+    }),
 
   }),
 });
