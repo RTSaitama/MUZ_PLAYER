@@ -36,7 +36,11 @@ export const GenresPage = () => {
       {itemsToShow && itemsToShow.length > 0 ?
         (
           <>
-            <button onClick={onHandleResetResults}>Clear</button>
+            <button className="back-to-genres__btn" onClick={onHandleResetResults}>
+              <svg width="30" height="30" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M23 38L6 21L23 4" stroke="#d36a19ff" stroke-width="8"   />
+              </svg>
+              go back </button>
             <ul className="genres__search-list">
               {itemsToShow?.map((item: Podcast | Track) => {
                 const isPodcast = 'name' in item;
