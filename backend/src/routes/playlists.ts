@@ -201,7 +201,7 @@ export default (prisma: PrismaClient) => {
     }
   });
 
-  router.get('/search/tracks-by-genre/:genreId', authMiddleware, async (req: AuthRequest, res: Response) => {
+  router.get('/search/tracks-by-genre/:genreId', async (req: AuthRequest, res: Response) => {
     try {
       const { genreId } = req.params;
       const url = `https://itunes.apple.com/search?term=${genreId}&media=music&entity=song&limit=20`;
@@ -231,7 +231,7 @@ export default (prisma: PrismaClient) => {
     }
   });
 
-  router.get('/search/podcasts-by-genre/:genreId', authMiddleware, async (req: AuthRequest, res: Response) => {
+  router.get('/search/podcasts-by-genre/:genreId', async (req: AuthRequest, res: Response) => {
     try {
       const { genreId } = req.params;
       const url = `https://itunes.apple.com/search?term=${genreId}&media=podcast&limit=20`;
