@@ -117,7 +117,8 @@ export const PlaylistsPage = () => {
                 </motion.li>
             {playlists?.map((playlist) => {
               console.log(playlist.tracks)
-              const preparedAlbumLink = `/playlists/${playlist.id}`
+              const preparedAlbumLink = `/playlists/${playlist.id}`;
+              const preparedPlaylistName = `${playlist.name.slice(0,18)}...`
               return (
 
                 <motion.li
@@ -134,14 +135,14 @@ export const PlaylistsPage = () => {
                       className="playlist__list__item_img"
                       alt="playlist cover"
                     />
-                    <p className="playlist__track_name">{playlist.name}</p>
+                    <p className="playlist__track_name">{preparedPlaylistName}</p>
                   </NavLink>
                 </motion.li>
 
               )
             })}
          
-          </motion.ul>)}
+          </motion.ul>)}  
 
       </AnimatePresence>
     </div>

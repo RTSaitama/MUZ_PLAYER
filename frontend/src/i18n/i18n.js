@@ -23,6 +23,7 @@ i18n
           'podcast not found': 'podcast not found',
           'tracks loading':  'tracks loading',
           'albums loading':  'albums loading',
+          'choose playlist': 'choose playlist wisely'
         }
       },
       ua: {
@@ -42,6 +43,7 @@ i18n
           'podcast not found': 'підкаст не знайдено',
           'tracks loading':  'завантаження треків',
           'albums loading':  'завантаження альбомів',
+          'choose playlist': 'обирайте плелісти зважено'
 
         }
       }

@@ -6,7 +6,10 @@ import { ModalNewPlaylist } from './ModalPlaylistName';
 import { CloseItemIcon } from '../../assets/icons/item_options/CloseItemIcon';
 import { AuthRequiredPage } from '../../pages/AuthRequiredPage';
 import { useAuth } from '../../hooks/useAuth';
+import { useTranslation } from 'react-i18next';
+ 
 export const ModalPlaylist = () => {
+    const { t } = useTranslation();
   const { isAuthenticated } = useAuth();
   const dispatch = useDispatch();
   const isCreating = useSelector((state: RootState) => state.modalStatus.isCreating)
@@ -40,7 +43,7 @@ export const ModalPlaylist = () => {
     return (
     <div className="modal__overlay" onClick={() => onHandleCloseModal()}>
       <div className="modal__window" onClick={e => e.stopPropagation()}>
-        <h3>Виберіть плейліст</h3>
+        <h3>{t('choose playlist')}</h3>
         <button
           onClick={() => onOpenPlaylistNaming()}
           type="button" className="modal__create__btn">
@@ -48,7 +51,8 @@ export const ModalPlaylist = () => {
         </button>
         <ul className="modal__list">
           {playlists.map(playlist => {
-            console.log(playlist);
+                           const preparedPlaylistName = `${playlist.name.slice(0,30)}...`
+
             return (         
             <li
               onClick={() => onHandleAddItemToPlaylist(playlist.id)}
@@ -56,7 +60,7 @@ export const ModalPlaylist = () => {
               className='modal__list__item'>
                 <img className='modal__list__item_img' src={playlist.tracks?.length > 0 ? playlist.tracks[0].image : '../frontend/src/assets/images/playlist_logo.webp'}/>
               <p
-                className='modal__list__item_name'>{playlist.name}</p>
+                className='modal__list__item_name'>{preparedPlaylistName}</p>
               <button
                 onClick={() => onHandleDeletePlaylist(playlist.id)}
                 className='modal__delete__btn'> <CloseItemIcon /></button>
