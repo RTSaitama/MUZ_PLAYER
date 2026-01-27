@@ -4,10 +4,11 @@
   gap: 1.5rem;
   padding: 2rem;
   max-width: 400px;
+  width: 100%;
   margin: 0 auto;
-  background-color: #1a1a1a;
+ 
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+ 
 
   &__title {
     font-size: 1.75rem;
@@ -40,7 +41,7 @@
 
     &:focus {
       outline: none;
-      border-color: #4a9eff;
+      border-color:  var(--form--accent-color);
       box-shadow: 0 0 8px rgba(74, 158, 255, 0.3);
     }
 
@@ -67,14 +68,14 @@
     font-size: 1rem;
     font-weight: 600;
     color: #ffffff;
-    background-color: #4a9eff;
+    background-color: var(--strong-orange-color);
     border: none;
     border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
 
     &:hover:not(:disabled) {
-      background-color: #3a8ee5;
+      background-color:var(--form--accent-color);
       transform: translateY(-2px);
     }
 
@@ -92,12 +93,12 @@
 
 .login-form__link-text {
   text-align: center;
-  color: #e0e0e0;
+  color: var(--track-color);
   font-size: 0.9rem;
 }
 
 .login-form__link {
-  color: #4a9eff;
+  color: var(--form--accent-color);
   text-decoration: none;
   font-weight: 600;
 }

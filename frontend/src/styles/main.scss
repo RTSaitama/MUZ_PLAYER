@@ -12,7 +12,7 @@
 @use "./registerForm";
 @use "./footer";
 @use "./genresPage";
-
+@use "./authRequiredPage";
 * {
   transition: all 0.3s ease;
 }
@@ -21,7 +21,11 @@
   background-color: var(--bg-color);
   height: 100%;
   width: 100%;
-
+} 
+.auth-form__wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #root {
@@ -425,18 +429,4 @@ input[type="range"]::-moz-range-thumb {
 .playlists__screen__btn__search{
   position: absolute;
   right: 0;
-}
-
-.shouldBeLogged__message{
-  align-self: center;
-  font-size: 2rem;
-  justify-self: center;
-}
-
-.shouldBeLogged__window{
- display: flex;
- flex-direction: column;
- gap: 20px;
- justify-content: center;
- align-items: center;
 }

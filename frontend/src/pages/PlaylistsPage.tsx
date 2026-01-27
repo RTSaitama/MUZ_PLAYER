@@ -2,16 +2,18 @@ import { useGetPlaylistsQuery } from '../redux/apis/playlistsApi';
 import { motion, AnimatePresence } from 'framer-motion';
 import playlistLogo from '../assets/images/playlist__logo.png'
 import { usePlayer } from '../hooks/usePlayer';
+import { useAuth } from '@/hooks/useAuth';
 import { SearchIcon } from '@/assets/icons/SearchIcon';
 import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+import { AuthRequiredPage } from './AuthRequiredPage';
 
 export const PlaylistsPage = () => {
   const { data: playlists, isLoading, error } = useGetPlaylistsQuery();
   const { searchTerm, setSearchTerm, searchResults, searchResultsLoading, handleSelectTrack } = usePlayer();
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
-
-  useEffect(() => {
+  const { isAuthenticated } = useAuth();
+    useEffect(() => {
     const searchTimer = setTimeout(() => {
       setDebouncedSearchTerm(searchTerm);
     }, 700);
@@ -22,6 +24,7 @@ export const PlaylistsPage = () => {
     return <div>Loading...</div>;
   }
   if (error) {
+    if(!isAuthenticated) return  <AuthRequiredPage/>
     return <div>Error loading playlist</div>;
   }
 

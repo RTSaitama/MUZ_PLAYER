@@ -17,7 +17,8 @@ import {
   PlaylistDetailsPage
 } from "./pages"
 
-import { LoginForm,RegisterForm } from "./components/Forms/"
+import { RegistrationPage } from "./pages/RegistrationPage"
+import { AuthPage } from "./pages/AuthPage"
  
 
 interface RouteConfig {
@@ -34,11 +35,11 @@ const routes: RouteConfig[] = [
   },
   {
     path: "register",
-    element: <RegisterForm />
+    element: <RegistrationPage />
   },
   {
     path: "login",
-    element: <LoginForm />
+    element: <AuthPage />
   },
   {
     path: "discover",

@@ -38,7 +38,7 @@ export const RegisterForm = () => {
   };
 
   return (
-    <form className="register-form" onSubmit={handleSubmit(onSubmit)}>
+    <form className="register-form " onSubmit={handleSubmit(onSubmit)}>
       <h1 className="register-form__title">Register</h1>
 
       <div className="register-form__group">

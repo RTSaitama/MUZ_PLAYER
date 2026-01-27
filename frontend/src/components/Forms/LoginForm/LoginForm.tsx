@@ -30,7 +30,7 @@ export const LoginForm = () => {
   };
 
   return (
-    <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
+    <form className="login-form " onSubmit={handleSubmit(onSubmit)}>
       <h1 className="login-form__title">Login</h1>
 
       <div className="login-form__group">
