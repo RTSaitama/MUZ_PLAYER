@@ -7,11 +7,17 @@ import { SearchIcon } from '@/assets/icons/SearchIcon';
 import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { AuthRequiredPage } from './AuthRequiredPage';
+import { useDispatch } from 'react-redux';
+import { toggleModalNewPlaylist } from '@/redux/slices/modalStatusSlice';
+ 
 
 export const PlaylistsPage = () => {
   const { data: playlists, isLoading, error } = useGetPlaylistsQuery();
   const { searchTerm, setSearchTerm, searchResults, searchResultsLoading, handleSelectTrack } = usePlayer();
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
+  const dispatch = useDispatch();
+  const createNewPlaylist = () => dispatch(toggleModalNewPlaylist())
+
   const { isAuthenticated } = useAuth();
     useEffect(() => {
     const searchTimer = setTimeout(() => {
@@ -29,17 +35,17 @@ export const PlaylistsPage = () => {
   }
 
   const containerVar = {
-    hidden: { opacity: 0.1 },
+    hidden: { opacity: 0.1},
     visible: {
       opacity: 1,
       transition: { staggerChildren: 0.05 },
     },
-    exit: { opacity: 0, transition: { staggerChildren: 0.05, duration: 0.5 } },
+    exit: { opacity: 0, transition: { staggerChildren: 0.05, duration: 0.05 } },
   };
 
   const itemVar = {
     hidden: { opacity: 0.1 },
-    visible: { opacity: 1, transition: { duration: 0.5 } },
+    visible: { opacity: 1, transition: { duration: 1 } },
     exit: { opacity: 0, y: -10, transition: { duration: 0.5 } },
   };
  
@@ -95,6 +101,20 @@ export const PlaylistsPage = () => {
           )
         ) : (
           <motion.ul className="playlists__list users__playlists_list">
+                   <motion.li
+                  onClick={createNewPlaylist}
+                  className="createNewPlaylist_btn "
+                  variants={itemVar}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                  key={999}
+                >
+                  <button className='new-playlist_btn' >
+                    <p className="  new-playlist-btn_name">create new playlist</p>
+                  </button>
+              
+                </motion.li>
             {playlists?.map((playlist) => {
               console.log(playlist.tracks)
               const preparedAlbumLink = `/playlists/${playlist.id}`
@@ -120,6 +140,7 @@ export const PlaylistsPage = () => {
 
               )
             })}
+         
           </motion.ul>)}
 
       </AnimatePresence>

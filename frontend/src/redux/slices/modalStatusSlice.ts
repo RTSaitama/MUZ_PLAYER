@@ -41,5 +41,6 @@ export const {
   openModal,
   closeModal,
   toggleIsCreating,
+  toggleModalNewPlaylist,
 
 } = modalStatusSlice.actions;
