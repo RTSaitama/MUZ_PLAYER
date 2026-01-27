@@ -25,7 +25,7 @@ export const MusicScreen = () => {
           <h3 className="latest__heading">{t('latest albums')}</h3>
           <ul className="latest__list">
             {albumsLoading ? (
-              <p>Завантаження альбомів</p>
+              <p>{t('albums loading')}</p>
             ) : topAlbums.length > 0 ? 
             (
               topAlbums.map((album, index) => {
@@ -68,7 +68,7 @@ export const MusicScreen = () => {
           <h3 className="latest__heading">{t('latest songs')}</h3>
           <ul className="latest__list">
             {tracksLoading ? (
-              <p>Завантаження треків</p>
+              <p>Tracks loading</p>
             ) : topTracks.length > 0 ? (
               topTracks.map((track, index) => {
                 const preparedTitle = `${track.title.slice(0, 20)}...`

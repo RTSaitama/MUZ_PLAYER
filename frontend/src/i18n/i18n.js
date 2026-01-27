@@ -19,6 +19,10 @@ i18n
           'latest albums': 'latest albums',
           'latest songs': 'latest songs',
           'TOP ALBUMS': 'TOP ALBUMS',
+          'podcasts loading': 'podcasts loading',
+          'podcast not found': 'podcast not found',
+          'tracks loading':  'tracks loading',
+          'albums loading':  'albums loading',
         }
       },
       ua: {
@@ -33,7 +37,12 @@ i18n
           'playlist': 'плейлісти',
           'latest albums': 'свіжі альбоми ',
           'latest songs': 'свіжі пісні ',
-          'TOP ALBUMS': 'ТОП АЛЬБОМИ '
+          'TOP ALBUMS': 'ТОП АЛЬБОМИ ',
+          'podcasts loading': 'завантаження підкастів',
+          'podcast not found': 'підкаст не знайдено',
+          'tracks loading':  'завантаження треків',
+          'albums loading':  'завантаження альбомів',
+
         }
       }
     },

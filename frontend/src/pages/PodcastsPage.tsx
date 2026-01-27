@@ -1,14 +1,15 @@
 import { usePlayer } from "@/hooks/usePlayer"
 import { Podcast } from '../types/typedefs'
+import { useTranslation } from "react-i18next";
 
 export const PodcastsPage  = () => {
   const { podcasts, podcastsLoading } = usePlayer();
-  
+  const { t } = useTranslation();
   return (
     <div className='pages__wrapper'>
       <ul className="podcasts__list">
         {podcastsLoading ? (
-          <p>Завантаження...</p>
+          <p>{t('podacsts loading')}</p>
         ) : podcasts && podcasts.length > 0 ? (
           podcasts.map((podcast:Podcast) => {
             return (

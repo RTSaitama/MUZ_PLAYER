@@ -3,7 +3,10 @@ import { useParams } from "react-router-dom";
 import { ItemSettingsBtn } from "@/components/Buttons/ItemSettings/ItemSettingsBtn";
 import { ItemOrder } from "@/components/ItemOrder/ItemOrder";
 import { useGetPlaylistQuery, useRemoveMediaItemFromPlaylistMutation } from "@/redux/apis/playlistsApi";
+import { useTranslation } from "react-i18next";
+
 export const PlaylistDetailsPage = () => {
+  const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
   const playlistId = Number(id);
   const { data: playlist, isLoading, isError } = useGetPlaylistQuery(playlistId, { skip: !playlistId });
@@ -20,9 +23,9 @@ export const PlaylistDetailsPage = () => {
     }
   }
   const playlistTracks = playlist?.tracks;
-  if (isLoading) return <div>Завантаження</div>;
-  if (isError) return <div>Помилка завантаження плейлиста</div>;
-  if (!playlist) return <div>Плейлист не знайдено</div>;
+  if (isLoading) return <div>Loading</div>;
+  if (isError) return <div>{t('latest albums')}</div>;
+  if (!playlist) return <div>{t('playlist not found')}</div>;
 
   return (
     <div className="pages__wrapper playlistDetail__page_wrapper">
