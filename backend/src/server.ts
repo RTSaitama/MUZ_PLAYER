@@ -5,6 +5,7 @@ import express from 'express';
 import cors from 'cors';
 import playlistsRouter from './routes/playlists';
 import authRouter from './routes/auth';
+import searchRouter from './routes/search';
 
 
 const app = express();
@@ -31,6 +32,7 @@ app.use(cookieParser());
 
 app.use('/api/auth', authRouter(prisma));
 app.use('/api', playlistsRouter(prisma));
+app.use('/api/search', searchRouter(prisma))
 
 const PORT = process.env.PORT || 3005;
 

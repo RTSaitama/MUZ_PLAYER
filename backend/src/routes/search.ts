@@ -30,4 +30,5 @@ export default (prisma: PrismaClient) => {
       return res.status(500).json({error:'Failed to fetch tracks  from album'})
     }
   })
+  return router;
 }
