@@ -111,7 +111,7 @@ export const PlaylistsPage = () => {
                   key={999}
                 >
                   <button className='new-playlist_btn' >
-                    <p className="  new-playlist-btn_name">create new playlist</p>
+                    <p className="  new-playlist-btn_name">manage playlists</p>
                   </button>
               
                 </motion.li>
