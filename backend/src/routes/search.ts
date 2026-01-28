@@ -6,7 +6,7 @@ export default (prisma: PrismaClient) => {
 
   const router = express.Router();
 
-  router.get('/search/tracks/:searchTerm', async (req: Request, res: Response) => {
+  router.get('/tracks/:searchTerm', async (req: Request, res: Response) => {
 
     try {
       const {searchTerm} = req.params;
@@ -20,7 +20,7 @@ export default (prisma: PrismaClient) => {
     }
   })
 
-  router.get('/search/albumTracks/:albumId', async(req:Request, res: Response) => {
+  router.get('/albumTracks/:albumId', async(req:Request, res: Response) => {
     try{
       const { albumId } = req.params;
       const response = await fetch(`https://itunes.apple.com/lookup?id=${albumId}&entity=song&limit=200`)
