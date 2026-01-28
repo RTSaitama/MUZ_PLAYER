@@ -49,7 +49,7 @@ export const itunesApi = createApi({
 
     searchTracks: builder.query<Track[], string>({
       query: (searchTerm) =>
-        `https://api.allorigins.win/raw?url=${encodeURIComponent(`https://itunes.apple.com/search?term=${searchTerm}&media=music&entity=song&limit=20`)}`,
+        `/search/tracks/${searchTerm}`,
       transformResponse: (response: iTunesSearchResponse) => {
         if (!response.results) {
           return [];
@@ -69,7 +69,7 @@ export const itunesApi = createApi({
 
     getAlbumTracks: builder.query<Track[], string>({
       query: (albumId) =>
-        `https://api.allorigins.win/raw?url=${encodeURIComponent(`https://itunes.apple.com/lookup?id=${albumId}&entity=song&limit=200`)}`,
+        (`/search/albumTracks/${albumId}`),
       transformResponse: (response: iTunesAlbumLookupResponse) => {
         if (!response.results || response.results.length < 2) {
           return [];
