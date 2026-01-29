@@ -50,17 +50,17 @@ export const PlaylistsPage = () => {
   };
  
   return (
-    <div className="pages__wrapper">
+    <div className="pages__wrapper playlists_page__wrapper">
       <div className="playlists__search__wrapper">
-        <button className="playlists__screen__btn__search">
-          <SearchIcon width={20} height={20} />
-        </button>
         <input
           onChange={(event) => setSearchTerm(event.target.value)}
           placeholder={"Let's find something true"}
           type="text"
           className="playlists__screen_search_input search_inp"
         />
+            <button className="playlists__screen__btn__search">
+          <SearchIcon width={20} height={20} />
+        </button>
       </div>
 
       <AnimatePresence mode="wait">

@@ -381,14 +381,46 @@ input[type="range"]::-moz-range-thumb {
 }
 
 .playlists__search__wrapper{
+  display: flex;
+  justify-content: space-between;
 
-  margin:0 20px 20px; 
+  border-radius: 4px;
+  height: 40px;
+  padding:10px;
+  line-height: 40px;
+  margin-bottom: 10px;
   max-width: 400px;
   position: relative;
-  animation: fire-glow 10s ease-in-out infinite;}
+  animation: fire-glow 10s ease-in-out infinite;
+  &:hover{
+  background-color: var(--black-withOpacity-item-bg);
+      color: var(--accent-orange-color);
+      & input{
+      &::placeholder{
+       color: var(--accent-orange-color);
+      }
+    }
+  }
+  &:focus{
+   background-color: var(--black-withOpacity-item-bg);
+      color: var(--accent-orange-color);
+      & input{
+      &::placeholder{
+       color: var(--accent-orange-color);
+      }
+    }
+  }
+  &:active{
+    
+  }
+  
+
+}
 .playlists__screen__btn__search{
-  position: absolute;
-  right: 0;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ text-align: center;
 }
 
 .back-btn{

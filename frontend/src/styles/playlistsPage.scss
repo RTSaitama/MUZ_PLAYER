@@ -1,3 +1,6 @@
+ .playlists_page__wrapper{
+  padding: 20px;
+ }
  .playlistDetail__page_wrapper{
   padding: 20px;
  }
@@ -137,4 +140,8 @@
     .playlists__list {
       grid-template-columns: repeat(1, 1fr);
     }
+  }
+
+  .users__playlists_list{
+    border-radius: 4px;
   }
