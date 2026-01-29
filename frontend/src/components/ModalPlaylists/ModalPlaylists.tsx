@@ -43,7 +43,7 @@ export const ModalPlaylist = () => {
     return (
     <div className="modal__overlay" onClick={() => onHandleCloseModal()}>
       <div className="modal__window" onClick={e => e.stopPropagation()}>
-        <h3>{t('choose playlist')}</h3>
+        <h3 className='modal__subheading'>{t('choose playlist')}</h3>
         <button
           onClick={() => onOpenPlaylistNaming()}
           type="button" className="modal__create__btn">

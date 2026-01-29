@@ -393,11 +393,8 @@ input[type="range"]::-moz-range-thumb {
 
 .back-btn{
   text-transform: uppercase;
+  border-radius: 4px;
   font-weight: bold;
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
   z-index: 1000;
   border:2px solid 47, 46, 46, 0.421;
   width: 100%;
@@ -409,32 +406,32 @@ input[type="range"]::-moz-range-thumb {
   text-align: center;
   align-items: center;
   padding: 20px;
-  z-index: 100000;
-
 }
-.latest__heading.playlist_details__heading.top-bar-heading{ 
-  
+.latest__heading.playlist_details__heading.top-bar-heading{   
+margin:0;
 }
 .pages__top-bar{
   align-items: center;
   text-align: center;
-
- 
   line-height: 40px;
+  border-radius: 4px;
   height: 40px;
   z-index: 1000;
   width: 100%;
   display: flex;
+  margin-bottom: 20px;
       &:hover {
-        .back-btn{
-           z-index: 1000;
+                   z-index: 1000;
     background-color: var(--bg-color);
     border-color: var(--accent-orange-color);
     color: var(--accent-orange-color);
-        }
+
         .top-bar-heading{
           color: var(--accent-orange-color);
           z-index: 1000;
         }
   }
+}
+.playlist_details__list{
+  border-radius: 4px;
 }
