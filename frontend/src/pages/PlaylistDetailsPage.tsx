@@ -32,7 +32,7 @@ export const PlaylistDetailsPage = () => {
   }
   return (
     <div className="pages__wrapper playlistDetail__page_wrapper">
-      <div className="pages__top-bar">
+      <div className="pages__top-bar playlists_top-bar">
                 <button className="back-btn" onClick={handleGoBack}>
               <svg width="30" height="30" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M23 38L6 21L23 4" stroke="#d36a19ff" stroke-width="8"   />

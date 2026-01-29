@@ -72,7 +72,7 @@ export const GenresPage = () => {
           </>
         ) :
         (
-          <>
+          <div className="genres_layout_wrapper">
             <div className="genres__category-wrapper podcasts_genres">
               <h3 className="genres__list-title">Podcasts genres</h3>
               <ul className="genres__list">
@@ -105,7 +105,7 @@ export const GenresPage = () => {
                 })}
               </ul>
             </div>
-          </>
+          </div>
         )
       }
     </div>
