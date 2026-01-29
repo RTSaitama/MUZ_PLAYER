@@ -146,7 +146,9 @@
  .hero__screen_search__svg {}
 
  .search__svg {}
-
+.hero__loader_message{
+  display: inline-block;
+}
  .hero__screen_search_input {
    font-size: 1.6rem;
    padding-left: 10px;

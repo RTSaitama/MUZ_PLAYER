@@ -50,7 +50,7 @@ export const SwiperScreen = () => {
           className="music__list"
         >
           {albumsLoading ? (
-            <p>albums are loading...</p>
+            <p>in 1 moment from tracks ....</p>
           ) : (
             albums.map(album => (
               <SwiperSlide key={album.id}>

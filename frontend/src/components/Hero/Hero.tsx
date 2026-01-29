@@ -38,6 +38,7 @@ export const Hero = () => {
         {debouncedSearchTerm ? (
           searchResultsLoading ? (
             <motion.div
+              className="hero__loader_message"
               key="loading"
               initial={{ opacity: 0.3 }}
               animate={{ opacity: 1 }}
